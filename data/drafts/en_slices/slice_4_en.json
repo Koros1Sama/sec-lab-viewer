@@ -1,0 +1,317 @@
+[
+  {
+    "n": 34,
+    "id_temp": "B2-Q16",
+    "type": "tf",
+    "q_ar": "تُعتبر مصائد الاختراق (Honeypots) — مثل تلك التي توفرها أداة Pentbox — بيئات أو أنظمة فخاخ مصممة عمداً ليتم استدراج المهاجمين إليها ومحاولة اختراقها؛ بهدف عزل التهديدات ومراقبة سلوكيات وأدوات المهاجمين في الوقت الفعلي وجمع معلومات استخباراتية عن تقنياتهم دون تعريض شبكة الإنتاج الحقيقية للخطر.",
+    "q_en": "Honeypots—such as those deployed via the Pentbox suite—are decoy environments or trap systems intentionally designed to lure attackers and be probed or compromised, aiming to isolate threats, monitor attacker behavior and tools in real time, and gather threat intelligence on their techniques without exposing the real production network to risk.",
+    "opts": [
+      {
+        "ar": "صح",
+        "en": "True",
+        "ok": true,
+        "why": "صحيح؛ الـ Honeypot هو نظام وهمي وشَرَك (Decoy System) لا يحتوي على أي قيمة إنتاجية أو مستخدمين حقيقيين؛ لذا فإن أي حركة مرور أو محاولة اتصال به تُعد نشاطاً هجومياً مؤكداً، مما يتيح للمدافعين تسجيل حركات المتسلل وتحليل تكتيكاته (TTPs) بأمان تام دون المساس بالشبكة الحقيقية."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "خطأ؛ العبارة صحيحة بالكامل؛ فالمصائد وسيلة دفاعية واستخباراتية فعالة لتحويل انتباه المهاجمين عن الأصول الحيوية، ودراسة أنماط الهجمات وأحدث الثغرات المستغلة دون المساس بسلامة الأنظمة الحقيقية للمؤسسة."
+      }
+    ]
+  },
+  {
+    "n": 35,
+    "id_temp": "B2-Q17",
+    "type": "mcq",
+    "q_ar": "ما هي الآلية التقنية الأساسية التي تعتمد عليها أدوات تعداد النطاقات الفرعية السلبية (Passive Subdomain Enumeration) مثل Sublist3r و OWASP Amass (في النمط السلبي)؟",
+    "q_en": "What is the primary technical mechanism relied upon by passive subdomain enumeration tools such as Sublist3r and OWASP Amass (in passive mode)?",
+    "opts": [
+      {
+        "ar": "شن هجمات حجب خدمة موزعة (DDoS) على جميع خوادم الـ DNS لإجبارها على إرجاع كافة السجلات المخفية في خوادم الأسماء.",
+        "en": "Launching Distributed Denial-of-Service (DDoS) attacks against all DNS servers to force them to return all hidden zone records.",
+        "ok": false,
+        "why": "خطأ؛ أدوات تعداد النطاقات هي أدوات استطلاع وجمع معلومات استخباراتية، وليست أدوات لتعطيل الخدمة أو إغراق الشبكات."
+      },
+      {
+        "ar": "إجراء مسح نشط وتخمين عشوائي عنيف (Brute Force) بمليارات الحزم المباشرة لكل عنوان IP محتمل في بروتوكول IPv4.",
+        "en": "Conducting active scanning and aggressive brute-forcing with billions of direct probe packets to every potential IPv4 address.",
+        "ok": false,
+        "why": "خطأ؛ التخمين المباشر ومسح العناوين هو نشاط استطلاع نشط (Active) مباشر يولد حركة مرور عالية ويسهل رصده وحظره في جدران حماية الهدف."
+      },
+      {
+        "ar": "الاستعلام والتجميع التلقائي من مصادر وسجلات طرف ثالث علنية؛ مثل محركات البحث (Google, Bing)، وسجلات شفافية الشهادات الرقمية (Certificate Transparency Logs مثل crt.sh)، ومواقع جمع بيانات DNS السلبية وقواعد استخبارات التهديدات، دون إرسال أي حزم مباشرة لخوادم الهدف.",
+        "en": "Automatically querying and aggregating from public third-party sources and records; such as search engines (Google, Bing), Certificate Transparency Logs (e.g., crt.sh), passive DNS databases, and threat intelligence feeds, without sending direct packets to target servers.",
+        "ok": true,
+        "why": "صحيح؛ التعداد السلبي (Passive Enumeration) يقتصر على استخراج أسماء النطاقات الفرعية من قواعد البيانات والمحركات المتاحة علناً وسجلات شهادات SSL/TLS، مما يوفر خريطة لسطح الهجوم للنطاق المستهدف دون ترك أي بصمة أو أثر في سجلات أنظمة الحماية الخاصة بالهدف."
+      },
+      {
+        "ar": "إرسال برمجيات خبيثة إلى مسجلي النطاقات المعتمدين لاختراق قواعد بيانات النطاقات الخاصة وسرقتها.",
+        "en": "Delivering malware to accredited domain registrars to compromise private domain registry databases and exfiltrate records.",
+        "ok": false,
+        "why": "خطأ؛ هذه ممارسات إجرامية غير قانونية ولا صلة لها بآليات الاستطلاع السلبي ومصادر OSINT المشروعة."
+      }
+    ]
+  },
+  {
+    "n": 36,
+    "id_temp": "B2-Q18",
+    "type": "tf",
+    "q_ar": "على الرغم من أن جمع معلومات الاستخبارات مفتوحة المصدر (OSINT) يعتمد على بيانات ومصادر علنية متاحة ومشروعة الوصول، إلا أن توظيف هذه البيانات لاحقاً في محاولة استغلال الثغرات، أو شن هجمات تصيد احتيالي، أو اختراق الأنظمة دون تفويض كتابي صريح وقواعد اشتباك محددة (Rules of Engagement)، يُعد عملاً غير قانوني يعرض مرتكبه للمساءلة الجنائية.",
+    "q_en": "Although Open Source Intelligence (OSINT) gathering relies on publicly available and legitimately accessible sources, subsequently utilizing this data to attempt vulnerability exploitation, launch phishing attacks, or breach systems without explicit written authorization and defined Rules of Engagement (RoE) constitutes an illegal act subject to criminal liability.",
+    "opts": [
+      {
+        "ar": "صح",
+        "en": "True",
+        "ok": true,
+        "why": "صحيح؛ الوصول إلى المعلومات العامة بحد ذاته مباح، ولكن استخدامها للهجوم أو التعدي أو استغلال الثغرات دون إذن رسمي مسبق (Authorization / Rules of Engagement) ينقل الممارس من إطار القرصنة الأخلاقية (Ethical Hacking) إلى الجرائم السيبرانية الخاضعة للملاحقة القانونية الصارمة."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "خطأ؛ العبارة صحيحة تماماً؛ فالأخلاقيات والقوانين الأمنية تلزم مختبر الاختراق بالتوقف عند حدود الاستطلاع المصرح به، وأي تجاوز للاستغلال الفعلي أو الإضرار بالأنظمة دون تصريح قانوني صريح يُعتبر جريمة معلوماتية."
+      }
+    ]
+  },
+  {
+    "n": 37,
+    "id_temp": "B3-Q1",
+    "type": "mcq",
+    "q_ar": "ما هو المفهوم الجوهري لـ 'الاستطلاع النشط' (Active Reconnaissance) في اختبار الاختراق، وما التحدي الأمني الأبرز المرتبط به؟",
+    "q_en": "What is the core concept of 'Active Reconnaissance' in penetration testing, and what is its most prominent security challenge?",
+    "opts": [
+      {
+        "ar": "تنفيذ استغلال مباشر للثغرات البرمجية والسيطرة على الأجهزة وتثبيت الأبواب الخلفية داخل الشبكة.",
+        "en": "Executing direct software vulnerability exploitation, compromising hosts, and implanting backdoors inside the network.",
+        "ok": false,
+        "why": "غير صحيح؛ هذا يمثل مرحلة الاستغلال الفعلي وما بعدها (Exploitation & Post-Exploitation)، في حين يقتصر الاستطلاع على جمع المعلومات وتحديد مساحة الهجوم."
+      },
+      {
+        "ar": "جمع المعلومات بصمت تام عبر محركات البحث والمصادر المفتوحة (OSINT) دون أي اتصال أو إرسال حزم لخوادم الهدف.",
+        "en": "Gathering information completely silently via search engines and open sources (OSINT) without establishing connections or sending packets to target servers.",
+        "ok": false,
+        "why": "غير صحيح؛ هذا هو تعريف الاستطلاع السلبي (Passive Reconnaissance / OSINT) الذي يعتمد على جمع البيانات المتاحة علناً دون أي تفاعل تقني أو إرسال حزم للمنظومة المستهدفة."
+      },
+      {
+        "ar": "التفاعل المباشر وإرسال حزم بيانات للأجهزة والخدمات المستهدفة، مما يولد حركة مرور مكشوفة قد تثير تنبيهات أنظمة الدفاع (Firewall/IDS) وتسجل في السجلات.",
+        "en": "Directly interacting and sending probe packets to target hosts and services, generating detectable traffic that can trigger defense alerts (Firewall/IDS) and leave traces in logs.",
+        "ok": true,
+        "why": "إجابة صحيحة. الاستطلاع النشط (Active Reconnaissance) يقوم على التفاعل المباشر مع الهدف عبر إرسال حزم فحص واستعلام (مثل فحص المنافذ والـ Fuzzing واستخدام أدوات كـ Nmap)، وميزته الحصول على معلومات حية دقيقة، ولكن تحديه الأمني الأبرز أنه يسهل كشفه (Very Detectable) مما قد يُفعّل دفاعات الهدف ويترك بصمات في سجلات جدران الحماية وأنظمة كشف التسلل (IDS/IPS)."
+      },
+      {
+        "ar": "اعتراض حركة المرور محلياً والتنصت السلبي دون توليد أو بث أي حزم استكشافية جديدة داخل الشبكة.",
+        "en": "Locally intercepting traffic through passive sniffing without generating or transmitting any exploratory probe packets across the network.",
+        "ok": false,
+        "why": "غير صحيح؛ هذا يمثل التنصت السلبي (Passive Sniffing)، بينما الاستطلاع النشط يقوم بتوليد وبث حزم استكشافية مخصصة لاستدراج الردود وتحديد الثغرات والخدمات."
+      }
+    ]
+  },
+  {
+    "n": 38,
+    "id_temp": "B3-Q2",
+    "type": "mcq",
+    "q_ar": "عند تنفيذ الأمر `nmap -sn 192.168.1.0/24`، ما هي المهمة المحددة التي تؤديها أداة Nmap؟",
+    "q_en": "When executing the command `nmap -sn 192.168.1.0/24`, what specific task does Nmap perform?",
+    "opts": [
+      {
+        "ar": "إجراء مسح لاكتشاف الأجهزة الحية المتصلة بالشبكة (Ping Sweep / Host Discovery) مع تعطيل فحص المنافذ بالكامل لتسريع العملية.",
+        "en": "Conducting a Ping Sweep / Host Discovery to discover live hosts while completely disabling port scanning to accelerate the process.",
+        "ok": true,
+        "why": "إجابة صحيحة. الخيار `-sn` (المعروف سابقاً بـ `-sP` ويعني No Port Scan) يخبر Nmap بالاكتفاء باكتشاف المضيفين النشطين (Host Discovery / Ping Sweep) فقط وتخطي فحص المنافذ بالكامل لتوفير الوقت وسرعة حصر الأجهزة الحية على النطاق."
+      },
+      {
+        "ar": "فحص كافة منافذ TCP البالغ عددها 65535 لكل جهاز موجود في الشبكة المستهدفة.",
+        "en": "Scanning all 65,535 TCP ports on every host present in the target network.",
+        "ok": false,
+        "why": "غير صحيح؛ الخيار `-sn` يعطل فحص المنافذ تماماً، في حين أن فحص كافة المنافذ يتطلب استخدام الخيار `-p-` أو تحديد النطاق `-p 1-65535`."
+      },
+      {
+        "ar": "تخطي مرحلة استكشاف الأجهزة (Ping) وافتراض أن كافة الأجهزة متصلة بالإنترنت للبدء بفحص منافذها مباشرة.",
+        "en": "Skipping host discovery (pinging) and assuming all hosts are online to start scanning their ports directly.",
+        "ok": false,
+        "why": "غير صحيح؛ تخطي فحص استكشاف المضيفين وحزم Ping وافتراض اتصالهم يتم عبر خيار `-Pn` (Scan without pinging)، وهو عكس خيار `-sn` تماماً."
+      },
+      {
+        "ar": "سرد أسماء النطاقات (DNS Names) وعناوين الأجهزة في الشبكة المستهدفة دون إرسال أي حزم فحص للأجهزة.",
+        "en": "Listing DNS names and host addresses in the target subnet without sending any probe packets to the targets.",
+        "ok": false,
+        "why": "غير صحيح؛ هذا هو فحص السرد (List Scan) ويُنفذ باستخدام الخيار `-sL` الذي يكتفي باستعلامات DNS لعناوين الهدف دون فحصها."
+      }
+    ]
+  },
+  {
+    "n": 39,
+    "id_temp": "B3-Q3",
+    "type": "mcq",
+    "q_ar": "كيف تتم آلية فحص التخفي نصف المفتوح (TCP SYN Stealth Scan) عبر خيار `nmap -sS` عند استهداف منفذ مفتوح؟",
+    "q_en": "How does the TCP SYN Stealth Scan (Half-open scan) mechanism operate via `nmap -sS` when targeting an open port?",
+    "opts": [
+      {
+        "ar": "يكمل المصافحة الثلاثية كاملة (SYN ثم SYN/ACK ثم ACK) لإنشاء جلسة نظامية على مستوى استدعاءات نظام التشغيل.",
+        "en": "Completes the full 3-way handshake (SYN, then SYN/ACK, then ACK) to establish a standard session at the OS system call level.",
+        "ok": false,
+        "why": "غير صحيح؛ إكمال المصافحة الثلاثية بالكامل هو آلية فحص الاتصال الكامل (TCP Connect Scan عبر الخيار `-sT`)، في حين يتعمد فحص `-sS` عدم إكمالها."
+      },
+      {
+        "ar": "يرسل حزمة SYN، فإذا رد الهدف بـ SYN/ACK، يرسل الفاحص فوراً حزمة RST لإنهاء الاتصال دون إكمال المصافحة الثلاثية.",
+        "en": "Sends a SYN packet; if the target responds with SYN/ACK, the scanner immediately transmits a RST packet to tear down the connection without completing the 3-way handshake.",
+        "ok": true,
+        "why": "إجابة صحيحة. يسمى الفحص بـ 'نصف المفتوح' (Half-open) لأن الفاحص لا يكمل المصافحة الثلاثية (3-Way Handshake)؛ فعند تلقي حزمة `SYN/ACK` التي تؤكد فتح المنفذ، يرسل الفاحص فوراً حزمة إعادة التعيين `RST` لقطع الاتصال، مما يمنع إنشاء جلسة كاملة في طبقة التطبيق ويقلل من تسجيل العملية في سجلات الخوادم."
+      },
+      {
+        "ar": "يرسل حزم بيانات UDP وينتظر رسائل الخطأ ICMP Port Unreachable لتحديد حالة المنفذ.",
+        "en": "Sends UDP datagrams and waits for ICMP Port Unreachable error messages to determine port state.",
+        "ok": false,
+        "why": "غير صحيح؛ هذه آلية فحص بروتوكول UDP عبر الخيار `-sU`، ولا علاقة لها بفحص TCP SYN."
+      },
+      {
+        "ar": "يرسل حزمة ACK وينتظر حزمة RST فقط لتحديد ما إذا كان المنفذ مفلتراً بواسطة جدار ناري.",
+        "en": "Sends an ACK packet and waits solely for a RST packet to determine whether the port is filtered by a firewall.",
+        "ok": false,
+        "why": "غير صحيح؛ إرسال حزم `ACK` وفحص ردود `RST` هو آلية فحص جدار الحماية (TCP ACK Scan عبر الخيار `-sA`) لتحديد قواعد الفلترة، وليس فحص `-sS` الذي يبدأ بـ `SYN` لتحديد حالة فتح المنفذ."
+      }
+    ]
+  },
+  {
+    "n": 40,
+    "id_temp": "B3-Q4",
+    "type": "tf",
+    "q_ar": "يُعتبر فحص الاتصال الكامل `nmap -sT` (TCP Connect Scan) الخيار الافتراضي عند تشغيل Nmap بدون صلاحيات الجذر (Non-root user)، ولكنه يترك أثراً واضحاً في سجلات النظام لأنه يكمل المصافحة الثلاثية كاملة عبر استدعاء نظام التشغيل (connect system call).",
+    "q_en": "TCP Connect Scan (`nmap -sT`) is the default choice when running Nmap without root privileges (non-root user), but it leaves a conspicuous trace in system logs because it completes the full 3-way handshake via the operating system's `connect()` system call.",
+    "opts": [
+      {
+        "ar": "صحيح",
+        "en": "True",
+        "ok": true,
+        "why": "صحيح؛ المستخدم العادي بدون صلاحيات root لا يملك صلاحية بناء حزم خام (Raw Sockets)، فيعتمد Nmap على استدعاء النظام القياسي `connect()` لإتمام المصافحة الثلاثية كاملة (SYN -> SYN/ACK -> ACK)، مما يؤدي لفتح جلسة اتصال حقيقية تُسجل بوضوح في سجلات التطبيقات والخوادم."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "غير صحيح؛ العبارة صحيحة تماماً. ففحص `-sT` هو البديل التلقائي لفحص SYN عند غياب صلاحيات root (حيث يتطلب فحص التخفي `-sS` صلاحيات لبناء حزم خام مخصصة)، وأكبر عيوب `-sT` أنه صاخب ويترك أثراً جلياً في سجلات النظام المستهدف."
+      }
+    ]
+  },
+  {
+    "n": 41,
+    "id_temp": "B3-Q5",
+    "type": "mcq",
+    "q_ar": "ما هو السبب الفني الأساسي الذي يجعل فحص منافذ بروتوكول UDP باستخدام `nmap -sU` بطيئاً جداً مقارنة بفحص TCP؟",
+    "q_en": "What is the primary technical reason why UDP port scanning using `nmap -sU` is extremely slow compared to TCP scanning?",
+    "opts": [
+      {
+        "ar": "لأن المنافذ المفتوحة لا ترد غالباً مما يفرض الانتظار لانتهاء المهلة (Timeout)، بينما المنافذ المغلقة ترد برسائل ICMP تخضع لتقييد معدل الإرسال (Rate Limiting) في الأنظمة.",
+        "en": "Because open ports typically do not reply (forcing timeout waits), while closed ports reply with ICMP messages that operating systems strictly rate-limit.",
+        "ok": true,
+        "why": "إجابة صحيحة. بروتوكول UDP عديم الاتصال (Connectionless)؛ لذا فالمنافذ المفتوحة غالباً لا ترسل أي رد مما يجبر Nmap على إعادة الإرسال والانتظار لانتهاء المهلة (Timeouts). أما المنافذ المغلقة فترد برسالة `ICMP Port Unreachable`، وتطبق أنظمة التشغيل (وفق RFC 1812 ونواة لينكس) تقييداً صارماً لمعدل إرسال هذه الرسائل (Rate Limiting كإرسال رسالة واحدة كل ثانية)، مما يجعل فحص مئات المنافذ بطيئاً جداً."
+      },
+      {
+        "ar": "لأن أداة Nmap تمنع تعدد خيوط المعالجة وتعمل بخيط أحادي إجباري عند التعامل مع حزم UDP.",
+        "en": "Because Nmap prevents multithreading and enforces single-threaded execution when handling UDP packets.",
+        "ok": false,
+        "why": "غير صحيح؛ Nmap يدعم الفحص المتوازي، والبطء لا يعود لقيود برمجية داخل Nmap بل لغياب الاستجابة المباشرة وتقييد معدل رسائل ICMP في النظام الهدف."
+      },
+      {
+        "ar": "لأن منافذ UDP المفتوحة ترد دائماً بسيل من حزم RST مما يجبر أداة Nmap على إعادة الفحص عدة مرات.",
+        "en": "Because open UDP ports always reply with a flood of RST packets, forcing Nmap to retransmit scans multiple times.",
+        "ok": false,
+        "why": "غير صحيح؛ حزم إعادة التعيين (RST) تتبع بروتوكول TCP حصراً ولا توجد في بروتوكول UDP؛ فبروتوكول UDP يعتمد على رسائل الخطأ من بروتوكول ICMP عند إغلاق المنفذ."
+      },
+      {
+        "ar": "لأن بروتوكول UDP يفرض إجراء مصافحة رباعية معقدة وتأكيد استلام (ACK) لكل حزمة استعلام مرسلة.",
+        "en": "Because UDP enforces a complex 4-way handshake and ACK delivery confirmation for every transmitted query packet.",
+        "ok": false,
+        "why": "غير صحيح؛ بروتوكول UDP هو بروتوكول عديم الاتصال (Connectionless) ولا يحتوي على أي مصافحة أو آليات تأكيد استلام (ACK)، وهذا الغياب للمصافحة هو أصل مشكلة عدم وجود ردود مباشرة عند فتح المنفذ."
+      }
+    ]
+  },
+  {
+    "n": 42,
+    "id_temp": "B3-Q6",
+    "type": "mcq",
+    "q_ar": "ما هي المهمة التي ينجزها البارامتر `nmap -sV` عند تطبيقه على المضيف الهدف؟",
+    "q_en": "What task is accomplished by the parameter `nmap -sV` when executed against a target host?",
+    "opts": [
+      {
+        "ar": "استجواب المنافذ المفتوحة عبر إرسال مسابر (Probes) لتحديد اسم وإصدار البرمجيات والخدمات العاملة عليها بدقة.",
+        "en": "Interrogating open ports by transmitting probes to accurately determine the name and version of running applications and services.",
+        "ok": true,
+        "why": "إجابة صحيحة. الخيار `-sV` (Version Detection) يقوم بعد اكتشاف المنافذ المفتوحة بإرسال مسابر للاتصال بالخدمات وتحليل ردودها وترويساتها (Banner Grabbing) لتحديد اسم التطبيق المشغل للخدمة ورقم إصداره بدقة، وهو أمر بالغ الأهمية لتحديد الثغرات الأمنية المرتبطة بالإصدارات غير المحدثة كما ورد في سلايدات المنهج."
+      },
+      {
+        "ar": "كشف نوع وإصدار نظام التشغيل (OS Detection) عبر تحليل الفروق في استجابة مكدس بروتوكولات الشبكة.",
+        "en": "Detecting operating system type and version (OS Detection) by analyzing discrepancies in network protocol stack responses.",
+        "ok": false,
+        "why": "غير صحيح؛ كشف نظام التشغيل هو وظيفة الخيار `-O` (OS Detection) وليس خيار كشف إصدارات الخدمات `-sV`."
+      },
+      {
+        "ar": "كشف إعدادات جدار الحماية وتحديد ما إذا كانت المنافذ مفلترة باستخدام فحص حزم TCP ACK.",
+        "en": "Detecting firewall configurations and determining whether ports are filtered using TCP ACK packet scanning.",
+        "ok": false,
+        "why": "غير صحيح؛ كشف إعدادات جدار الحماية والتحقق من فلترة المنافذ يتم عبر خيار فحص ACK وهو `-sA`."
+      },
+      {
+        "ar": "تخمين نوع الخدمة بناءً على رقم المنفذ الافتراضي في ملف `nmap-services` دون استجواب المنفذ فعلياً.",
+        "en": "Guessing service type based on default port numbers in the `nmap-services` file without actively probing the port.",
+        "ok": false,
+        "why": "غير صحيح؛ ربط المنفذ باسم الخدمة الشائع هو السلوك الافتراضي لفحص المنافذ العادي، بينما الخيار `-sV` يستجوب الخدمة ويتصل بها لاكتشاف الإصدار الحقيقي الفعلي."
+      }
+    ]
+  },
+  {
+    "n": 43,
+    "id_temp": "B3-Q7",
+    "type": "tf",
+    "q_ar": "يعتمد خيار كشف نظام التشغيل `nmap -O` على إرسال حزم TCP/UDP غير معتادة وتحليل الفروق الدقيقة في استجابة مكدس بروتوكولات الشبكة (TCP/IP Stack Fingerprinting) ومقارنتها بقاعدة بيانات `nmap-os-db`.",
+    "q_en": "Operating system detection with `nmap -O` relies on sending non-standard TCP/UDP packets, analyzing subtle nuances in the TCP/IP network stack responses (Stack Fingerprinting), and matching them against the `nmap-os-db` database.",
+    "opts": [
+      {
+        "ar": "صحيح",
+        "en": "True",
+        "ok": true,
+        "why": "صحيح؛ تختلف أنظمة التشغيل (Windows, Linux, BSD) في طريقة تعاملها مع مكدس بروتوكولات الشبكة ومحدداتها؛ حيث يرسل Nmap عند تفعيل `-O` مسابر استكشافية ويحلل السمات الدقيقة (Hallmarks) للردود مثل قيم TTL وحجم النافذة وخيارات TCP، ويقارن هذه البصمة (OS Fingerprint) بقاعدة بياناته لتحديد نظام التشغيل وإصداره بدقة."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "غير صحيح؛ فالعبارة صحيحة تماماً وتصف بدقة الآلية العلمية المعتمدة لكشف نظام التشغيل (OS Fingerprinting) عبر تحليل ردود مكدس بروتوكولات TCP/IP ومطابقتها بالبصمات المسجلة كما ورد في مذكرات المنهج."
+      }
+    ]
+  },
+  {
+    "n": 44,
+    "id_temp": "B3-Q8",
+    "type": "mcq",
+    "q_ar": "ما هي الفحوصات الأربعة المدمجة التي ينفذها خيار الفحص الهجومي الشامل `nmap -A` في أمر واحد؟",
+    "q_en": "What are the four integrated scanning features executed simultaneously by the aggressive scan option `nmap -A` in a single command?",
+    "opts": [
+      {
+        "ar": "فحص التخفي (-sS) + فحص منافذ UDP (-sU) + تجزئة الحزم (-f) + إلغاء فحص المضيفين (-Pn).",
+        "en": "Stealth Scan (-sS) + UDP Port Scan (-sU) + Packet Fragmentation (-f) + Disable Host Discovery (-Pn)",
+        "ok": false,
+        "why": "غير صحيح؛ هذه خيارات مسح متفرقة وتوليفة من بروتوكولات النقل، ولا تمثل الوظائف الأربع المدمجة في خيار الفحص الشامل `-A`."
+      },
+      {
+        "ar": "فحص كافة المنافذ الـ 65535 (-p-) + مسح المضيفين فقط (-sn) + فحص جدار الحماية (-sA) + تفعيل الوضع الصامت (-T0).",
+        "en": "All 65,535 Ports Scan (-p-) + Host Discovery Only (-sn) + Firewall Scan (-sA) + Paranoid Timing Mode (-T0)",
+        "ok": false,
+        "why": "غير صحيح؛ الخيار `-A` فحص مكثف وصاخب يتعارض مع الوضع الصامت (-T0) ومسح المضيفين فقط دون منافذ (-sn)، كما أنه يفحص المنافذ الافتراضية ما لم يُحدد غير ذلك."
+      },
+      {
+        "ar": "كشف نظام التشغيل (-O) + كشف إصدارات الخدمات (-sV) + تشغيل السكربتات الافتراضية (-sC) + تتبع المسار الشبكي (--traceroute).",
+        "en": "OS Detection (-O) + Service Version Detection (-sV) + Default Script Scanning (-sC) + Traceroute (--traceroute)",
+        "ok": true,
+        "why": "إجابة صحيحة. الخيار الشامل `-A` (Aggressive Scan) يجمع هذه الخصائص الأربع معاً كما نصت مذكرات المنهج حرفياً: كشف نظام التشغيل (OS detection)، وكشف إصدارات الخدمات (Version detection)، وفحص السكربتات (Script scanning)، وتتبع المسار (Traceroute)، لتقديم تقرير استخباري شامل ومكثف عن الهدف."
+      },
+      {
+        "ar": "كشف نظام التشغيل (-O) + تخمين كلمات المرور الهجومي (--script=brute) + تجزئة الحزم (-f) + تصدير النتائج لملف XML (-oX).",
+        "en": "OS Detection (-O) + Brute-force Password Guessing (--script=brute) + Packet Fragmentation (-f) + XML Output Export (-oX)",
+        "ok": false,
+        "why": "غير صحيح؛ السكربتات المفعلة تلقائياً مع `-A` هي السكربتات الافتراضية الآمنة (`-sC`) ولا تشمل سكربتات التخمين الهجومية (Brute-force)، كما أن `-A` لا يجزئ الحزم ولا يحدد صيغة الإخراج."
+      }
+    ]
+  }
+]

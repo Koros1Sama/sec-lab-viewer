@@ -1,0 +1,329 @@
+[
+  {
+    "n": 45,
+    "id_temp": "B3-Q9",
+    "type": "mcq",
+    "q_ar": "أي من الأوامر التالية يُحدد فحص منفذ UDP رقم 53 ومنفذي TCP رقمي 80 و 443 فقط على المضيف المستهدف؟",
+    "q_en": "Which of the following commands specifies scanning only UDP port 53 and TCP ports 80 and 443 on the target host?",
+    "opts": [
+      {
+        "ar": "`nmap -p 53,80,443 -sU 192.168.1.1`",
+        "en": "`nmap -p 53,80,443 -sU 192.168.1.1`",
+        "ok": false,
+        "why": "غير صحيح؛ هذا الأمر سيفحص كافة المنافذ الثلاثة (53 و 80 و 443) كـ UDP فقط نظراً لوجود الخيار `-sU` وغياب محددات نوع المنافذ داخل قائمة `-p`."
+      },
+      {
+        "ar": "`nmap -p 53,80,443 -sS 192.168.1.1`",
+        "en": "`nmap -p 53,80,443 -sS 192.168.1.1`",
+        "ok": false,
+        "why": "غير صحيح؛ هذا الأمر سيفحص المنافذ الثلاثة كـ TCP SYN فقط دون فحص منفذ 53 كـ UDP لعدم استخدام محددات البروتوكول وتفعيل `-sS` فقط."
+      },
+      {
+        "ar": "`nmap -sU -sS -p U:53,T:80,443 192.168.1.1`",
+        "en": "`nmap -sU -sS -p U:53,T:80,443 192.168.1.1`",
+        "ok": true,
+        "why": "إجابة صحيحة. يوضح المنهج أن أداة Nmap تتيح تخصيص المنافذ حسب نوع البروتوكول باستخدام البادئة `U:` لمنافذ UDP والبادئة `T:` لمنافذ TCP بعد المعامل `-p` (مثل `nmap -pU:110,T:23-25,443`)، مع وجوب تفعيل كلا الفاحصين (`-sU` و `-sS`) لفحص البروتوكولين معاً في أمر واحد."
+      },
+      {
+        "ar": "`nmap -p udp:53,tcp:80,443 192.168.1.1`",
+        "en": "`nmap -p udp:53,tcp:80,443 192.168.1.1`",
+        "ok": false,
+        "why": "غير صحيح؛ هذه الصيغة غير صحيحة نحوياً في Nmap؛ حيث يتطلب Nmap بادئة من حرف واحد فقط متبوعة بنقطتين (`U:` للـ UDP و `T:` للـ TCP) كما هو محدد في جدول خيارات المنافذ بالمنهج."
+      }
+    ]
+  },
+  {
+    "n": 46,
+    "id_temp": "B3-Q10",
+    "type": "tf",
+    "q_ar": "عند تنفيذ الأمر `nmap --script=vuln 192.168.1.1`، تقوم أداة Nmap بالبحث عن الثغرات الأمنية المعروفة وتطبيق التحديثات والترقيعات البرمجية (Patching) على الخادم المستهدف لمعالجتها تلقائياً.",
+    "q_en": "When executing `nmap --script=vuln 192.168.1.1`, Nmap searches for known vulnerabilities and automatically applies software patches to the target server to remediate them.",
+    "opts": [
+      {
+        "ar": "صحيح",
+        "en": "True",
+        "ok": false,
+        "why": "غير صحيح؛ العبارة خاطئة تماماً؛ فأداة Nmap ماسح شبكات وأداة فحص واكتشاف ثغرات (Vulnerability Scanner) فقط، ولا تملك أي صلاحية أو قدرة على تعديل ملفات الأهداف أو تثبيت التحديثات والترقيعات البرمجية."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": true,
+        "why": "صحيح (العبارة خاطئة)؛ فمحرك سكربتات Nmap (NSE) ومجموعة سكربتات فئة `vuln` تقتصر وظيفتها على فحص واكتشاف وجود الثغرات المعروفة في الخدمات والأنظمة والإبلاغ عنها في التقرير فقط دون إصلاحها أو إجراء أي ترقيع برمجي (Patching) على النظام المستهدف."
+      }
+    ]
+  },
+  {
+    "n": 47,
+    "id_temp": "B3-Q11",
+    "type": "mcq",
+    "q_ar": "ما هي فئة سكربتات Nmap (NSE Category) المخصصة لاختبار أنظمة التوثيق وتخمين بيانات الاعتماد وفحص الحسابات الافتراضية؟",
+    "q_en": "Which Nmap Scripting Engine (NSE) category is dedicated to testing authentication systems, guessing credentials, and checking for default accounts?",
+    "opts": [
+      {
+        "ar": "فئة `discovery`",
+        "en": "`discovery` category",
+        "ok": false,
+        "why": "غير صحيح؛ فئة `discovery` مخصصة لاكتشاف الموارد والخدمات والشبكات الفرعية والخرائط الطبوغرافية للمضيفين (مثل استعلامات DNS وجداول التوجيه وقوائم مشاركة SMB)."
+      },
+      {
+        "ar": "فئة `safe`",
+        "en": "`safe` category",
+        "ok": false,
+        "why": "غير صحيح؛ فئة `safe` تصنف السكربتات حسب درجة أمانها أثناء التشغيل لضمان عدم التسبب في انهيار الخدمات المستهدفة أو استهلاك عرض النطاق الترددي وموارد النظام بشكل مفرط."
+      },
+      {
+        "ar": "فئة `exploit`",
+        "en": "`exploit` category",
+        "ok": false,
+        "why": "غير صحيح؛ فئة `exploit` مخصصة لمحاولة استغلال الثغرات البرمجية والسيطرة على الأنظمة المستهدفة وليست مخصصة لاختبار آليات التوثيق وبيانات الاعتماد الافتراضية."
+      },
+      {
+        "ar": "فئة `auth`",
+        "en": "`auth` category",
+        "ok": true,
+        "why": "إجابة صحيحة. فئة `auth` في محرك سكربتات Nmap (NSE) تحتوي على السكربتات المسؤولة عن التعامل مع آليات التوثيق (Authentication)، وفحص الحسابات الافتراضية، وتجاوز آليات التحقق من الهوية، واختبار بيانات الاعتماد على الخدمات المستهدفة."
+      }
+    ]
+  },
+  {
+    "n": 48,
+    "id_temp": "B3-Q12",
+    "type": "mcq",
+    "q_ar": "أي من خيارات حفظ نتائج Nmap يقوم بحفظ مخرجات الفحص في ثلاثة ملفات بجميع الصيغ الرئيسية (.nmap و .xml و .gnmap) دفعة واحدة باستخدام اسم أساسي موحد؟",
+    "q_en": "Which Nmap output option saves the scan results in three files across all major formats (.nmap, .xml, and .gnmap) simultaneously using a single base filename?",
+    "opts": [
+      {
+        "ar": "`-oN <filename>`",
+        "en": "`-oN <filename>`",
+        "ok": false,
+        "why": "غير صحيح؛ الخيار `-oN` (Normal Output) يحفظ مخرجات الفحص بالصيغة النصية القياسية المقروءة بشرياً فقط في ملف واحد."
+      },
+      {
+        "ar": "`-oA <basename>`",
+        "en": "`-oA <basename>`",
+        "ok": true,
+        "why": "صحيح؛ الخيار `-oA` (Output All) ينشئ ثلاثة ملفات في آن واحد بالاسم الأساسي المحدد: الصيغة النصية المقروءة بشرياً (`.nmap`)، وصيغة لغة التوصيف القابلة للامتداد (`.xml`)، والصيغة القابلة للبحث والفلترة بأوامر لينكس مثل grep (`.gnmap`)."
+      },
+      {
+        "ar": "`-oX <filename>`",
+        "en": "`-oX <filename>`",
+        "ok": false,
+        "why": "غير صحيح؛ الخيار `-oX` (XML Output) يحفظ النتائج بصيغة XML فقط، وهي الصيغة الهيكلية المخصصة للأتمتة والمعالجة البرمجية والاستيراد في أدوات مثل Metasploit."
+      },
+      {
+        "ar": "`-oG <filename>`",
+        "en": "`-oG <filename>`",
+        "ok": false,
+        "why": "غير صحيح؛ الخيار `-oG` (Grepable Output) يحفظ النتائج بصيغة سطرية مخصصة لتسهيل معالجتها وفلترتها عبر أدوات سطر أوامر لينكس مثل grep و awk."
+      }
+    ]
+  },
+  {
+    "n": 49,
+    "id_temp": "B3-Q13",
+    "type": "tf",
+    "q_ar": "عند استخدام خيار `nmap -iL targets.txt` لقراءة قائمة الأهداف من ملف نصي، يجب أن يحتوي الملف حصراً على عناوين IP فردية ولا يُسمح بتضمين أسماء نطاقات (Hostnames) أو شبكات فرعية بصيغة CIDR داخل الملف.",
+    "q_en": "When using the `nmap -iL targets.txt` option to read targets from a text file, the file must strictly contain individual IP addresses only, and cannot include hostnames or subnets in CIDR notation.",
+    "opts": [
+      {
+        "ar": "صحيح",
+        "en": "True",
+        "ok": false,
+        "why": "غير صحيح؛ العبارة خاطئة علمياً، إذ لا يقيد Nmap المستخدم بعناوين IP فردية داخل ملف الأهداف، بل يدعم الملف نفس تعبيرات وصيغ الأهداف المرنة المتنوعة المتاحة في سطر الأوامر."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": true,
+        "why": "صحيح (العبارة خاطئة)؛ يقبل خيار `-iL` (Input from List) ملفاً نصياً يحتوي على أي صيغة هدف يدعمها Nmap، مثل أسماء النطاقات (`example.com` أو `scanme.nmap.org`)، والشبكات الفرعية بترميز CIDR (مثل `192.168.1.0/24`)، ونطاقات العناوين (مثل `10.0.0.1-50` أو `192.168.0.*`)، بالإضافة إلى عناوين IP الفردية مفصولة بمسافات أو أسطر جديدة."
+      }
+    ]
+  },
+  {
+    "n": 50,
+    "id_temp": "B3-Q14",
+    "type": "mcq",
+    "q_ar": "ما هو البروتوكول الشبكي الجوهري الذي تعتمد عليه أداة `Netdiscover` لاكتشاف الأجهزة الحية على الشبكة المحلية (LAN) وربط عناوين IP بعناوين MAC؟",
+    "q_en": "Which fundamental network protocol does `Netdiscover` rely on to detect live hosts on a local area network (LAN) and map IP addresses to MAC addresses?",
+    "opts": [
+      {
+        "ar": "بروتوكول ARP (Address Resolution Protocol) في طبقة ربط البيانات (Layer 2).",
+        "en": "ARP (Address Resolution Protocol) at the Data Link Layer (Layer 2).",
+        "ok": true,
+        "why": "صحيح؛ أداة Netdiscover مبنية بالكامل على توليد والتقاط طلبات واستجابات بروتوكول ARP في الطبقة الثانية، لاكتشاف الأجهزة الحية على الشبكة المحلية ومطابقة عناوين IP مع عناوين الماك (MAC addresses) وبائعي كروت الشبكة (Vendors)."
+      },
+      {
+        "ar": "بروتوكول SNMP (Simple Network Management Protocol) عبر منفذ UDP 161.",
+        "en": "SNMP (Simple Network Management Protocol) over UDP port 161.",
+        "ok": false,
+        "why": "غير صحيح؛ بروتوكول SNMP يُستخدم لإدارة ومراقبة الأجهزة الشبكية وقراءة شجرة MIB (كما تفعل أداة `snmpwalk`)، وليس لاكتشاف الأجهزة عبر Netdiscover."
+      },
+      {
+        "ar": "بروتوكول ICMP (Internet Control Message Protocol) عبر إرسال رسائل Echo Request (Ping).",
+        "en": "ICMP (Internet Control Message Protocol) by sending Echo Request (Ping) packets.",
+        "ok": false,
+        "why": "غير صحيح؛ بروتوكول ICMP يُستخدم في فحص Ping التقليدي (مثل `ping` أو `nmap -sn` خارج الشبكة المحلية)، بينما Netdiscover لا تستخدم ICMP بل تعتمد حصرياً على طلبات واستجابات ARP في الطبقة الثانية (Layer 2)."
+      },
+      {
+        "ar": "بروتوكول BGP (Border Gateway Protocol) عبر منفذ TCP 179.",
+        "en": "BGP (Border Gateway Protocol) over TCP port 179.",
+        "ok": false,
+        "why": "غير صحيح؛ بروتوكول BGP مخصص لتوجيه حركة البيانات بين الأنظمة المستقلة (Autonomous Systems) ومزودي الخدمة على الإنترنت، ولا علاقة له باكتشاف أجهزة الشبكة المحلية."
+      }
+    ]
+  },
+  {
+    "n": 51,
+    "id_temp": "B3-Q15",
+    "type": "mcq",
+    "q_ar": "أي من خيارات تشغيل أداة Netdiscover يُفعّل 'الوضع السريع' (Fast Mode) لفحص عناوين IP الشائعة فقط (مثل .1 و .100 و .254) في كل شبكة فرعية؟",
+    "q_en": "Which Netdiscover execution option enables 'Fast Mode' to scan only common IP addresses (such as .1, .100, and .254) in each subnet?",
+    "opts": [
+      {
+        "ar": "`sudo netdiscover -p`",
+        "en": "`sudo netdiscover -p`",
+        "ok": false,
+        "why": "غير صحيح؛ الخيار `-p` يُفعّل الوضع السلبي (Passive mode / Sniff only) للتنصت والاستماع فقط دون إرسال أي حزم استعلام."
+      },
+      {
+        "ar": "`sudo netdiscover -f`",
+        "en": "`sudo netdiscover -f`",
+        "ok": true,
+        "why": "صحيح؛ الخيار `-f` (Fast scan mode) يوجه أداة Netdiscover لاستهداف العناوين الأكثر احتمالاً للبوابات الافتراضية والأجهزة المركزية (`.1` و `.100` و `.254`) في كل نطاق شبكة فرعية، مما يختصر زمن الاكتشاف بشكل ملحوظ."
+      },
+      {
+        "ar": "`sudo netdiscover -i eth0 -P`",
+        "en": "`sudo netdiscover -i eth0 -P`",
+        "ok": false,
+        "why": "غير صحيح؛ الخيار `-i` يحدد كرت الشبكة المستخدم، بينما `-P` يفعّل وضع الإخراج القابل للطباعة (Printable/Headless output) لتسهيل تمريره للسكربتات."
+      },
+      {
+        "ar": "`sudo netdiscover -r 192.168.1.0/24`",
+        "en": "`sudo netdiscover -r 192.168.1.0/24`",
+        "ok": false,
+        "why": "غير صحيح؛ الخيار `-r` يُستخدم لتحديد نطاق الشبكة الفرعية المراد مسحها (Range)، ويقوم بفحص جميع العناوين المتاحة في النطاق وليس العناوين السريعة فقط."
+      }
+    ]
+  },
+  {
+    "n": 52,
+    "id_temp": "B3-Q16",
+    "type": "tf",
+    "q_ar": "عند تشغيل أداة Netdiscover في الوضع السلبي عبر الأمر `sudo netdiscover -p`، تمتنع الأداة تماماً عن توليد أو إرسال أي حزم ARP نشطة، وتكتفي بالتنصت على حزم البث المارة بالشبكة مما يجعل الفحص خفياً وغير مرئي لأنظمة المراقبة.",
+    "q_en": "When running Netdiscover in passive mode via `sudo netdiscover -p`, the tool completely refrains from generating or sending any active ARP packets, only listening to broadcast traffic on the network, making the scan stealthy and invisible to monitoring systems.",
+    "opts": [
+      {
+        "ar": "صحيح",
+        "en": "True",
+        "ok": true,
+        "why": "صحيح؛ الوضع السلبي (Passive Mode – Sniff Only) يضع واجهة الشبكة في حالة استماع صامتة لحزم ARP المتداولة طبيعياً بين الأجهزة الأخرى دون حقن أي طلبات مسبار، مما يمنع أنظمة كشف التسلل (IDS) والجدران النارية من رصد عملية الاستكشاف."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "غير صحيح؛ العبارة صحيحة تماماً، فالخيار `-p` صُمم للتخفي وتفادي التنبيهات الأمنية عبر الامتناع عن إرسال أي حزم استعلام نشطة."
+      }
+    ]
+  },
+  {
+    "n": 53,
+    "id_temp": "B3-Q17",
+    "type": "mcq",
+    "q_ar": "ما هي الفائدة الأساسية من استخدام أداة `Enum4linux` مع الخيار الشامل `-a` عند استطلاع خادم ويندوز أو بيئة Samba؟",
+    "q_en": "What is the primary objective of running `Enum4linux` with the comprehensive `-a` option when enumerating a Windows server or Samba environment?",
+    "opts": [
+      {
+        "ar": "تعديل سجلات الأحداث (Windows Event Logs) وحذف ملفات التتبع لتغطية أثر الفحص.",
+        "en": "Modifying Windows Event Logs and deleting audit logs to cover scan footprints.",
+        "ok": false,
+        "why": "غير صحيح؛ الأداة تعمل عبر استفسارات وبروتوكولات قراءة عادية ولا تمتلك صلاحيات أو وظائف للعبث بسجلات النظام ومسح الآثار."
+      },
+      {
+        "ar": "استغلال ثغرات الذاكرة لتنفيذ تعليمات برمجية عن بعد (Remote Code Execution) مثل ثغرة EternalBlue.",
+        "en": "Exploiting memory vulnerabilities for Remote Code Execution (RCE), such as EternalBlue.",
+        "ok": false,
+        "why": "غير صحيح؛ أداة Enum4linux مخصصة لمرحلة جمع المعلومات والتعداد (Enumeration) فقط، وليست إطار استغلال للثغرات (Exploitation) مثل Metasploit."
+      },
+      {
+        "ar": "شن هجوم القوة الغاشمة لكسر كلمات مرور حسابات النطاق عبر قواميس ضخمة.",
+        "en": "Launching brute-force attacks to crack domain account passwords using massive dictionaries.",
+        "ok": false,
+        "why": "غير صحيح؛ كسر كلمات المرور بالقوة الغاشمة هو تخصص أدوات مثل Hydra أو Medusa أو John the Ripper، بينما Enum4linux تقتصر على الاستعلام عن سياسات كلمات المرور (Password Policy) والحسابات."
+      },
+      {
+        "ar": "استخراج قائمة المستخدمين، والمجموعات، والمجلدات المشتركة (Shares)، وسياسات كلمات المرور، وتعداد معرفات الأمان (RID cycling) عبر بروتوكول SMB.",
+        "en": "Extracting lists of users, groups, shared folders (shares), password policies, and performing RID cycling via SMB.",
+        "ok": true,
+        "why": "صحيح؛ أداة Enum4linux هي غلاف (Wrapper) لأدوات Samba مثل `rpcclient` و `smbclient`، ويقوم الخيار `-a` (Do all checks) بتنفيذ فحص استطلاعي شامل لاستخراج المستخدمين والمجموعات والمشاركات وسياسات كلمات المرور وتعداد RIDs."
+      }
+    ]
+  },
+  {
+    "n": 54,
+    "id_temp": "B3-Q18",
+    "type": "mcq",
+    "q_ar": "ماذا تعني حالة المنفذ 'Filtered' (مُفلتر) في تقرير فحص Nmap؟",
+    "q_en": "What does the 'Filtered' port state indicate in an Nmap scan report?",
+    "opts": [
+      {
+        "ar": "أن المنفذ متاح وتصله الحزم ولكن Nmap عاجز عن تحديد هل هو مفتوح أم مغلق (كما يحدث في فحص ACK `nmap -sA`).",
+        "en": "The port is accessible and receives packets, but Nmap cannot determine whether it is open or closed (as in an ACK scan `nmap -sA`).",
+        "ok": false,
+        "why": "غير صحيح؛ هذه الحالة تُعرف بـ غير مُفلتر (`Unfiltered`) وتظهر في فحص ACK للدلالة على أن الحزم تخترق جدار الحماية ولكن لا يمكن الجزم بحالة الخدمة."
+      },
+      {
+        "ar": "أن المنفذ مفتوح ويوجد تطبيق يستمع بنشاط ويستقبل الاتصالات بصورة طبيعية.",
+        "en": "The port is open and an application is actively listening and accepting connections normally.",
+        "ok": false,
+        "why": "غير صحيح؛ المنفذ الذي يستقبل الاتصالات بنشاط تظهر حالته `Open`."
+      },
+      {
+        "ar": "أن هناك جدار حماية (Firewall) أو جهاز تصفية حزم يحجب المسابر أو يسقطها دون رد، مما يتعذر معه على Nmap تحديد هل المنفذ مفتوح أم مغلق.",
+        "en": "A firewall or packet filter is blocking or dropping probes without response, preventing Nmap from determining whether the port is open or closed.",
+        "ok": true,
+        "why": "صحيح؛ تصنف Nmap المنفذ كـ `Filtered` عندما تسقط الحزم المرسلة (Drop) دون استجابة بسبب قواعد جدار الحماية، أو عندما يتلقى الفاحص رسائل خطأ بروتوكول ICMP تفيد بتعذر الوصول (Destination Unreachable)، مما يعيق التأكد من وجود خدمة تستمع خلف المنفذ."
+      },
+      {
+        "ar": "أن المنفذ متاح وتصل إليه الحزم لكن لا يوجد تطبيق يستمع عليه، حيث استجاب صراحة بحزمة RST.",
+        "en": "The port is reachable, but no application is listening on it, as it explicitly responded with an RST packet.",
+        "ok": false,
+        "why": "غير صحيح؛ الرد الصريح بحزمة RST يشير إلى أن الحزمة وصلت الهدف ولكن لا يوجد تطبيق يستمع على المنفذ، وحالته تكون مغلق `Closed`."
+      }
+    ]
+  },
+  {
+    "n": 55,
+    "id_temp": "B3-Q19",
+    "type": "mcq",
+    "q_ar": "عند تحليل حركة البيانات في أداة Wireshark أثناء قيام Nmap بفحص SYN على منفذ 'مغلق' (Closed Port) غير محمي بجدار ناري، ما هي الحزمة التي يرسلها الهدف استجابة لحزمة SYN؟",
+    "q_en": "When analyzing traffic in Wireshark during an Nmap SYN scan on an unprotected 'Closed Port', which packet does the target send in response to the SYN packet?",
+    "opts": [
+      {
+        "ar": "حزمة تحمل راية FIN لإنهاء جلسة اتصال نشطة وقائمة مسبقاً.",
+        "en": "A packet carrying the FIN flag to gracefully terminate an existing connection.",
+        "ok": false,
+        "why": "غير صحيح؛ راية FIN تُستخدم لإنهاء اتصال نشط بالتراضي (Graceful termination) ولا تُرسل لرفض بدء اتصال جديد على منفذ مغلق."
+      },
+      {
+        "ar": "حزمة تحمل رايتي SYN/ACK للموافقة على الاتصال وبدء المصافحة الثلاثية.",
+        "en": "A packet carrying the SYN/ACK flags to accept the connection and initiate the three-way handshake.",
+        "ok": false,
+        "why": "غير صحيح؛ الرد بحزمة SYN/ACK يصدر حصراً عن المنافذ المفتوحة (Open Ports) المستعدة لاستكمال المصافحة الثلاثية وقبول الاتصال."
+      },
+      {
+        "ar": "حزمة تحمل راية RST (أو RST/ACK) لإعادة ضبط ورفض طلب الاتصال فوراً.",
+        "en": "A packet carrying the RST flag (or RST/ACK) to immediately reset and reject the connection attempt.",
+        "ok": true,
+        "why": "صحيح؛ وفق معايير بروتوكول TCP (RFC 793)، عندما يستقبل النظام حزمة طلب اتصال (SYN) على منفذ مغلق لا يستمع عليه أي تطبيق، فإن مكدس الشبكة يرد فوراً بحزمة تحمل راية Reset (RST/ACK) لإعلام المصدر برفض الاتصال وإلغائه."
+      },
+      {
+        "ar": "لا يرسل الهدف أي رد نهائياً ويقوم بإسقاط الحزمة بصمت (Drop).",
+        "en": "The target sends no response at all and silently drops the packet.",
+        "ok": false,
+        "why": "غير صحيح؛ إسقاط الحزمة دون رد هو سلوك جدران الحماية (حالة Filtered)، أما المنفذ المغلق غير المحمي فيرد صراحة بحزمة RST."
+      }
+    ]
+  }
+]

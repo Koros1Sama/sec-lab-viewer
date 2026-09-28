@@ -1,0 +1,328 @@
+[
+  {
+    "n": 89,
+    "id_temp": "B5-Q7",
+    "type": "tf",
+    "q_ar": "عند إضافة الخيار `--batch` في سطر أوامر SQLMap، تقوم الأداة بتخطي كافة الأسئلة التفاعلية وتختار الإجابات الافتراضية تلقائياً دون توقف أو انتظار لإدخال يدوي من المستخدم.",
+    "q_en": "When adding the `--batch` option to the SQLMap command line, the tool skips all interactive prompts and automatically selects default answers without pausing or waiting for manual user input.",
+    "opts": [
+      {
+        "ar": "صح",
+        "en": "True",
+        "ok": true,
+        "why": "الخيار `--batch` يلغي النمط التفاعلي (Non-interactive mode) ويجعل SQLMap يقبل الإعدادات والإجابات الافتراضية تلقائياً على جميع الأسئلة أثناء الفحص والاستغلال، وهو مفيد جداً لأتمتة العمليات والسكربتات وتجنب توقف الفحص بانتظار إدخال يدوي."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "العبارة صحيحة تماماً؛ فالخيار `--batch` مخصص صراحة في SQLMap لتشغيل الأداة في وضع الأتمتة الكاملة واختيار السلوك الافتراضي لكل المطالبات التفاعلية (Prompts)."
+      }
+    ],
+    "tip": "إذا كانت الصفحة المستهدفة تتطلب جلسة مصادقة مسجلة مسبقاً، ادمج خيار الكوكيز `--cookie=\"PHPSESSID=...\"` مع خيار الأتمتة `--batch` لتفادي فشل الفحص."
+  },
+  {
+    "n": 90,
+    "id_temp": "B5-Q8",
+    "type": "mcq",
+    "q_ar": "ما هو الدور الأساسي الذي تؤديه أداة Burp Suite Community بصفتها وكيلاً اعتراضياً (HTTP Intercepting Proxy) أثناء اختبار اختراق تطبيقات الويب؟",
+    "q_en": "What is the primary role of Burp Suite Community as an HTTP Intercepting Proxy during web application penetration testing?",
+    "opts": [
+      {
+        "ar": "تعمل كجدار حماية تطبيقات ويب (WAF) منصب على الخادم لصد وحجب الهجمات السيبرانية المشبوهة.",
+        "en": "Acts as a server-side Web Application Firewall (WAF) to block and filter suspicious cyber attacks.",
+        "ok": false,
+        "why": "أداة Burp Suite هي منصة اختبار أمني واختراق تعمل محلياً على جهاز الفاحص/المهاجم وليست جدار حماية دفاعي منصب على خادم الويب."
+      },
+      {
+        "ar": "تعمل كخادم أسماء نطاقات (DNS Server) يقوم بتحويل الروابط المشبوهة إلى عناوين خوادم وهمية.",
+        "en": "Acts as a DNS Server that resolves suspicious URLs to dummy/sinkhole server addresses.",
+        "ok": false,
+        "why": "الأداة وكيل لطبقة التطبيق (Application Layer HTTP/HTTPS Proxy) وليست خادم نظام أسماء النطاقات DNS."
+      },
+      {
+        "ar": "تتوسط حركة المرور بين متصفح الويب وخادم التطبيق، مما يسمح للباحث الأمني بالتقاط حزم الطلبات والاستجابات وفحصها وتعديلها يدوياً قبل إرسالها.",
+        "en": "Mediates traffic between the browser and the application server, allowing the tester to intercept, inspect, and modify HTTP requests and responses before forwarding them.",
+        "ok": true,
+        "why": "يعمل البروكسي الاعتراضي كوسيط محلي (Man-in-the-Middle مصرح به) على المنفذ `127.0.0.1:8080`، حيث يمرر المتصفح كل طلباته عبره، فيتمكن المختبر من إيقاف الطلب وتعديل البارامترات والترويسات (Headers) وفحص رد الخادم بدقة قبل السماح بمروره."
+      },
+      {
+        "ar": "تقوم بحقن خوارزميات التشفير غير المتماثل تلقائياً لحماية بيانات بطاقات الائتمان المنقولة من السرقة.",
+        "en": "Automatically injects asymmetric encryption algorithms to protect transmitted credit card data from theft.",
+        "ok": false,
+        "why": "الأداة لا تقدم خدمات تشفير تجارية؛ بل تعتمد على شهادة PortSwigger CA خاصة بها لفك تشفير واعتراض حركة SSL/TLS محلياً لغرض الفحص والتحليل الأمني."
+      }
+    ],
+    "tip": "لتشغيل Burp Suite كبروكسي، يتم ضبط إعدادات الشبكة في المتصفح ليشير إلى `127.0.0.1` على المنفذ `8080` مع تثبيت وتوثيق شهادة Burp CA في المتصفح."
+  },
+  {
+    "n": 91,
+    "id_temp": "B5-Q9",
+    "type": "mcq",
+    "q_ar": "في أداة Burp Suite، ما هي الوظيفة المحددة لوحدة Repeater مقارنة بوحدة Intruder؟",
+    "q_en": "In Burp Suite, what is the specific function of the Repeater tool compared to the Intruder tool?",
+    "opts": [
+      {
+        "ar": "وحدة Repeater تقوم بمسح سلبي للثغرات البرمجية، بينما Intruder تقوم بتوليد شهادات التشفير SSL.",
+        "en": "Repeater performs passive vulnerability scanning, while Intruder generates SSL encryption certificates.",
+        "ok": false,
+        "why": "وحدة المسح الآلي للثغرات هي Scanner (المتاحة في النسخة المدفوعة Pro)، بينما Repeater و Intruder مخصصتان لمعالجة وتكرار طلبات HTTP."
+      },
+      {
+        "ar": "وحدة Repeater مخصصة لإجراء هجمات التخمين الآلي عبر القواميس، بينما Intruder مخصصة لاعتراض حزم الشبكة وتجميدها.",
+        "en": "Repeater is dedicated to automated dictionary attacks, while Intruder is dedicated to intercepting and freezing network packets.",
+        "ok": false,
+        "why": "العكس هو الصحيح؛ فوحدة Intruder هي المخصصة للأتمتة وهجمات القواميس والقوة الغاشمة، بينما Repeater مخصصة للتعديل اليدوي الدقيق وإعادة إرسال الطلب المفرد."
+      },
+      {
+        "ar": "وحدة Repeater تتيح تعديل طلب HTTP محدد وإعادة إرساله يدوياً مرات متعددة لمراقبة استجابة الخادم، بينما Intruder تؤتمت الهجمات المخصصة وحقن الحمولات والتخمين.",
+        "en": "Repeater allows manually modifying and reissuing individual HTTP requests to observe server responses, while Intruder automates customized attacks, payload injections, and fuzzing/brute-forcing.",
+        "ok": true,
+        "why": "تُستخدم وحدة Repeater للتحليل والتجربة اليدوية الدقيقة لطلب واحد وتغيير مدخلاته وفحص الاستجابة فوراً، بينما وحدة Intruder مصممة لأتمتة الهجمات واسعة النطاق مثل تخمين كلمات المرور (Brute Force) وتعداد المستخدمين وحقن الحمولات (Payloads) آلياً."
+      },
+      {
+        "ar": "الوحدتان متطابقتان تماماً في آلية العمل ولا يوجد أي فرق وظيفي بينهما سوى المظهر الرسومي للواجهة.",
+        "en": "Both tools are identical in functionality with no difference other than the graphical user interface.",
+        "ok": false,
+        "why": "هناك فارق جوهري في الوظيفة؛ فالأولى يدوية وتحليلية لطلب واحد في كل مرة، بينما الثانية محرك أتمتة وهجمات مخصصة متعددة الحمولات."
+      }
+    ],
+    "tip": "اختصار إرسال الطلب المعترض من البروكسي إلى Repeater في Burp Suite هو `Ctrl + R`، وإلى Intruder هو `Ctrl + I`."
+  },
+  {
+    "n": 92,
+    "id_temp": "B5-Q10",
+    "type": "mcq",
+    "q_ar": "تُعد أداة OWASP ZAP من أشهر الأدوات مفتوحة المصدر لفحص أمان تطبيقات الويب. ما الفرق الجوهري بين المسح السلبي (Passive Scan) والمسح النشط (Active Scan) فيها؟",
+    "q_en": "OWASP ZAP is a popular open-source web application security scanner. What is the fundamental difference between its Passive Scan and Active Scan modes?",
+    "opts": [
+      {
+        "ar": "المسح النشط يعمل فقط في حالة انقطاع اتصال الإنترنت، بينما المسح السلبي يتطلب اتصالاً سحابياً بخوادم منظمة OWASP.",
+        "en": "Active Scan only works offline, while Passive Scan requires a cloud connection to OWASP servers.",
+        "ok": false,
+        "why": "كلا الفحصين يتمان محلياً عبر محرك أداة ZAP المثبتة على جهازك وتتفاعل مع الهدف عبر الشبكة المتاحة دون الحاجة لأي خدمات سحابية."
+      },
+      {
+        "ar": "المسح السلبي يقوم بتخمين كلمات المرور، بينما المسح النشط يقتصر على قراءة ملف `robots.txt` فقط.",
+        "en": "Passive Scan performs password brute-forcing, while Active Scan is limited to reading the `robots.txt` file.",
+        "ok": false,
+        "why": "المسح السلبي لا يرسل أي طلبات تخمين على الإطلاق، وقراءة `robots.txt` جزء من مرحلة الزحف والاستكشاف (Spidering)."
+      },
+      {
+        "ar": "المسح السلبي مخصص لفحص الشبكات المحلية السلكية، بينما المسح النشط مخصص لاختبار اختراق شبكات الهواتف الذكية.",
+        "en": "Passive Scan is designed for wired LANs, while Active Scan is dedicated to mobile penetration testing.",
+        "ok": false,
+        "why": "أداة OWASP ZAP متخصصة تحديداً في تطبيقات ومواقع الويب والواجهات البرمجية (APIs)، وليست أداة فحص شبكات سلكية أو لاسلكية."
+      },
+      {
+        "ar": "المسح السلبي يحلل فقط الطلبات والاستجابات المارة دون تعديلها أو إرسال طلبات جديدة (آمن تماماً)، بينما المسح النشط يرسل حمولات هجومية خبيثة لاكتشاف الثغرات عملياً.",
+        "en": "Passive Scan only analyzes passing requests and responses without modifying them or sending new traffic (completely safe), while Active Scan sends malicious attack payloads to actively uncover vulnerabilities.",
+        "ok": true,
+        "why": "المسح السلبي (Passive Scan) يراقب الترافيك المار ويفحص الترويسات والردود بحثاً عن أخطاء التكوين دون أي تدخل عدواني، بينما المسح النشط (Active Scan) يولد ويرسل هجمات وحمولات فعلية لاختبار نقاط الضعف مثل SQLi و XSS، مما قد يؤثر على الخادم أو يعدل البيانات ويتطلب إذناً رسمياً."
+      }
+    ],
+    "tip": "قبل بدء المسح النشط (Active Scan) في ZAP، يُنصح بتشغيل العناكب (Traditional Spider و AJAX Spider) لبناء خريطة كاملة للموقع (Site Tree) وضمان شمولية الفحص."
+  },
+  {
+    "n": 93,
+    "id_temp": "B5-Q11",
+    "type": "mcq",
+    "q_ar": "ضمن تصنيفات OWASP Top 10 ومعامل فحص تطبيقات الويب، ما هو الفارق الجوهري بين ثغرة حقن الأوامر (Command Injection) وثغرة البرمجة عبر المواقع المخزنة (Stored XSS)؟",
+    "q_en": "Within the OWASP Top 10 and web application security labs, what is the key difference between Command Injection and Stored Cross-Site Scripting (Stored XSS)?",
+    "opts": [
+      {
+        "ar": "ثغرة Command Injection تنفذ أكواد جافاسكريبت في متصفح العميل، بينما Stored XSS تعطل خادم الـ DNS.",
+        "en": "Command Injection executes JavaScript code in the client browser, while Stored XSS disrupts the DNS server.",
+        "ok": false,
+        "why": "المفاهيم معكوسة تماماً؛ فـ XSS هي التي تستخدم لغات المتصفح مثل JavaScript، وحقن الأوامر يستهدف أوامر نظام التشغيل في الخادم."
+      },
+      {
+        "ar": "ثغرة Command Injection تنفذ أوامر على مستوى نظام تشغيل السيرفر (Server-side)، بينما Stored XSS تُخزن في قاعدة البيانات وتُنفذ أكوادها (JavaScript) في متصفحات الضحايا (Client-side).",
+        "en": "Command Injection executes commands at the server OS level (Server-side), while Stored XSS is stored in the database and executes its payload (JavaScript) in victims' browsers (Client-side).",
+        "ok": true,
+        "why": "ثغرة Command Injection تتيح للمهاجم تنفيذ أوامر نظام التشغيل مباشرة على الخادم (مثل `ping`, `whoami`, `cat /etc/passwd`)، في حين أن Stored XSS تُخزن حمولتها البرمجية الخبيثة في قاعدة البيانات ليتم استرجاعها وتنفيذها تلقائياً داخل متصفحات جميع المستخدمين الذين يتصفحون الصفحة المصابة."
+      },
+      {
+        "ar": "كلا الثغرتين تؤديان إلى نفس النتيجة وهي تنفيذ أوامر نظام التشغيل على الخادم بشكل مباشر.",
+        "en": "Both vulnerabilities lead to the exact same outcome: executing operating system commands directly on the server.",
+        "ok": false,
+        "why": "ثغرة XSS تنفذ في بيئة متصفح الضحية في جانب العميل (Client-side)، ولا تستطيع الوصول لتنفيذ أوامر نظام تشغيل الخادم مثل Command Injection."
+      },
+      {
+        "ar": "ثغرة Stored XSS لا تؤثر إطلاقاً على سرية الجلسات وحسابات المستخدمين، بينما Command Injection تسرق الكوكيز فقط.",
+        "en": "Stored XSS does not compromise session confidentiality or user accounts at all, while Command Injection only steals cookies.",
+        "ok": false,
+        "why": "ثغرة Stored XSS من أخطر ثغرات سرقة الجلسات وملفات تعريف الارتباط (Cookie / Session Hijacking)، بينما Command Injection تمنح المهاجم شل وتحكماً كاملاً بنظام الخادم."
+      }
+    ],
+    "tip": "ثغرات XSS تقسم إلى 3 أنواع رئيسية: Reflected (منعكسة فورية غير مخزنة)، و Stored (مخزنة ودائمة في قاعدة البيانات)، و DOM-based (تعتمد على معالجة الكود داخل بنية DOM بالمتصفح)."
+  },
+  {
+    "n": 94,
+    "id_temp": "B5-Q12",
+    "type": "tf",
+    "q_ar": "في بيئة التدريب الشهيرة DVWA (Damn Vulnerable Web Application)، يمثل مستوى الأمان \"Impossible\" بيئة غير قابلة للاختراق تطبق أفضل الممارسات البرمجية الآمنة، ويُستخدم لمقارنة الكود المصدري المصاب بالكود المحمي.",
+    "q_en": "In the popular training environment DVWA (Damn Vulnerable Web Application), the \"Impossible\" security level represents a secure, unexploitable environment that implements secure coding best practices and serves as a reference to compare vulnerable code against protected code.",
+    "opts": [
+      {
+        "ar": "صح",
+        "en": "True",
+        "ok": true,
+        "why": "المستوى 'Impossible' في DVWA لا يحتوي على ثغرات برمجية قابلة للاستغلال؛ حيث يعتمد على الاستعلامات المجهزة المسبقة ذات المعاملات (PDO/Prepared Statements) لمنع SQLi، والترميز الآمن لمدخلات/مخرجات HTML لمنع XSS، والرموز الآمنة لمكافحة التزوير (Anti-CSRF Tokens)، ليكون مرجعاً تعليمياً للمطورين لكتابة كود آمن."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "العبارة صحيحة تماماً؛ فمستويات الأمان الأربعة في DVWA هي: Low (خالٍ من أي حماية)، و Medium (فلاتر بدائية سهلة التجاوز)، و High (فلاتر متقدمة تتطلب تقنيات التفاف مخصصة)، و Impossible (كود آمن تماماً يطبق معايير Secure Coding)."
+      }
+    ],
+    "tip": "تغيير مستوى الأمان في DVWA يتم من خلال خيار 'DVWA Security' في القائمة الجانبية اليسرى للواجهة."
+  },
+  {
+    "n": 95,
+    "id_temp": "B5-Q13",
+    "type": "mcq",
+    "q_ar": "ما هو التعريف الدقيق لمفهوم \"الهندسة الاجتماعية\" (Social Engineering) في سياق أمن المعلومات والقرصنة الأخلاقية؟",
+    "q_en": "What is the precise definition of \"Social Engineering\" in the context of information security and ethical hacking?",
+    "opts": [
+      {
+        "ar": "تصميم شبكات حاسوبية معزولة ميكانيكياً لمنع اختراق الخوادم من خلال المنافذ المادية.",
+        "en": "Designing mechanically isolated computer networks (air-gapped) to prevent server breaches via physical ports.",
+        "ok": false,
+        "why": "هذا الإجراء يدخل ضمن الأمن المادي وهندسة الشبكات الفيزيائية المعزولة (Physical Security & Air-gapped Networks)."
+      },
+      {
+        "ar": "إجراء فحص آلي لكافة المنافذ والخدمات المفتوحة في جدار الحماية لاكتشاف البرمجيات الخبيثة.",
+        "en": "Automated scanning of all open ports and services across firewalls to detect malware.",
+        "ok": false,
+        "why": "هذا الإجراء يصف مسح المنافذ والشبكات (Port Scanning) بأدوات مثل Nmap، وهو فحص تقني للشبكة وليس هندسة اجتماعية."
+      },
+      {
+        "ar": "برمجة خوارزميات الذكاء الاصطناعي لفك تشفير كلمات المرور المعقدة آلياً بدون تدخل بشري.",
+        "en": "Programming AI algorithms to automatically crack complex encrypted passwords without human intervention.",
+        "ok": false,
+        "why": "هذا التوصيف يتعلق بالكسر الحسابي والتشفيري الآلي لكلمات المرور (Automated Cryptanalysis/Cracking) وليس بالهندسة الاجتماعية."
+      },
+      {
+        "ar": "فن التلاعب النفسي وخداع الأفراد لدفعهم إلى إفشاء معلومات سرية أو تنفيذ إجراءات تفيد المهاجم وتضر بأمن المنظمة.",
+        "en": "The art of psychological manipulation and deception to trick individuals into divulging confidential information or performing actions compromising organizational security.",
+        "ok": true,
+        "why": "تستهدف الهندسة الاجتماعية 'العنصر البشري' بصفته أضعف حلقة في السلسلة الأمنية، وتعتمد على استغلال الثقة، الفضول، الخوف، أو الرغبة في المساعدة للحصول على بيانات الاعتماد أو الوصول غير المصرح به، دون الحاجة لاستغلال ثغرات تقنية برمجية."
+      }
+    ],
+    "tip": "تعتمد الهندسة الاجتماعية على التلاعب النفسي بالبشر بدلاً من استغلال الثغرات البرمجية للأنظمة، ويُعد التدريب والتوعية الأمنية المستمرة خط الدفاع الأساسي ضدها."
+  },
+  {
+    "n": 96,
+    "id_temp": "B5-Q14",
+    "type": "mcq",
+    "q_ar": "عند تشغيل أداة Social-Engineer Toolkit (SET) في نظام كالي لينكس (Kali Linux)، ما هو الخيار الرقمي من القائمة الرئيسية الواجب اختياره للوصول إلى أدوات ونواقل هجمات الهندسة الاجتماعية والتصيد؟",
+    "q_en": "When launching the Social-Engineer Toolkit (SET) in Kali Linux, which numeric menu option from the main menu must be selected to access social engineering attack vectors and phishing tools?",
+    "opts": [
+      {
+        "ar": "الخيار رقم `3) Third Party Modules`",
+        "en": "3) Third Party Modules",
+        "ok": false,
+        "why": "الخيار رقم 3 مخصص لوحدات وإضافات الطرف الثالث الخارجية المطورة خارج إطار الأداة الأساسي."
+      },
+      {
+        "ar": "الخيار رقم `1) Social-Engineering Attacks`",
+        "en": "1) Social-Engineering Attacks",
+        "ok": true,
+        "why": "القائمة الرئيسية لأداة SET تبدأ بالخيار رقم 1 وهو 'Social-Engineering Attacks' الذي يتفرع إلى كافة نواقل الهجمات الأساسية للهندسة الاجتماعية (هجمات الويب، الوسائط المصابة، الإيميلات المزيفة، إلخ)."
+      },
+      {
+        "ar": "الخيار رقم `4) Update the Social-Engineer Toolkit`",
+        "en": "4) Update the Social-Engineer Toolkit",
+        "ok": false,
+        "why": "الخيار رقم 4 وظيفته تحديث كود أداة SET من مستودع GitHub وليس شن الهجمات."
+      },
+      {
+        "ar": "الخيار رقم `2) Penetration Testing (Fast-Track)`",
+        "en": "2) Penetration Testing (Fast-Track)",
+        "ok": false,
+        "why": "الخيار رقم 2 مخصص لأدوات اختبار الاختراق السريع المؤتمتة (Fast-Track Penetration) وليس لنواقل هجمات الهندسة الاجتماعية القياسية."
+      }
+    ],
+    "tip": "تُفتح الأداة في كالي لينكس عبر الأمر `sudo setoolkit` ثم الموافقة على شروط الاستخدام، والخيار رقم 1 هو المدخل الرئيسي لكافة هجمات الهندسة الاجتماعية."
+  },
+  {
+    "n": 97,
+    "id_temp": "B5-Q15",
+    "type": "mcq",
+    "q_ar": "ما هو التسلسل الهرمي الصحيح للخيارات في أداة SET لشن هجوم تصيد احتيالي وحصاد بيانات الاعتماد (Credential Harvester Attack) عبر صفحة ويب مزيفة؟",
+    "q_en": "What is the correct menu hierarchy in SET to launch a credential phishing attack using the Credential Harvester Attack Method via a clone or fake webpage?",
+    "opts": [
+      {
+        "ar": "`2) Penetration Testing (Fast-Track)` -> `1) Web Cloner` -> `4) Database Ingestion`",
+        "en": "2) Penetration Testing (Fast-Track) -> 1) Web Cloner -> 4) Database Ingestion",
+        "ok": false,
+        "why": "هذا تسلسل وهمي وغير موجود إطلاقاً في هيكلية قوائم أداة SET الرسمية."
+      },
+      {
+        "ar": "`1) Social-Engineering Attacks` -> `4) Create a Payload and Listener` -> `1) Windows Meterpreter`",
+        "en": "1) Social-Engineering Attacks -> 4) Create a Payload and Listener -> 1) Windows Meterpreter",
+        "ok": false,
+        "why": "هذا المسار مخصص لتوليد حمولات خبيثة وإنشاء جلسات اتصال عكسي (Payloads & Listeners) وليس لإنشاء صفحات تصيد الويب وحصاد كلمات المرور."
+      },
+      {
+        "ar": "`1) Social-Engineering Attacks` -> `3) Infectious Media Generator` -> `2) File-Format Exploits`",
+        "en": "1) Social-Engineering Attacks -> 3) Infectious Media Generator -> 2) File-Format Exploits",
+        "ok": false,
+        "why": "هذا المسار مخصص لإنشاء وسائط تخزين مصابة (Infectious Media) كالفلاشات الملغمة بملفات ذات صيغ مستغلة."
+      },
+      {
+        "ar": "`1) Social-Engineering Attacks` -> `2) Website Attack Vectors` -> `3) Credential Harvester Attack Method`",
+        "en": "1) Social-Engineering Attacks -> 2) Website Attack Vectors -> 3) Credential Harvester Attack Method",
+        "ok": true,
+        "why": "هذا هو المسار المعياري الدقيق في أداة SET: نختار أولاً هجمات الهندسة الاجتماعية (1)، ثم نواقل هجمات مواقع الويب (2)، ثم طريقة حصاد بيانات الاعتماد (3)."
+      }
+    ],
+    "tip": "بعد اختيار `Credential Harvester Attack Method (3)`، توفر لك أداة SET ثلاث طرق للنشر: Web Templates (1)، Site Cloner (2)، Custom Import (3)."
+  },
+  {
+    "n": 98,
+    "id_temp": "B5-Q16",
+    "type": "tf",
+    "q_ar": "في أداة SET ضمن هجوم Credential Harvester، يقوم خيار \"Web Templates\" باستنساخ أي رابط لموقع حقيقي يحدده المهاجم ديناميكياً، بينما خيار \"Site Cloner\" يقتصر على قوالب جاهزة مخزنة مسبقاً داخل الأداة.",
+    "q_en": "In SET under the Credential Harvester attack, the \"Web Templates\" option dynamically clones any live website URL specified by the attacker, whereas the \"Site Cloner\" option is limited to pre-built templates bundled inside the tool.",
+    "opts": [
+      {
+        "ar": "صح",
+        "en": "True",
+        "ok": false,
+        "why": "العبارة غير صحيحة لأن وظائف الخيارين معكوسة تماماً في نص العبارة."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": true,
+        "why": "العبارة خاطئة لأن الوظائف معكوسة: خيار 'Site Cloner' هو الذي يقوم باستنساخ الكود المصدري وتصميم أي موقع ويب حي يقوم المهاجم بإدخال رابطه (URL)، بينما خيار 'Web Templates' يقتصر على نماذج وقوالب تسجيل دخول شائعة ومبنية مسبقاً داخل أداة SET (مثل Google, Twitter, Java Applet)."
+      }
+    ],
+    "tip": "في خيار 'Site Cloner' يطلب منك SET إدخال عنوان IP الخاص بجهاز المهاجم لاستقبال وتخزين بيانات الاعتماد المنهوبة، ثم يطلب رابط الـ URL للموقع المستهدف استنساخه."
+  },
+  {
+    "n": 99,
+    "id_temp": "B5-Q17",
+    "type": "tf",
+    "q_ar": "يُعتبر تفعيل المصادقة متعددة العوامل القائمة على مفاتيح الأمان الفيزيائية (FIDO2/WebAuthn) وتدريب الموظفين عبر محاكاة التصيد الدوري، من أقوى التدابير الوقائية لتحييد مخاطر صفحات التصيد الاحتيالي وجمع بيانات الاعتماد.",
+    "q_en": "Enabling multi-factor authentication based on physical security keys (FIDO2/WebAuthn) and training employees through periodic phishing simulations are considered among the strongest defensive measures to neutralize phishing pages and credential harvesting attacks.",
+    "opts": [
+      {
+        "ar": "صح",
+        "en": "True",
+        "ok": true,
+        "why": "العبارة صحيحة؛ فمفاتيح الأمان الفيزيائية المعتمدة على معيار FIDO2 توفر حصانة كاملة ضد التصيد (Phishing-resistant) لأنها تربط التوثيق باسم النطاق الأصلي للموقع (Domain Binding) فلا تُرسل الرمز للمواقع المزيفة، بينما تساهم برامج التوعية والمحاكاة في رفع يقظة المستخدمين لاكتشاف الروابط المشبوهة."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "العبارة صحيحة تماماً؛ حيث يُعد الجمع بين الضوابط التقنية المنيعة كـ FIDO2 والتدريب البشري المستمر هو النموذج الأمثل لمكافحة هجمات التصيد وسرقة بيانات الاعتماد."
+      }
+    ],
+    "tip": "طرق التحقق مثل OTP عبر الرسائل النصية القصيرة (SMS) أو تطبيقات المصادقة التقليدية تظل عرضة للتصيد في الوقت الفعلي (Real-time Reverse Proxy)، بينما FIDO2 محصنة تماماً بتقنية الربط بالنطاق."
+  }
+]

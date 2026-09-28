@@ -1,0 +1,1 @@
+window.TOC_QPICS = {};

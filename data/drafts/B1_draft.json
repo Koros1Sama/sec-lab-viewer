@@ -1,0 +1,138 @@
+["meta", "glossary", "img_prompts", "qpics", "models_sec1"]`.
+  - Target output file is `d:\Collage\CS3\All\HW\Sec_Viewer\data\models_sec1.js`.
+  - Target schema requires `window.TOC_MODELS = window.TOC_MODELS || []; window.TOC_MODELS.push({ id: "sec1", kind: "عملي", title_ar: "...", origin_ar: "...", questions: [...] });`.
+- **Extracted drafts location**:
+  - B1 draft in transcript of subagent `95c0074f-688e-4320-ad18-f484e411c94a`.
+  - B2 draft in transcript of subagent `07e3aeca-8a9e-4d66-b786-988858f59529`.
+  - B3 draft in transcript of subagent `18ce509c-23c5-4397-a14d-cfd1c4d81991`.
+  - B4 draft in transcript of subagent `cbadfc1e-0c03-4ab6-89e9-d4c6923bd7b6`.
+  - B5 draft in `HW/Sec_Viewer/data/b5_raw.json` / transcript of subagent `18541eb9-9b62-42e4-9a1c-5bfeec0a4587`.
+
+---
+
+## 5. Files and Code
+### Edited / Created Files
+- `C:\Users\KorosSama\.gemini\antigravity\brain\663c5e27-7a13-4cfb-bb7d-2c4d6d465203\implementation_plan.md`: Full multi-phase execution and coordination plan.
+- `HW/Sec_Viewer/data/b5_raw.json`: Raw extracted draft of Batch 5.
+- `HW/all_practical_extracted_md/*`: Extracted text from all practical PDFs, PPTXs, DOCXs, XLSXs, and TXT files.
+
+### Viewed Files
+- `d:\Collage\CS3\All\HW\Sec_Viewer\data\config.js`: Lines 1-45 — configuration of Sec_Viewer and active data files.
+- `d:\Collage\CS3\All\HW\Sec_Viewer\data\meta.js`: Metadata structure.
+- `d:\Collage\CS3\All\HW\Sec_Viewer\data\glossary.js`: Glossary structure.
+- `d:\Collage\CS3\All\HW\CS_Materials_25\INFOSEC\INFOSEC_messages.md`: Course lab instructions and instructor communications.
+
+---
+
+## 6. Current Work and Next Steps
+
+Immediately continue to **Phase 2 (Parallel Auditing & Cross-Verification)**, followed sequentially by Phase 3 (Global Merge & 1..N Numbering), Phase 4 (Parallel Technical English Layer), Phase 5 (Image Prompts), and Phase 6 (Final Assembly of `models_sec1.js` & Git verification).
+
+### Immediate Next Steps for the Next Agent:
+1. **Consolidate the 5 drafts**: Write a Python script to assemble the 5 raw drafts (B1: 18, B2: 18, B3: 22, B4: 24, B5: 24 = 106 questions) into JSON format in `HW/Sec_Viewer/data/draft_all.json`.
+2. **Phase 2 — Audit Subagents (Highly Parallel)**:
+   - Launch auditing subagents across the batches (e.g. 5-10 granular subagents as requested by the user) to review every question against the source text, verify distractor realism, validate `why` explanations for every option, and fix any discrepancies.
+3. **Phase 3 — Orchestrator Merge & Sequential Numbering**:
+   - Assign sequential numbers `n: 1` to `n: 106`, randomize/balance `ok: true` placement, ensure strict adherence to the schema.
+4. **Phase 4 — Technical English Layer (Parallel Subagents)**:
+   - Add `q_en` and `en` properties only where technical terms, commands, and tools are tested.
+5. **Phase 5 — Image Prompts (Parallel Subagents)**:
+   - Identify diagram/topology questions (e.g. Zenmap topology, Wireshark TCP handshake, Maltego graph, Playfair matrix, Caesar wheel) and generate comprehensive English `image_prompt`s.
+6. **Phase 6 — Final Assembly**:
+   - Write `HW/Sec_Viewer/data/models_sec1.js` in standard valid JS.
+   - Run `node -e "require('./HW/Sec_Viewer/data/models_sec1.js')"` or syntax validation to ensure zero runtime errors.
+   - Prepare final report for the user.
+
+You have the 1 following artifacts written to the artifacts directory:
+
+[ARTIFACT: implementation_plan]
+Path: file:///C:/Users/KorosSama/.gemini/antigravity/brain/663c5e27-7a13-4cfb-bb7d-2c4d6d465203/implementation_plan.md
+Last Edited: 2026-08-30T15:37:57Z
+
+# Subagents
+The following subagents were spawned during this conversation (up to 20).
+View the conversation log to see the full conversation with the subagent and use send_message with the conversation_id to communicate with them.
+
+{
+  "spec": {
+    "typeName": "self",
+    "role": "Crafter B1 - Kali & OS & Network",
+    "initialPrompt": "أنت مدرّس أمن معلومات خبير بالجزء العملي.\nالمرحلة 1 — صياغة مسودات الأسئلة (عربي فقط).\n\nدفعتك: الدفعة 1 (B1): بيئة كالي لينكس وأوامر النظام وإدارة الشبكة والصلاحيات ونظم التشغيل (18 سؤالاً: B1-Q1 إلى B1-Q18).\n\nالمواضيع المطلوبة بدقة:\n- B1-Q1: الغرض من توزيعة كالي لينكس وأدوارها في الاختبار الأمني.\n- B1-Q2: أوامر استعراض الملفات والتنقل والمسار الحالي (pwd, ls -la, cd).\n- B1-Q3: إدارة الصلاحيات في لينكس ونموذج (rwx) والأرقام الثنائية/العشرية (chmod 755, chmod 600).\n- B1-Q4: تغيير ملكية الملفات والمجموعات باستخدام chown و chgrp.\n- B1-Q5: أوامر البحث والفلترة وقراءة الملفات (grep, find, cat, less, head, tail).\n- B1-Q6: إدارة الشبكة وطلب عنوان IP متجدد من خادم DHCP (sudo dhclient -v ens33).\n- B1-Q7: معرفة إعدادات واجهات الشبكة وعناوين IP و MAC (ifconfig / ip addr show).\n- B1-Q8: أوامر فحص الاتصال وتتبع المسار (ping, traceroute).\n- B1-Q9: استعراض المنافذ المفتوحة والاتصالات النشطة محلياً (netstat -tuln, ss -tuln).\n- B1-Q10: إدارة الحزم وتحديث النظام في كالي (apt update, apt upgrade, apt install).\n- B1-Q11: أساسيات أنظمة التشغيل والفرق بين أذونات NTFS و FAT32 و Linux EXT4 في الأمان.\n- B1-Q12: مفهوم الصلاحيات الجذرية واستخدام sudo وإدارة المستخدمين (useradd, passwd, /etc/shadow, /etc/passwd).\n- B1-Q13: تحويل واستخراج الأرشيفات والملفات المضغوطة (tar -xvf, unzip, unrar).\n- B1-Q14: تشغيل وإيقاف ومراقبة الخدمات الشبكية في لينكس (systemctl start/stop/status/enable).\n- B1-Q15: الفرق العملي بين هجمات DoS وهجمات DDoS ومفهوم Botnet.\n- B1-Q16: متغيرات البيئة ومسارات التنفيذ ($PATH, /usr/local/bin, export).\n- B1-Q17: إعادة توجيه المدخلات والمخرجات والأنابيب (|, >, >>, 2>&1).\n- B1-Q18: إعدادات بطاقة الشبكة في البيئة الافتراضية VMware/VirtualBox (NAT vs Bridged vs Host-Only).\n\nالقواعد الإلزامية:\n1. الأسئلة بالعربية فقط.\n2. استخدام معرفات مؤقتة مثل: \"id\": \"B1-Q1\", \"id\": \"B1-Q2\", ...\n3. كل سؤال mcq أو tf يجب أن يحتوي على why مفصل ودقيق لكل خيار (لماذا صحيح وما هو المبدأ، ولماذا خطأ وما هو الاستخدام الصحيح للخيار الخاطئ).\n4. تنويع مواضع ok:true بين الخيارات (أ، ب، ج، د) بشكل متوازن.\n5. نوع السؤال: 14 أسئلة mcq، و 4 أسئلة tf.\n6. الإرجاع: مصفوفة JS واحدة فقط داخل كتلة كود JavaScript.",
+    "inherit": true,
+    "model": "MODEL_PLACEHOLDER_M298",
+    "modelTier": "MODEL_TIER_INHERIT"
+  },
+  "result": {
+    "conversationId": "95c0074f-688e-4320-ad18-f484e411c94a",
+    "logAbsoluteUri": "file:///C:/Users/KorosSama/.gemini/antigravity/brain/95c0074f-688e-4320-ad18-f484e411c94a/.system_generated/logs/transcript.jsonl",
+    "workspaceUris": [
+      "file:///d%3A/Collage/CS3/All"
+    ]
+  }
+}
+{
+  "spec": {
+    "typeName": "self",
+    "role": "Crafter B2 - OSINT & Passive Recon",
+    "initialPrompt": "أنت مدرّس أمن معلومات خبير بالجزء العملي.\nالمرحلة 1 — صياغة مسودات الأسئلة (عربي فقط).\n\nدفعتك: الدفعة 2 (B2): الاستطلاع السلبي والاستخبار مفتوح المصدر (OSINT & Passive Recon) (18 سؤالاً: B2-Q1 إلى B2-Q18).\n\nالمواضيع المطلوبة بدقة:\n- B2-Q1: المفهوم الجوهري للاستطلاع السلبي (Passive Reconnaissance) وتمييزه عن النشط وعدم ترك أثر مباشر في سجلات الهدف.\n- B2-Q2: أداة Whois ونوعية البيانات المستخرجة من سجلات تسجيل النطاقات (Registrar, Registrant, DNS servers, creation date).\n- B2-Q3: استعلامات DNS عبر nslookup و dig وأنواع السجلات (A, MX, NS, TXT, SOA).\n- B2-Q4: معمارية أداة Maltego (Entities, Links, Transform Hub).\n- B2-Q5: خطوات إعداد وتفعيل Maltego Community Edition (Browser Login, Free Transforms, Privacy Mode: Normal vs Stealth).\n- B2-Q6: تنفيذ التحويلات (Transforms) في Maltego لاستخراج البنية التحتية والبريد والأشخاص والروابط المخفية.\n- B2-Q7: محرك البحث Shodan ومقارنته بمحركات البحث التقليدية (فحص الأجهزة المتصلة بالإنترنت والرواترز والكاميرات مقابل صفحات الويب).\n- B2-Q8: فلاتر البحث المتقدمة في Shodan (port:, country:, city:, org:, os:, hostname:).\n- B2-Q9: قراءة مخرجات الشودان واكتشاف المنافذ والخدمات المفتوحة والثغرات (CVEs) ومعلومات البانر (Banner Grabbing).\n- B2-Q10: أداة PhoneInfoga: وظيفتها في تحليل وتتبع أرقام الهواتف الدولية واستخراج المشغل والبلد وصحة الرقم.\n- B2-Q11: تثبيت وتشغيل PhoneInfoga عبر أمر curl -sSL وشرح بارامترات curl (-s silent, -S show error, -L follow redirect).\n- B2-Q12: مسارات تثبيت الأدوات في النظام ونسخ الأداة إلى /usr/local/bin/ لتشغيلها كأمر نظام عالمي.\n- B2-Q13: استخراج البيانات الوصفية (Metadata) من الملفات والصور باستخدام أداة ExifTool.\n- B2-Q14: مخاطر تسريب البيانات الوصفية (إحداثيات GPS، نوع الكاميرا، تواريخ التعديل) ودورها في جمع المعلومات.\n- B2-Q15: تقنيات Google Dorking واستخدام العوامل المتقدمة (site:, filetype:pdf, inurl:admin, intitle:index of).\n- B2-Q16: مفهوم مصائد الاختراق (Honeypots) ودورها في كشف المهاجمين وتحليل أنماط الهجوم وتضليل المخترق.\n- B2-Q17: أدوات كشف وتعداد النطاقات الفرعية (Subdomain Enumeration) مثل sublist3r و amass.\n- B2-Q18: الاعتبارات الأخلاقية والقانونية والحدود المسموحة في جمع المعلومات عبر مصادر OSINT.\n\nالقواعد الإلزامية:\n1. الأسئلة بالعربية فقط.\n2. استخدام معرفات مؤقتة مثل: \"id\": \"B2-Q1\", \"id\": \"B2-Q2\", ...\n3. كل سؤال mcq أو tf يجب أن يحتوي على why مفصل ودقيق لكل خيار.\n4. تنويع مواضع ok:true بين الخيارات (أ، ب، ج، د).\n5. نوع السؤال: 14 أسئلة mcq، و 4 أسئلة tf.\n6. الإرجاع: مصفوفة JS واحدة فقط داخل كتلة كود JavaScript.",
+    "inherit": true,
+    "model": "MODEL_PLACEHOLDER_M298",
+    "modelTier": "MODEL_TIER_INHERIT"
+  },
+  "result": {
+    "conversationId": "07e3aeca-8a9e-4d66-b786-988858f59529",
+    "logAbsoluteUri": "file:///C:/Users/KorosSama/.gemini/antigravity/brain/07e3aeca-8a9e-4d66-b786-988858f59529/.system_generated/logs/transcript.jsonl",
+    "workspaceUris": [
+      "file:///d%3A/Collage/CS3/All"
+    ]
+  }
+}
+{
+  "spec": {
+    "typeName": "self",
+    "role": "Crafter B3 - Active Recon & Nmap",
+    "initialPrompt": "أنت مدرّس أمن معلومات خبير بالجزء العملي.\nالمرحلة 1 — صياغة مسودات الأسئلة (عربي فقط).\n\nدفعتك: الدفعة 3 (B3): الاستطلاع النشط وفحص الشبكات والمنافذ Nmap و Netdiscover و Enum4linux (22 سؤالاً: B3-Q1 إلى B3-Q22).\n\nالمواضيع المطلوبة بدقة:\n- B3-Q1: مفهوم الاستطلاع النشط (Active Reconnaissance) ومخاطر كشفه في سجلات الجدران النارية والـ IDS.\n- B3-Q2: مسح فحص الاتصال واكتشاف الأجهزة الحية Ping Sweep باستخدام nmap -sn (بدون فحص منافذ).\n- B3-Q3: فحص التخفي نصف المفتوح TCP SYN Scan باستخدام nmap -sS وتفاصيل إرسال SYN وتلقي SYN/ACK ثم إرسال RST لإنهاء الاتصال.\n- B3-Q4: فحص الاتصال الكامل TCP Connect Scan باستخدام nmap -sT ومقارنته بـ SYN Scan ومتى يُستخدم اضطرارياً.\n- B3-Q5: فحص منافذ بروتوكول UDP باستخدام nmap -sU وتحديات بطئه واعتماده على رسائل ICMP Port Unreachable.\n- B3-Q6: اكتشاف إصدارات الخدمات والبرمجيات العاملة على المنافذ باستخدام nmap -sV.\n- B3-Q7: الكشف عن نظام التشغيل الهدف وبصمته الرقمية باستخدام nmap -O.\n- B3-Q8: الفحص الهجومي الشامل Aggressive Scan باستخدام nmap -A (دمج OS + Version + Scripts + Traceroute).\n- B3-Q9: خيارات تحديد المنافذ في إنماب (-p 22,80,443, -p 1-1000, -p-, -p U:53,T:80).\n- B3-Q10: محرك سكربتات إنماب (NSE) واستخدام فئة فحص الثغرات nmap --script=vuln.\n- B3-Q11: فئات سكربتات NSE الأساسية (default, safe, discovery, auth, exploit, vuln).\n- B3-Q12: صيغ تصدير وحفظ نتائج الفحص (-oN النصي العادي, -oX لـ XML, -oG لـ Grepable, -oA لجميع الصيغ دفعة واحدة).\n- B3-Q13: قراءة قائمة الأهداف من ملف نصي عبر بارامتر nmap -iL targets.txt.\n- B3-Q14: أداة Netdiscover واكتشاف الأجهزة على الشبكة المحلية اعتماداً على بروتوكول ARP (LAN discovery).\n- B3-Q15: أوضاع أداة Netdiscover: الوضع التلقائي النشط، الوضع السريع -f، تحديد النطاق -r 192.168.1.0/24، تحديد الواجهة -i eth0.\n- B3-Q16: تشغيل Netdiscover في الوضع السلبي للتنصت فقط netdiscover -p وخيار الطباعة -P.\n- B3-Q17: أداة Enum4linux وجمع معلومات مشاركة الملفات وحسابات المستخدمين في بيئات ويندوز عبر SMB (enum4linux -a).\n- B3-Q18: حالات المنافذ في مخرجات إنماب (Open, Closed, Filtered, Unfiltered, Open|Filtered).\n- B3-Q19: تحليل حركة الفحص وحزم الشبكة عبر أداة Wireshark وملاحظة أعلام TCP Flags (SYN, ACK, RST, FIN).\n- B3-Q20: التحكم في سرعة الفحص والتوقيت في إنماب (-T0 Paranoid إلى -T5 Insane).\n- B3-Q21: تقنيات التخفي وتجاوز الجدران النارية في إنماب (Decoys -D, Fragmentation -f, Source Port --source-port 53).\n- B3-Q22: واجهة Zenmap الرسومية وقراءة المخططات الطوبولوجية للشبكة (Topology Map) ومقارنة مخرجات الفحوصات.\n\nالقواعد الإلزامية:\n1. الأسئلة بالعربية فقط.\n2. استخدام معرفات مؤقتة مثل: \"id\": \"B3-Q1\", \"id\": \"B3-Q2\", ...\n3. كل سؤال mcq أو tf يجب أن يحتوي على why مفصل ودقيق لكل خيار.\n4. تنويع مواضع ok:true بين الخيارات (أ، ب، ج، د).\n5. نوع السؤال: 16 أسئلة mcq، و 6 أسئلة tf.\n6. الإرجاع: مصفوفة JS واحدة فقط داخل كتلة كود JavaScript.",
+    "inherit": true,
+    "model": "MODEL_PLACEHOLDER_M298",
+    "modelTier": "MODEL_TIER_INHERIT"
+  },
+  "result": {
+    "conversationId": "18ce509c-23c5-4397-a14d-cfd1c4d81991",
+    "logAbsoluteUri": "file:///C:/Users/KorosSama/.gemini/antigravity/brain/18ce509c-23c5-4397-a14d-cfd1c4d81991/.system_generated/logs/transcript.jsonl",
+    "workspaceUris": [
+      "file:///d%3A/Collage/CS3/All"
+    ]
+  }
+}
+{
+  "spec": {
+    "typeName": "self",
+    "role": "Crafter B4 - Passwords & Metasploit",
+    "initialPrompt": "أنت مدرّس أمن معلومات خبير بالجزء العملي.\nالمرحلة 1 — صياغة مسودات الأسئلة (عربي فقط).\n\nدفعتك: الدفعة 4 (B4): كسر كلمات المرور وهجمات المصادقة وإطار ميتاسبلويت (24 سؤالاً: B4-Q1 إلى B4-Q24).\n\nالمواضيع المطلوبة بدقة:\n- B4-Q1: تصنيف هجمات كلمات المرور: الهجوم المباشر المتصل (Online) مقابل غير المتصل (Offline).\n- B4-Q2: مقارنة تفصيلية بين هجوم القاموس (Dictionary Attack)، هجوم القوة الغاشمة (Brute-Force)، وهجوم القواعد (Rule-Based Attack).\n- B4-Q3: أداة Hydra وميزاتها في التخمين المتصل على بروتوكولات الشبكة المختلفة التي تتطلب مصادقة.\n- B4-Q4: خيارات أسماء المستخدمين وقوائم كلمات المرور في Hydra (-l مستخدم محدد، -L ملف مستخدمين، -p كلمة محددة، -P ملف كلمات مرور).\n- B4-Q5: صياغة أوامر Hydra العملية (مثال: hydra -l root -P passwords.txt ssh://192.168.1.100 أو ftp://).\n- B4-Q6: أداة John the Ripper (JTR) واستخدامها الأساسي في كسر الهاشات غير المتصلة بالشبكة (Offline).\n- B4-Q7: خطوات كسر كلمات مرور ملفات الأوفيس المشفرة: استخراج الهاش أولاً عبر python3 office2john.py file.xlsx > hash.txt.\n- B4-Q8: تشغيل John the Ripper مع قائمة كلمات مرور john --wordlist=passwords.txt hash.txt.\n- B4-Q9: عرض كلمات المرور المكسورة المخزنة في قاعدة جون باستخدام أمر john --show hash.txt.\n- B4-Q10: أداة Crunch لتوليد قوائم كلمات المرور المخصصة حسب الطول ونمط المحارف (أرقام، حروف، رموز).\n- B4-Q11: المفاهيم التشفيرية لتخزين كلمات المرور: الهاش (Hashing)، التمليح (Salting)، ومقاومة الجداول الملونة (Rainbow Tables).\n- B4-Q12: معمارية إطار عمل Metasploit Framework وأهميته في اختبار الاختراق المتكامل.\n- B4-Q13: تشغيل الإطار والواجهة التفاعلية msfconsole وتهيئة قاعدة البيانات msfdb init و msfdb status.\n- B4-Q14: أقسام ووحدات ميتاسبلويت (Exploits, Payloads, Auxiliary, Encoders, Post, NOPs).\n- B4-Q15: البحث عن الثغرات ووحدات الاستغلال داخل ميتاسبلويت search <term> واستخدام أداة searchsploit من الطرفية.\n- B4-Q16: خطوات تجهيز الهجوم في msfconsole (أمر use، ثم show options، ثم set RHOSTS، ثم set LHOST، ثم set PAYLOAD).\n- B4-Q17: تنفيذ الهجوم واستدعاء كود الاستغلال عبر أمري exploit أو run.\n- B4-Q18: مفهوم الحمولة البرمجية (Payload) والفرق بين Singles (مستقلة) و Stagers (مرحلية) و Reverse Shell vs Bind Shell.\n- B4-Q19: جلسة الاختراق التفاعلية Meterpreter وميزاتها (العمل في الذاكرة RAM لتفادي برامج الحماية وتوفير أوامر متقدمة).\n- B4-Q20: أوامر Meterpreter الأساسية (sysinfo, getuid, hashdump, screenshot, shell, download, upload, ps).\n- B4-Q21: إدارة الجلسات في ميتاسبلويت (background لوضع الجلسة في الخلفية، sessions -l لعرضها، sessions -i <id> للعودة إليها).\n- B4-Q22: أداة msfvenom لتوليد الحمولات المستقلة والملفات التنفيذية وتشفيرها واختيار منافذ الاتصال العكسي.\n- B4-Q23: تطبيق عملي على استغلال ثغرة vsftpd 2.3.4 Backdoor على نظام Metasploitable2 والحصول على شل فوري.\n- B4-Q24: تطبيق عملي على استغلال ثغرة Samba usermap_script والحصول على صلاحيات root كاملة.\n\nالقواعد الإلزامية:\n1. الأسئلة بالعربية فقط.\n2. استخدام معرفات مؤقتة مثل: \"id\": \"B4-Q1\", \"id\": \"B4-Q2\", ...\n3. كل سؤال mcq أو tf يجب أن يحتوي على why مفصل ودقيق لكل خيار.\n4. تنويع مواضع ok:true بين الخيارات (أ، ب، ج، د).\n5. نوع السؤال: 18 أسئلة mcq، و 6 أسئلة tf.\n6. الإرجاع: مصفوفة JS واحدة فقط داخل كتلة كود JavaScript.",
+    "inherit": true,
+    "model": "MODEL_PLACEHOLDER_M298",
+    "modelTier": "MODEL_TIER_INHERIT"
+  },
+  "result": {
+    "conversationId": "cbadfc1e-0c03-4ab6-89e9-d4c6923bd7b6",
+    "logAbsoluteUri": "file:///C:/Users/KorosSama/.gemini/antigravity/brain/cbadfc1e-0c03-4ab6-89e9-d4c6923bd7b6/.system_generated/logs/transcript.jsonl",
+    "workspaceUris": [
+      "file:///d%3A/Collage/CS3/All"
+    ]
+  }
+}
+{
+  "spec": {
+    "typeName": "self",
+    "role": "Crafter B5 - Web & SET & Crypto",
+    "initialPrompt": "أنت مدرّس أمن معلومات خبير بالجزء العملي.\nالمرحلة 1 — صياغة مسودات الأسئلة (عربي فقط).\n\nدفعتك: الدفعة 5 (B5): أمن تطبيقات الويب (SQLMap / Burp / ZAP) + الهندسة الاجتماعية (SET) + التشفير الكلاسيكي (24 سؤالاً: B5-Q1 إلى B5-Q24).\n\nالمواضيع المطلوبة بدقة:\n- B5-Q1: مفهوم ثغرات حقن الاستعلامات SQL Injection (SQLi) وآلية عملها وتأثيرها على سرية وسلامة قاعدة البيانات.\n- B5-Q2: أداة SQLMap واستخدامها الأساسي لفحص رابط مصاب عبر سطر الأوامر (sqlmap -u \"url\").\n- B5-Q3: استخراج وتعداد أسماء قواعد البيانات المتاحة على السيرفر باستخدام أمر sqlmap -u \"url\" --dbs.\n- B5-Q4: استخراج الجداول من قاعدة بيانات محددة sqlmap -u \"url\" -D db_name --tables.\n- B5-Q5: استخراج أسماء الأعمدة من جدول محدد sqlmap -u \"url\" -D db_name -T table_name --columns.\n- B5-Q6: سحب وتفريغ البيانات من جدول كامل أو عمود محدد sqlmap -u \"url\" -D db_name -T table_name -C col1,col2 --dump.\n- B5-Q7: خيارات التشغيل المتقدمة في SQLMap مثل --batch (قبول الإعدادات الافتراضية تلقائياً) و --forms و --cookie.\n- B5-Q8: أداة Burp Suite Community ودورها كوكيل اعتراضي (HTTP Intercepting Proxy) لفحص وتعديل حزم الويب.\n- B5-Q9: الوحدات الرئيسية لـ Burp Suite (Proxy للاعتراض، Repeater لإعادة إرسال وتعديل الطلبات، Intruder للتخمين الآلي).\n- B5-Q10: أداة OWASP ZAP واستخداماتها في المسح الآلي (Automated/Active/Passive Scan) ومحركات العناكب (Spiders).\n- B5-Q11: ثغرات الويب الشائعة في OWASP Top 10: عبر الموقع (XSS - Reflected vs Stored vs DOM)، وحقن الأوامر (Command Injection).\n- B5-Q12: بيئة التدريب DVWA (Damn Vulnerable Web Application) وتغيير مستويات الصعوبة والأمان (Low, Medium, High, Impossible).\n- B5-Q13: مفهوم الهندسة الاجتماعية (Social Engineering) ومخاطر التلاعب البشري في اختراق المنظمات.\n- B5-Q14: أداة Social Engineering Toolkit (SET) وهيكلية قوائمها في كالي لينكس.\n- B5-Q15: مسار شن هجوم تصيد احتيالي لسرقة كلمات المرور عبر SET (Social-Engineering Attacks -> Website Attack Vectors -> Credential Harvester).\n- B5-Q16: الفرق بين خياري Web Templates (القوالب الجاهزة) و Site Cloner (استنساخ صفحة الضحية الحقيقية) في SET.\n- B5-Q17: آليات الدفاع والتوعية الأمنية ضد هجمات التصيد الاحتيالي وجمع بيانات الاعتماد.\n- B5-Q18: أساسيات التشفير الكلاسيكي ومصطلحاته: النص الصريح (Plaintext)، النص المشفر (Ciphertext)، المفتاح (Key)، وخوارزمية التشفير وفك التشفير.\n- B5-Q19: شفرة قيصر (Caesar Cipher): معادلة التشفير C = (P + k) mod 26، فك التشفير P = (C - k) mod 26، وفضاء المفاتيح المحدود (25 مفتاحاً).\n- B5-Q20: كسر شفرة قيصر عبر هجوم القوة الغاشمة (Brute Force) أو تحليل التردد الأحادي للحروف (Frequency Analysis).\n- B5-Q21: شفرة فيجينير (Vigenère Cipher): التشفير متعدد الأبجديات (Polyalphabetic)، تكرار الكلمة المفتاحية، واستخدام مصفوفة Tabula Recta.\n- B5-Q22: شفرة بلايفير (Playfair Cipher): قواعد بناء مصفوفة 5x5، دمج الحرفين I و J، وحذف الحروف المكررة من الكلمة المفتاحية.\n- B5-Q23: قواعد تشفير أزواج الحروف (Digraphs) في بلايفير (نفس الصف: إزاحة لليمين، نفس العمود: إزاحة للأسفل، المستطيل: تبديل الأعمدة، إضافة X بين الحروف المتماثلة).\n- B5-Q24: مقارنة بين أمن شفرة قيصر وبلايفير وفيجينير ومقاومة كل منها لتحليل التردد الإحصائي للحروف المفردة.\n\nالقواعد الإلزامية:\n1. الأسئلة بالعربية فقط.\n2. استخدام معرفات مؤقتة مثل: \"id\": \"B5-Q1\", \"id\": \"B5-Q2\", ...\n3. كل سؤال mcq أو tf يجب أن يحتوي على why مفصل ودقيق لكل خيار.\n4. تنويع مواضع ok:true بين الخيارات (أ، ب، ج، د).\n5. نوع السؤال: 18 أسئلة mcq، و 6 أسئلة tf.\n6. الإرجاع: مصفوفة JS واحدة فقط داخل كتلة كود JavaScript.",
+    "inherit": true,
+    "model": "MODEL_PLACEHOLDER_M298",
+    "modelTier": "MODEL_TIER_INHERIT"
+  },
+  "result": {
+    "conversationId": "18541eb9-9b62-42e4-9a1c-5bfeec0a4587",
+    "logAbsoluteUri": "file:///C:/Users/KorosSama/.gemini/antigravity/brain/18541eb9-9b62-42e4-9a1c-5bfeec0a4587/.system_generated/logs/transcript.jsonl",
+    "workspaceUris": [
+      "file:///d%3A/Collage/CS3/All"
+    ]

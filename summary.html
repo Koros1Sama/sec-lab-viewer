@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>الملخص الشامل</title>
+    <script>
+      (function () {
+        var h = location.hash ? location.hash.replace("#", "") : "";
+        var target =
+          "index.html#view=summary" + (h ? "&part=" + encodeURIComponent(h) : "");
+        location.replace(target);
+      })();
+    </script>
+  </head>
+  <body
+    style="
+      font-family: system-ui, sans-serif;
+      background: #0c0d10;
+      color: #f0f3f8;
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    "
+  >
+    <div>
+      <p style="font-size: 1.1rem; margin-bottom: 12px">
+        جارٍ الانتقال إلى الملخص الشامل المدمج داخل العارض الموحد…
+      </p>
+      <a
+        href="index.html#view=summary"
+        style="color: #f5b13d; text-decoration: none; font-weight: 700"
+        >انقر هنا إن لم يتم تحويلك تلقائياً ←</a
+      >
+    </div>
+  </body>
+</html>

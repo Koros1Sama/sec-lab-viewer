@@ -1,0 +1,341 @@
+[
+  {
+    "n": 56,
+    "id_temp": "B3-Q20",
+    "type": "mcq",
+    "q_ar": "أي من قوالب التوقيت (Timing Templates) في Nmap صُمم لإبطاء الفحص لأقصى درجة ممكنة وتجاوز أنظمة كشف التسلل (IDS) عبر المباعدة الكبيرة بين الحزم؟",
+    "q_en": "Which Nmap timing template is designed to slow down the scan as much as possible to evade Intrusion Detection Systems (IDS) by significantly spacing out probes?",
+    "opts": [
+      {
+        "ar": "`-T5` (Insane)",
+        "en": "`-T5` (Insane)",
+        "ok": false,
+        "why": "غير صحيح؛ قالب `-T5` (Insane) هو أسرع القوالب إطلاقاً ويضحي بالدقة لشدة سرعته مما قد يؤدي لفقدان الحزم أو حظر عنوان الفاحص (Blocking)، وهو صاخب جداً ويثير أنظمة الأمان فوراً."
+      },
+      {
+        "ar": "`-T1` (Sneaky)",
+        "en": "`-T1` (Sneaky)",
+        "ok": false,
+        "why": "غير صحيح؛ قالب `-T1` (Sneaky) بطيء أيضاً ومصمم للشبكات المراقبة (ينتظر 15 ثانية بين المسابر)، لكن القالب الأشد بطئاً والمخصص أساساً لتفادي أنظمة IDS وفق المنهج هو Paranoid (`-T0`)."
+      },
+      {
+        "ar": "`-T4` (Aggressive)",
+        "en": "`-T4` (Aggressive)",
+        "ok": false,
+        "why": "غير صحيح؛ قالب `-T4` (Aggressive) يسرّع الفحص بافتراض شبكة حديثة ومستقرة، وسرعته العالية تجعله يطلق تنبيهات أنظمة IDS بسهولة."
+      },
+      {
+        "ar": "`-T0` (Paranoid)",
+        "en": "`-T0` (Paranoid)",
+        "ok": true,
+        "why": "صحيح؛ قالب `-T0` (Paranoid) هو الأبطأ على الإطلاق، حيث يفرض فترات انتظار طويلة (تصل إلى 5 دقائق بين كل مسبار) لإرسال الحزم بالتتابع، مما يمنع أنظمة كشف التسلل (IDS/IPS) من ربط الحزم ببعضها واكتشاف وجود فحص جارٍ."
+      }
+    ]
+  },
+  {
+    "n": 57,
+    "id_temp": "B3-Q21",
+    "type": "tf",
+    "q_ar": "عند استخدام خيار التمويه بالشراك الخداعية `nmap -D RND:10 192.168.1.1`، يتم إخفاء هوية الفاحص باستبدال عنوان IP الحقيقي تماماً بحيث لا تخرج أي حزمة فحص من العنوان الفعلي نحو الهدف.",
+    "q_en": "When using the decoy scan option `nmap -D RND:10 192.168.1.1`, the scanner's identity is completely hidden by replacing the real IP address, ensuring no scan packets are sent from the actual address.",
+    "opts": [
+      {
+        "ar": "صحيح",
+        "en": "True",
+        "ok": false,
+        "why": "غير صحيح؛ هذه فكرة مغلوطة؛ فلو لم تخرج حزم من العنوان الحقيقي فلن يستقبل الفاحص أي ردود من الهدف، وبالتالي لن يتمكن Nmap من معرفة نتائج الفحص وتحديد المنافذ المفتوحة."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": true,
+        "why": "صحيح (العبارة خاطئة)؛ خيار التمويه بالشراك (`-D Decoys`) يرسل حزم فحص متطابقة من العناوين الوهمية العشرة المولدة عشوائياً *بالإضافة* إلى إرسال الحزم من عنوان IP الحقيقي للمهاجم؛ والهدف هو إغراق سجلات أنظمة الحماية (Firewall/IDS) وجعل العنوان الحقيقي يضيع وسط زحام العناوين الوهمية فيصعب تمييز المصدر الفعلي للفحص."
+      }
+    ]
+  },
+  {
+    "n": 58,
+    "id_temp": "B3-Q22",
+    "type": "mcq",
+    "q_ar": "ما هي الميزة البصرية والتحليلية البارزة التي توفرها واجهة Zenmap الرسومية (Official GUI for Nmap) لمساعدة مختبري الاختراق؟",
+    "q_en": "What prominent visual and analytical feature does the Zenmap graphical interface (Official GUI for Nmap) provide to assist penetration testers?",
+    "opts": [
+      {
+        "ar": "شن هجمات القوة الغاشمة لكسر كلمات مرور خوادم الويب وقواعد البيانات تلقائياً.",
+        "en": "Automatically launching brute-force attacks to crack web server and database passwords.",
+        "ok": false,
+        "why": "غير صحيح؛ كسر كلمات المرور عن بعد يتطلب أدوات هجومية مخصصة للمصادقة مثل Hydra و Medusa، ولا علاقة لـ Zenmap بذلك."
+      },
+      {
+        "ar": "عرض مخطط طوبولوجي تفاعلي للشبكة (Interactive Topology Map) ومقارنة الفروقات بين فحوصات زمنية مختلفة (Compare Results / Scan Diff).",
+        "en": "Displaying an Interactive Topology Map and comparing differences between scans over time (Compare Results / Scan Diff).",
+        "ok": true,
+        "why": "صحيح؛ تتميز واجهة Zenmap بتبويب Topology الذي يرسم طوبولوجيا الشبكة وعقدها ومسارات القفزات بیانياً، بالإضافة إلى ميزة Compare Results (أو Scan Diff) التي تسمح بالمقارنة البصرية الدقيقة بين تقريرين لفحصين زمنيين مختلفين لكشف التغيرات في المنافذ والخدمات."
+      },
+      {
+        "ar": "فحص وكشف الثغرات الأمنية لتطبيقات الويب مثل حقن SQL والبرمجة عبر المواقع XSS.",
+        "en": "Scanning and detecting web application vulnerabilities such as SQL Injection and Cross-Site Scripting (XSS).",
+        "ok": false,
+        "why": "غير صحيح؛ فحص تطبيقات الويب هو اختصاص أدوات مخصصة لأمن الويب مثل OWASP ZAP و Burp Suite و SQLMap."
+      },
+      {
+        "ar": "تنصت تفصيلي والتقاط محتوى الحزم المتبادلة بمستوى البايت (Packet Inspection).",
+        "en": "Detailed packet sniffing and capturing exchanged packet payload at the byte level (Packet Inspection).",
+        "ok": false,
+        "why": "غير صحيح؛ فحص الحزم والتقاط محتواها بمستوى البايت هو الوظيفة الأساسية لبرامج تحليل حركة البيانات مثل Wireshark و tcpdump."
+      }
+    ]
+  },
+  {
+    "n": 59,
+    "id_temp": "B4-Q1",
+    "type": "mcq",
+    "q_ar": "ما هو الفارق الجوهري والتقني بين هجمات كسر كلمات المرور المتصلة بالشبكة (Online Attacks) وغير المتصلة (Offline Attacks)؟",
+    "q_en": "What is the fundamental technical difference between online and offline password cracking attacks?",
+    "opts": [
+      {
+        "ar": "الهجمات المتصلة لا تترك أي سجلات (Logs) في الخادم المستهدف، بينما الهجمات غير المتصلة تظهر دائماً في سجلات نظام كشف التسلل (IDS).",
+        "en": "Online attacks leave no logs on the target server, while offline attacks always appear in Intrusion Detection System (IDS) logs.",
+        "ok": false,
+        "why": "خطأ؛ الهجمات المتصلة ترسل آلاف الطلبات عبر الشبكة وتولد كميات هائلة من سجلات فشل تسجيل الدخول لدى الخادم، بينما الهجوم غير المتصل يتم على جهاز المخترق المحلي دون علم الخادم أو رصد شبكي."
+      },
+      {
+        "ar": "الهجمات المتصلة تتيح تجربة ملايين التخمينات في الثانية دون أي قيود، بينما الهجمات غير المتصلة تقتصر على محاولات محدودة لتجنب حظر الخادم.",
+        "en": "Online attacks allow testing millions of guesses per second without restrictions, while offline attacks are limited to avoid server lockouts.",
+        "ok": false,
+        "why": "هذا التوصيف معكوس تماماً؛ فالهجمات غير المتصلة (Offline) هي التي تتيح اختبار ملايين إلى مليارات الهاشات محلياً في الثانية دون قيود، بينما الهجمات المتصلة (Online) بطيئة جداً ومقيدة بسرعة استجابة الشبكة والخادم."
+      },
+      {
+        "ar": "الهجمات غير المتصلة تتطلب دائماً اتصالاً نشطاً عبر بروتوكول Telnet للوصول لقاعدة بيانات الهاشات لحظياً.",
+        "en": "Offline attacks always require an active Telnet connection to access the hash database in real time.",
+        "ok": false,
+        "why": "غير صحيح؛ الهجمات غير المتصلة (Offline) تفترض أن المهاجم قد استخرج ملف الهاشات مسبقاً ويقوم بكسره محلياً دون أي اتصال نشط بالهدف."
+      },
+      {
+        "ar": "الهجمات المتصلة تتفاعل مباشرة مع خدمة المصادقة بالشبكة وتخضع لسياسات الخنق وحظر الحسابات، بينما غير المتصلة تتم محلياً على ملف الهاشات المسروق بالاعتماد على قوة معالجة الـ CPU/GPU دون قيود شبكية.",
+        "en": "Online attacks interact directly with network authentication services and face rate-limiting/lockout policies, whereas offline attacks are performed locally on stolen hashes leveraging CPU/GPU power without network constraints.",
+        "ok": true,
+        "why": "صحيح؛ الهجوم المتصل (Online) يرسل طلبات مصادقة متتالية لخدمة نشطة ويواجه بطء الشبكة وسياسات قفل الحسابات (Account Lockout)، بينما غير المتصل (Offline) يحلل الهاشات محلياً بدون اتصال بالهدف وبسرعات فائقة جداً."
+      }
+    ]
+  },
+  {
+    "n": 60,
+    "id_temp": "B4-Q2",
+    "type": "mcq",
+    "q_ar": "في تصنيف هجمات كسر كلمات المرور، ما التوصيف الصحيح والدقيق لكل من: هجوم القاموس (Dictionary Attack)، هجوم القوة الغاشمة (Brute-Force Attack)، وهجوم القواعد (Rule-Based Attack)؟",
+    "q_en": "In password attack classification, what is the accurate description for Dictionary, Brute-Force, and Rule-Based attacks?",
+    "opts": [
+      {
+        "ar": "هجوم القوة الغاشمة أسرع بكثير من هجوم القاموس لأنه يقتصر على الكلمات الأكثر شيوعاً في قواعد البيانات.",
+        "en": "Brute-force attacks are much faster than dictionary attacks because they are limited to the most common words in databases.",
+        "ok": false,
+        "why": "خطأ؛ هجوم القاموس أسرع بمراحل لأنه يختبر فقط قائمة محددة من الكلمات الشائعة، بينما القوة الغاشمة يستغرق وقتاً أطول بكثير لأنه يجرب كل الاحتمالات الرياضية الممكنة للمحارف."
+      },
+      {
+        "ar": "هجوم القاموس يجرب كل التباديل الممكنة للأحرف والأرقام رياضياً، بينما القوة الغاشمة تعتمد على تطبيق قواعد تحويل الكلمات فقط.",
+        "en": "Dictionary attacks mathematically try all possible character and number permutations, while brute-force relies only on applying word transformation rules.",
+        "ok": false,
+        "why": "خطأ؛ تجربة كافة التباديل والتوافيق للأحرف والأرقام هو تعريف هجوم القوة الغاشمة (Brute-Force) وليس القاموس، وتطبيق القواعد هو هجوم القواعد."
+      },
+      {
+        "ar": "القاموس يختبر كلمات محددة مأخوذة من قوائم تسريبات شائعة، والقوة الغاشمة تولد وتجرب كافة التوافيق والتباديل المحتملة للمحارف، بينما القواعد تطبق تعديلات ذكية (مثل استبدال الأحرف برموز وإضافة أرقام) على كلمات القاموس.",
+        "en": "Dictionary attacks test specific words from leak lists, brute-force generates and tests all possible character combinations, and rule-based attacks apply intelligent mutations (e.g., leet speak, appending numbers) to dictionary words.",
+        "ok": true,
+        "why": "صحيح؛ هذا هو التوصيف العلمي الدقيق: القاموس يعتمد على Wordlist، والقوة الغاشمة تولد كل الاحتمالات الممكنة رياضياً، وهجوم القواعد (Rule-Based) يأخذ كلمات القاموس ويطبق عليها أنماطاً تحويلية كإضافة سنوات أو استبدال حروف (Leet speak مثل P@ssw0rd)."
+      },
+      {
+        "ar": "هجوم القواعد يختبر كلمات عشوائية تماماً دون الاستناد إلى أي قائمة كلمات مسبقة أو قواميس مسربة.",
+        "en": "Rule-based attacks test completely random words without relying on any prior wordlists or leaked dictionaries.",
+        "ok": false,
+        "why": "خطأ؛ هجوم القواعد (Rule-Based) يستند أساساً إلى قائمة كلمات (Wordlist) ثم يطبق عليها قواعد معينة مثل تحويل الحروف أو إضافة أرقام في البداية والنهاية."
+      }
+    ]
+  },
+  {
+    "n": 61,
+    "id_temp": "B4-Q3",
+    "type": "mcq",
+    "q_ar": "ما الذي يميز أداة Hydra ويجعلها الخيار الأكثر استخداماً في اختبار اختراق خدمات المصادقة عبر الشبكة؟",
+    "q_en": "What distinguishes Hydra and makes it the most widely used tool for network authentication penetration testing?",
+    "opts": [
+      {
+        "ar": "استخراج وتجزئة كلمات المرور المخزنة في الذاكرة العشوائية RAM dumps لنظام التشغيل بدون اتصال شبكي.",
+        "en": "Extracting and parsing password hashes stored in OS RAM dumps without a network connection.",
+        "ok": false,
+        "why": "خطأ؛ هذا من وظائف أدوات التحقيق الجنائي الرقمي للذاكرة مثل Volatility أو Mimikatz، ولا علاقة له بأداة Hydra."
+      },
+      {
+        "ar": "قدرتها الفريدة على كسر تجزئات الهاش المعقدة محلياً عبر معالجات كروت الشاشة GPU دون إرسال أي حزم عبر الشبكة.",
+        "en": "Its unique ability to crack complex hashes locally using GPU acceleration without sending packets over the network.",
+        "ok": false,
+        "why": "خطأ؛ Hydra أداة تخمين متصل عبر الشبكة (Online Network Cracker) وليست أداة كسر هاشات محلية مثل Hashcat أو John the Ripper."
+      },
+      {
+        "ar": "توليد شهادات SSL/TLS مزيفة واعتراض حركة المرور المشفرة بأسلوب رجل في المنتصف (MitM) تلقائياً.",
+        "en": "Generating rogue SSL/TLS certificates and automatically intercepting encrypted traffic via Man-in-the-Middle (MitM).",
+        "ok": false,
+        "why": "خطأ؛ اعتراض حركة المرور وشهادات SSL هو اختصاص أدوات التنصت والـ MitM مثل Bettercap و Ettercap، وليس أداة Hydra."
+      },
+      {
+        "ar": "دعمها الواسع والمتوازي لعشرات البروتوكولات الشبكية (مثل SSH, FTP, HTTP, RDP, SMB) وقدرتها على استخدام خيوط معالجة متعددة (Multithreading) لتسريع التخمين المتصل.",
+        "en": "Its extensive parallel support for dozens of network protocols (such as SSH, FTP, HTTP, RDP, SMB) and multithreading capabilities to accelerate online cracking.",
+        "ok": true,
+        "why": "صحيح؛ Hydra هي أداة تخمين شبكي متصل (Online) فائقة السرعة تدعم أكثر من 50 بروتوكولاً وتتيح تنفيذ هجمات متوازية متعددة الخيوط ضد خوادم المصادقة."
+      }
+    ]
+  },
+  {
+    "n": 62,
+    "id_temp": "B4-Q4",
+    "type": "mcq",
+    "q_ar": "عند استخدام أداة Hydra، ما هي الدلالة البرمجية الصحيحة للخيارات (-l, -L, -p, -P)؟",
+    "q_en": "When using Hydra, what is the correct syntax meaning of the flags (-l, -L, -p, -P)?",
+    "opts": [
+      {
+        "ar": "الحرف الصغير `-l` يحدد اسم مستخدم فردي ثابت، والحرف الكبير `-L` يحدد مسار ملف قائمة المستخدمين، بينما `-p` يحدد كلمة مرور فردية ثابتة، و `-P` يحدد مسار ملف قائمة كلمات المرور (Wordlist).",
+        "en": "Lowercase `-l` specifies a single static username, uppercase `-L` specifies a user list file path, while `-p` specifies a single password, and `-P` specifies a password wordlist file path.",
+        "ok": true,
+        "why": "صحيح؛ قاعدة التسمية في Hydra: الحروف الصغيرة (-l, -p) للمدخلات الفردية المباشرة (Literal/Single value)، بينما الحروف الكبيرة (-L, -P) لتمرير مسارات الملفات والقوائم (List files)."
+      },
+      {
+        "ar": "الخيار `-p` مخصص لتحديد رقم المنفذ (Port)، بينما `-P` مخصص لتحديد البروتوكول الشبكي.",
+        "en": "The `-p` flag specifies the port number, while `-P` specifies the network protocol.",
+        "ok": false,
+        "why": "خطأ؛ المنفذ يُحدد بالخيار `-s` أو ضمن رابط البروتوكول، والبروتوكول يُكتب في نهاية الأمر، بينما `-p` و `-P` مخصصان لكلمات المرور."
+      },
+      {
+        "ar": "الخيار `-l` لتحديد ملف قائمة المستخدمين، و `-L` لتحديد مستخدم مفرد، و `-p` لملف كلمات المرور، و `-P` لكلمة مرور مفردة.",
+        "en": "The `-l` flag specifies a user list file, `-L` a single user, `-p` a password list file, and `-P` a single password.",
+        "ok": false,
+        "why": "خطأ؛ هذا عكس وظائف الحروف الصغيرة والكبيرة في خيارات أداة Hydra."
+      },
+      {
+        "ar": "الخيار `-L` مخصص لضبط مستوى التسجيل والتقارير (Log level)، بينما `-l` مخصص لتشغيل الهجوم في الوضع الصامت المنخفض.",
+        "en": "The `-L` flag is for setting logging level (Log level), while `-l` runs the attack in quiet/stealth mode.",
+        "ok": false,
+        "why": "خطأ؛ خيارات التقرير والتفصيل هي `-v` أو `-V` أو `-o`، بينما `-l` و `-L` مخصصان حصراً لأسماء المستخدمين."
+      }
+    ]
+  },
+  {
+    "n": 63,
+    "id_temp": "B4-Q5",
+    "type": "mcq",
+    "q_ar": "أي من الأوامر التالية يمثل الصياغة السليمة لتنفيذ هجوم تخمين متصل بواسطة Hydra ضد مستخدم باسم `root` باستخدام قائمة كلمات مرور `passwords.txt` على خدمة SSH للهدف `192.168.1.100`؟",
+    "q_en": "Which of the following commands represents the correct syntax to execute an online Hydra cracking attack against user `root` using wordlist `passwords.txt` on SSH for target `192.168.1.100`?",
+    "opts": [
+      {
+        "ar": "hydra -user root -pass passwords.txt -target 192.168.1.100 -port 22",
+        "en": "hydra -user root -pass passwords.txt -target 192.168.1.100 -port 22",
+        "ok": false,
+        "why": "خطأ؛ صيغة المعاملات هذه غير مدعومة في أداة Hydra التابعة لبيئة لينكس."
+      },
+      {
+        "ar": "hydra -L root -p passwords.txt ssh://192.168.1.100",
+        "en": "hydra -L root -p passwords.txt ssh://192.168.1.100",
+        "ok": false,
+        "why": "خطأ؛ تم استخدام `-L` مع اسم مستخدم مفرد (الصحيح `-l`)، وتم استخدام `-p` مع ملف قائمة كلمات مرور (الصحيح `-P`)."
+      },
+      {
+        "ar": "hydra --crack-ssh -u root -w passwords.txt 192.168.1.100",
+        "en": "hydra --crack-ssh -u root -w passwords.txt 192.168.1.100",
+        "ok": false,
+        "why": "خطأ؛ هذه المعاملات (`--crack-ssh`, `-u`, `-w`) غير صحيحة ولا تنتمي لصيغ أوامر أداة Hydra."
+      },
+      {
+        "ar": "hydra -l root -P passwords.txt ssh://192.168.1.100",
+        "en": "hydra -l root -P passwords.txt ssh://192.168.1.100",
+        "ok": true,
+        "why": "صحيح؛ تم استخدام `-l` بشكل سليم لاسم المستخدم الفردي root، و `-P` لملف القاموس passwords.txt، وتحديد الهدف والبروتوكول بصيغة `ssh://192.168.1.100`."
+      }
+    ]
+  },
+  {
+    "n": 64,
+    "id_temp": "B4-Q6",
+    "type": "tf",
+    "q_ar": "تُستخدم أداة John the Ripper (JTR) كأداة كسر كلمات مرور غير متصلة بالشبكة (Offline Password Cracker) لكسر تجزئات الهاش (Hashes) المخزنة محلياً، ولا تقوم بالتخمين الحي المباشر عبر خدمات وبروتوكولات الشبكة مثل SSH أو FTP.",
+    "q_en": "John the Ripper (JTR) is used as an offline password cracker to crack locally stored password hashes, and does not perform live network authentication guessing against services like SSH or FTP.",
+    "opts": [
+      {
+        "ar": "صح",
+        "en": "True",
+        "ok": true,
+        "why": "صحيح؛ أداة John the Ripper متخصصة في كسر الهاشات محلياً (Offline) عبر مقارنة تجزئات كلمات القاموس أو التوليد الرياضي مع الهاش المستهدف دون إرسال طلبات مصادقة عبر الشبكة."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "خطأ؛ لأن John the Ripper هي بالفعل أداة كسر هاشات محلية وغير متصلة (Offline)، بينما الأدوات التي تخمن حياً عبر بروتوكولات الشبكة هي أدوات متصلة مثل Hydra."
+      }
+    ]
+  },
+  {
+    "n": 65,
+    "id_temp": "B4-Q7",
+    "type": "mcq",
+    "q_ar": "عند محاولة كسر كلمة مرور ملف إكسل محمي بكلمة مرور (`file.xlsx`) باستخدام أداة John the Ripper، ما هي الخطوة الأولى الإلزامية التي يجب تنفيذها؟",
+    "q_en": "When attempting to crack a password-protected Excel file (`file.xlsx`) using John the Ripper, what is the mandatory first step?",
+    "opts": [
+      {
+        "ar": "استخراج القيمة التجزئية (الهاش) من الملف وتحويلها لصيغة يفهمها جون عبر سكربت: `python3 office2john.py file.xlsx > hash.txt`",
+        "en": "Extract the hash signature from the file into a format recognized by John via script: `python3 office2john.py file.xlsx > hash.txt`",
+        "ok": true,
+        "why": "صحيح؛ أداة John the Ripper لا تتعامل مباشرة مع ملفات Office الثنائية، بل تتطلب أولاً استخدام السكربت المساعد office2john لاستخراج توقيع الهاش وتخزينه في ملف نصي قابل للكسر."
+      },
+      {
+        "ar": "تنفيذ أمر `john --decrypt-office file.xlsx` لفك تشفير كامل الملف فوراً دون الحاجة لملفات وسيطة.",
+        "en": "Run the command `john --decrypt-office file.xlsx` to immediately decrypt the whole file without intermediary files.",
+        "ok": false,
+        "why": "خطأ؛ لا يوجد خيار باسم `--decrypt-office` في أداة جون، فالأداة تكسر الهاشات المستخرجة فقط ولا تفك تشفير الملفات مباشرة."
+      },
+      {
+        "ar": "تغيير امتداد الملف إلى `.txt` ثم تشغيل أداة Hydra على المنفذ 445 لكسر حمايته.",
+        "en": "Change the file extension to `.txt` then run Hydra on port 445 to crack its protection.",
+        "ok": false,
+        "why": "خطأ؛ تغيير الامتداد لا يفك التشفير، وأداة Hydra مخصصة للتخمين الشبكي المتصل على الخدمات وليست لكسر ملفات المستندات المحلية."
+      },
+      {
+        "ar": "فتح الملف عبر محرر نصوص بسيط لاستخراج كلمة المرور الصريحة المكتوبة في ترويسة الملف الثنائي.",
+        "en": "Open the file in a plain text editor to extract the plaintext password written in the binary header.",
+        "ok": false,
+        "why": "خطأ؛ ملفات Office المحمية تستخدم خوارزميات تشفير قوية (مثل AES) ولا تخزن كلمات المرور كنص صريح داخل ترويسة الملف."
+      }
+    ]
+  },
+  {
+    "n": 66,
+    "id_temp": "B4-Q8",
+    "type": "mcq",
+    "q_ar": "ما هو الأمر الصحيح لتشغيل أداة John the Ripper لكسر الهاش المستخرج في `hash.txt` باستخدام قائمة الكلمات `passwords.txt`؟",
+    "q_en": "What is the correct command to run John the Ripper to crack the hash extracted in `hash.txt` using wordlist `passwords.txt`?",
+    "opts": [
+      {
+        "ar": "john --wordlist=passwords.txt hash.txt",
+        "en": "john --wordlist=passwords.txt hash.txt",
+        "ok": true,
+        "why": "صحيح؛ هذا هو البناء القياسي لأمر جون، حيث يُمرر ملف القاموس عبر المعامل `--wordlist=passwords.txt` متبوعاً بمسار ملف الهاش المراد كسره `hash.txt`."
+      },
+      {
+        "ar": "john -u hash.txt -p passwords.txt --start",
+        "en": "john -u hash.txt -p passwords.txt --start",
+        "ok": false,
+        "why": "خطأ؛ هذه المعاملات لا تنتمي لصيغة أوامر أداة John the Ripper."
+      },
+      {
+        "ar": "john --dictionary=passwords.txt < hash.txt",
+        "en": "john --dictionary=passwords.txt < hash.txt",
+        "ok": false,
+        "why": "خطأ؛ الخيار القياسي والمعتمد في JTR هو `--wordlist=` وليس `--dictionary=`."
+      },
+      {
+        "ar": "john --bruteforce=passwords.txt hash.txt",
+        "en": "john --bruteforce=passwords.txt hash.txt",
+        "ok": false,
+        "why": "خطأ؛ المعامل المستخدم لتمرير قائمة الكلمات في جون هو `--wordlist` وليس `--bruteforce`."
+      }
+    ]
+  }
+]

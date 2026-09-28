@@ -1,0 +1,341 @@
+[
+  {
+    "n": 12,
+    "id_temp": "B1-Q12",
+    "type": "mcq",
+    "q_ar": "أين تُخزن بصمات الهاش المشفرة لكلمات مرور المستخدمين (Password Hashes) في نظام لينكس، وما هي الصلاحيات المطلوبة للوصول لهذا الملف؟",
+    "q_en": "Where are encrypted user password hashes stored in Linux, and what permissions are required to access this file?",
+    "opts": [
+      {
+        "ar": "تُخزن في ملف `/etc/shadow` وتتطلب صلاحيات المستخدم الجذر (Root / sudo) لحمايتها من هجمات كسر التشفير دون اتصال (Offline Cracking).",
+        "en": "Stored in `/etc/shadow` and require root (Root / sudo) privileges to protect them against offline cracking attacks.",
+        "ok": true,
+        "why": "إجابة صحيحة. ملف `/etc/shadow` هو المستودع المخصص لتخزين تجزئات كلمات المرور المشفرة (باستخدام خوارزميات مثل SHA-512 أو Yescrypt) مع قيمة التمليح (Salt) ومعلومات صلاحية الحساب، وتُفرض عليه أذونات صارمة (`chmod 640` أو `600` بملكية `root:shadow`) لمنع المستخدمين العاديين من استخراج التجزئات ومحاولة كسرها محلياً بأدوات مثل John the Ripper أو Hashcat."
+      },
+      {
+        "ar": "تُخزن في ملف `/etc/group` ولا يمكن حتى للمستخدم الجذر (Root) الوصول إليها.",
+        "en": "Stored in `/etc/group` and cannot be accessed even by the root user.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ ملف `/etc/group` مخصص لتعريف المجموعات وأعضائها في النظام، كما أن المستخدم الجذر يملك صلاحيات مطلقة تخوله الوصول لجميع ملفات النظام دون استثناء."
+      },
+      {
+        "ar": "تُخزن في ملف `/etc/passwd` ويمكن لجميع مستخدمي النظام قراءته لأن كلمات المرور محفوظة بنص صريح (Plaintext).",
+        "en": "Stored in `/etc/passwd` and can be read by all system users because passwords are saved in plaintext.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ ملف `/etc/passwd` متاح للقراءة للجميع لاحتوائه على بيانات الحسابات العامة (مثل UIDs و GIDs ودليل المنزل وShell)، ولكن كلمات المرور نُقلت منه لدواعي الأمان وتوضع مكانها علامة `x` دلالة على وجود التجزئة في ملف آخر."
+      },
+      {
+        "ar": "تُخزن في ملف `/var/log/auth.log` وتتطلب صلاحيات المستخدمين العاديين فقط.",
+        "en": "Stored in `/var/log/auth.log` and require standard user permissions only.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ الملف `/var/log/auth.log` هو سجل تدقيق ومراقبة لأحداث المصادقة ومحاولات تسجيل الدخول في توزيعات دبيان/كالي، وليس قاعدة بيانات لتخزين تجزئات كلمات المرور."
+      }
+    ]
+  },
+  {
+    "n": 13,
+    "id_temp": "B1-Q13",
+    "type": "mcq",
+    "q_ar": "قمت بتحميل أداة أمنية مضغوطة باسم `payload_scanner.tar.gz`. ما هو الأمر الصحيح لفك الضغط واستخراج محتوياتها بالكامل مع استعراض أسماء الملفات أثناء العملية؟",
+    "q_en": "You downloaded a compressed security tool named `payload_scanner.tar.gz`. What is the correct command to decompress and extract all its contents while displaying the filenames during the process?",
+    "opts": [
+      {
+        "ar": "`gzip -d payload_scanner.tar.gz`",
+        "en": "`gzip -d payload_scanner.tar.gz`",
+        "ok": false,
+        "why": "خيار غير صحيح؛ الأمر `gzip -d` يقوم بفك ضغط طبقة gzip فقط لينتج ملف الأرشيف غير المضغوط `payload_scanner.tar`، ولكنه لا يقوم باستخراج الملفات والمجلدات من داخل أرشيف tar إلى الدليل الحالي."
+      },
+      {
+        "ar": "`unzip -tar payload_scanner.tar.gz`",
+        "en": "`unzip -tar payload_scanner.tar.gz`",
+        "ok": false,
+        "why": "خيار غير صحيح؛ الأمر `unzip` مخصص للتعامل مع ملفات الأرشيف ذات الصيغة القياسية `.zip` فقط، ولا يتعامل مع أرشيفات tar المدمجة مع ضغط gzip."
+      },
+      {
+        "ar": "`tar -zxvf payload_scanner.tar.gz` (أو `tar -xvf payload_scanner.tar.gz`)",
+        "en": "`tar -zxvf payload_scanner.tar.gz` (or `tar -xvf payload_scanner.tar.gz`)",
+        "ok": true,
+        "why": "إجابة صحيحة. في الأمر `tar`: المعامل `-z` يفك ضغط طبقة gzip، والمعامل `-x` يقوم بالاستخراج (Extract)، والمعامل `-v` (Verbose) يعرض أسماء وتفاصيل الملفات المستخرجة على الشاشة، والمعامل `-f` (File) يحدد اسم ملف الأرشيف الهدف. كما تدعم إصدارات tar الحديثة التعرف التلقائي على خوارزمية الضغط وفكها بالأمر `tar -xvf`."
+      },
+      {
+        "ar": "`tar -cvf payload_scanner.tar.gz`",
+        "en": "`tar -cvf payload_scanner.tar.gz`",
+        "ok": false,
+        "why": "خيار غير صحيح؛ المعامل `-c` (Create) مخصص لإنشاء أرشيف جديد وليس فك الضغط، واستخدامه مع `-f` هنا سيؤدي إلى مسح وتصفير محتويات الملف الأصلي بدلاً من استخراجه."
+      }
+    ]
+  },
+  {
+    "n": 14,
+    "id_temp": "B1-Q14",
+    "type": "mcq",
+    "q_ar": "تريد تشغيل خدمة خادم الويب `apache2` على كالي لينكس فوراً، وضمان بدء تشغيلها تلقائياً مع كل عملية إقلاع للنظام (Boot time)، ما هو الترتيب الصحيح للأوامر؟",
+    "q_en": "You want to start the `apache2` web server service immediately on Kali Linux and ensure it launches automatically at system boot. What is the correct sequence of commands?",
+    "opts": [
+      {
+        "ar": "تنفيذ `sudo systemctl mask apache2` ثم `sudo systemctl init apache2`.",
+        "en": "Execute `sudo systemctl mask apache2` then `sudo systemctl init apache2`.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ الأمر `mask` يحظر الخدمة حظراً تاماً بربط ملف وحدتها بـ `/dev/null` لمنع تشغيلها مطلقاً حتى يدوياً، وهو ما يخالف الهدف المطلوب تماماً."
+      },
+      {
+        "ar": "تنفيذ `sudo systemctl status apache2` ثم `sudo systemctl reload apache2`.",
+        "en": "Execute `sudo systemctl status apache2` then `sudo systemctl reload apache2`.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ الأمر `status` يستعلم عن حالة الخدمة وسجلاتها فقط دون تشغيلها، بينما يقوم `reload` بإعادة تحميل ملفات التكوين لخدمة قيد التشغيل بالفعل ولا يفعلها عند الإقلاع."
+      },
+      {
+        "ar": "تنفيذ `sudo service apache2 restart` ثم `sudo systemctl disable apache2`.",
+        "en": "Execute `sudo service apache2 restart` then `sudo systemctl disable apache2`.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ الأمر `disable` يقوم بتعطيل الإقلاع التلقائي للخدمة مع بدء تشغيل النظام وحذف الروابط الرمزية، وهو عكس المطلوب تماماً."
+      },
+      {
+        "ar": "تنفيذ `sudo systemctl start apache2` للتشغيل الفوري، ثم `sudo systemctl enable apache2` للتفعيل عند الإقلاع.",
+        "en": "Execute `sudo systemctl start apache2` for immediate startup, followed by `sudo systemctl enable apache2` to enable it at boot.",
+        "ok": true,
+        "why": "إجابة صحيحة. الأمر `systemctl start` يقوم بتشغيل الخدمة في جلسة التشغيل الحالية، بينما يقوم الأمر `systemctl enable` بإنشاء الروابط الرمزية (Symlinks) اللازمة في أدلة بدء التشغيل لضمان إقلاع الخدمة تلقائياً مع النظام. (ويمكن تحقيق ذلك بأمر واحد مدمج: `sudo systemctl enable --now apache2`)."
+      }
+    ]
+  },
+  {
+    "n": 15,
+    "id_temp": "B1-Q15",
+    "type": "tf",
+    "q_ar": "يتميز هجوم حجب الخدمة البسيط (DoS) بأنه يعتمد على شبكات البوت نت (Botnets) الموزعة جغرافياً لإغراق الهدف بحركة مرور هائلة، بينما هجوم حجب الخدمة الموزع (DDoS) ينطلق من جهاز حاسوب ومصدر فردي واحد فقط.",
+    "q_en": "A simple Denial of Service (DoS) attack relies on geographically distributed botnets to flood the target with massive traffic, whereas a Distributed Denial of Service (DDoS) attack originates from a single computer and source.",
+    "opts": [
+      {
+        "ar": "صواب",
+        "en": "True",
+        "ok": false,
+        "why": "غير صحيح؛ العبارة عكست المفهومين تماماً؛ فهجوم حجب الخدمة البسيط (DoS) ينطلق من مصدر وجهاز حاسوب واحد، بينما هجوم حجب الخدمة الموزع (DDoS) هو الذي يعتمد على شبكات الحواسيب المخترقة الموزعة (Botnets) لإغراق الهدف بحركة مرور هائلة تفوق قدرة شبكته أو خوادمه."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": true,
+        "why": "إجابة صحيحة. العبارة خاطئة؛ لأن حرف 'D' في هجوم DDoS يرمز إلى 'Distributed' (موزع)، وهو الهجوم الذي يوظف الآلاف من الأجهزة المصابة (Bots/Zombies) المدارة عبر خادم قيادة وسيطرة (C2) لإغراق موارد النظام واستهداف ركيزة التوافر (Availability)، ويصعب صده بحظر عنوان IP فردي بعكس هجوم DoS الأحادي المصدر."
+      }
+    ]
+  },
+  {
+    "n": 16,
+    "id_temp": "B1-Q16",
+    "type": "mcq",
+    "q_ar": "قمت ببرمجة سكربت أمني وتريد أن تتمكن من تشغيله في الطرفية من أي مسار باسمه المباشر دون الحاجة لكتابة مساره المطلق كاملاً. ما هو الإجراء السليم؟",
+    "q_en": "You wrote a custom security script and want to run it from any terminal path using its name directly without typing its full absolute path. What is the proper procedure?",
+    "opts": [
+      {
+        "ar": "وضع السكربت في أحد المسارات المعرّفة مسبقاً في `$PATH` مثل `/usr/local/bin`، أو إضافة مسار مجلده للمتغير عبر الأمر `export PATH=\"$PATH:/custom/dir\"`.",
+        "en": "Place the script in one of the pre-defined paths in `$PATH` such as `/usr/local/bin`, or append its directory path to the variable using `export PATH=\"$PATH:/custom/dir\"`.",
+        "ok": true,
+        "why": "إجابة صحيحة. تبحث صدفة النظام تلقائياً عن البرامج القابلة للتنفيذ في المسارات المسجلة داخل متغير البيئة `$PATH`، والمسار `/usr/local/bin` هو الدليل القياسي المخصص للأدوات والسكربتات المخصصة للنظام محلياً، كما يمكن إضافة أي دليل جديد إلى `$PATH` وحفظه في ملف تهيئة الصدفة (مثل `~/.zshrc` أو `~/.bashrc`) لتثبيته دائماً."
+      },
+      {
+        "ar": "نقل السكربت إلى المجلد المؤقت `/tmp` ومنحه أذونات وصول كاملة `chmod 777`.",
+        "en": "Move the script to the temporary directory `/tmp` and grant it full access permissions with `chmod 777`.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ المجلد `/tmp` تُحذف محتوياته تلقائياً عند إعادة تشغيل النظام، كما أن منح أذونات 777 يشكل خطراً أمنياً جسيماً بمخالفة مبدأ الامتيازات الأقل، مما يسمح لأي مستخدم آخر أو عملية بتعديل السكربت وحقن أكواد خبيثة فيه."
+      },
+      {
+        "ar": "حذف قيمة متغير البيئة `$PATH` تماماً باستخدام الأمر `unset PATH`.",
+        "en": "Completely remove the `$PATH` environment variable using `unset PATH`.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ حذف المتغير `$PATH` سيعطل قدرة الصدفة (Shell) على إيجاد وتنفيذ حتى الأوامر الأساسية للنظام (مثل `ls` و `sudo` و `cat`) دون كتابة مساراتها الكاملة."
+      },
+      {
+        "ar": "تعديل ملف `/etc/hosts` وإضافة اسم السكربت مقابل عنوان المضيف المحلي `127.0.0.1`.",
+        "en": "Edit `/etc/hosts` and map the script name to the localhost address `127.0.0.1`.",
+        "ok": false,
+        "why": "خيار غير صحيح؛ ملف `/etc/hosts` مخصص لترجمة أسماء النطاقات والمضيفين (DNS Host Resolution) محلياً إلى عناوين IP، ولا علاقة له بمسارات البحث عن الملفات التنفيذية في الصدفة."
+      }
+    ]
+  },
+  {
+    "n": 17,
+    "id_temp": "B1-Q17",
+    "type": "mcq",
+    "q_ar": "أثناء تشغيل أمر فحص أمني، أردت توجيه كل من المخرجات القياسية (stdout) ورسائل الأخطاء (stderr) معاً ليتم إلحاقهما (Append) في نهاية ملف تقرير `audit.log` دون مسح البيانات السابقة. ما هي الصيغة الصحيحة؟",
+    "q_en": "While running a security scan command, you want to redirect both standard output (stdout) and standard error (stderr) to append to the end of a report file named `audit.log` without overwriting existing data. What is the correct syntax?",
+    "opts": [
+      {
+        "ar": "`command | audit.log`",
+        "en": "`command | audit.log`",
+        "ok": false,
+        "why": "خيار غير صحيح؛ عامل الأنبوب `|` مخصص لتمرير مخرجات أمر ليكون مدخلاً قياسياً (stdin) لأمر تنفيذي آخر، ولا يُستخدم لإعادة توجيه المخرجات إلى ملفات نصية على القرص."
+      },
+      {
+        "ar": "`command 2> audit.log`",
+        "en": "`command 2> audit.log`",
+        "ok": false,
+        "why": "خيار غير صحيح؛ الرمز `2>` يوجه مجرى الأخطاء فقط (stderr) ويستبدل محتوى الملف السابق بدلاً من إلحاقه، كما يتجاهل المخرجات والنتائج الناجحة تماماً (stdout)."
+      },
+      {
+        "ar": "`command >> audit.log 2>&1`",
+        "en": "`command >> audit.log 2>&1`",
+        "ok": true,
+        "why": "إجابة صحيحة. الرمز `>>` يقوم بإلحاق المخرجات القياسية (stdout - واصف الملف 1) بنهاية الملف دون حذف البيانات السابقة، والتعبير `2>&1` يقوم بإعادة توجيه مجرى الأخطاء القياسية (stderr - واصف الملف 2) إلى نفس وجهة المجرى 1، مما يضمن تسجيل كافة النتائج والأخطاء في الملف. (وفي الصدفات الحديثة مثل Bash/Zsh يمكن استخدام الصيغة المختصرة `command &>> audit.log`)."
+      },
+      {
+        "ar": "`command > audit.log`",
+        "en": "`command > audit.log`",
+        "ok": false,
+        "why": "خيار غير صحيح؛ الرمز `>` يقوم بإعادة توجيه المخرجات القياسية فقط (المجرى 1) مع مسح واستبدال (Overwrite) محتوى الملف السابق بالكامل بدلاً من إلحاقه، كما يتجاهل رسائل الأخطاء (المجرى 2)."
+      }
+    ]
+  },
+  {
+    "n": 18,
+    "id_temp": "B1-Q18",
+    "type": "tf",
+    "q_ar": "عند ضبط بطاقة الشبكة لنظام كالي لينكس في برنامج الأنظمة الافتراضية (VMware أو VirtualBox) على وضع التجسير 'Bridged Adapter'، يحصل النظام الافتراضي على عنوان IP مستقل من خادم DHCP لنفس الشبكة الفيزيائية للمضيف، مما يجعله يظهر كجهاز فيزيائي مستقل تماماً على الشبكة المحلية.",
+    "q_en": "When configuring Kali Linux's network adapter in virtualization software (VMware or VirtualBox) to 'Bridged Adapter' mode, the virtual machine obtains an independent IP address from the physical network's DHCP server, making it appear as an independent physical device on the local network.",
+    "opts": [
+      {
+        "ar": "صواب",
+        "en": "True",
+        "ok": true,
+        "why": "إجابة صحيحة. العبارة صحيحة؛ ففي وضع التجسير (Bridged)، يرتبط محول الشبكة الافتراضي مباشرة بمحول الشبكة الفيزيائي للجهاز المضيف، ويطلب عنوان IP مستقلاً عبر DHCP من نفس الموجه المحلي (Router)، مما يمكنه من التفاعل واختبار جميع الأجهزة على الشبكة المحلية وتنفيذ عمليات الفحص (Scanning) واختبارات الطبقة الثانية (مثل هجمات انتحال ARP وMITM) كجهاز حقيقي متصل بالشبكة."
+      },
+      {
+        "ar": "خطأ",
+        "en": "False",
+        "ok": false,
+        "why": "العبارة صحيحة وليست خاطئة؛ فالوضع الذي يضع النظام الافتراضي خلف شبكة فرعية خاصة مع ترجمة العناوين هو وضع (NAT)، في حين يقتصر وضع المضيف فقط (Host-Only) على عزل الاتصال بين المضيف والنظام الافتراضي دون الوصول للشبكة الخارجية، أما وضع Bridged فيمنح النظام وجوداً فيزيائياً مستقلاً على الشبكة المحلية."
+      }
+    ]
+  },
+  {
+    "n": 19,
+    "id_temp": "B2-Q1",
+    "type": "mcq",
+    "q_ar": "ما هو المفهوم الجوهري الذي يُميز الاستطلاع السلبي (Passive Reconnaissance) عن الاستطلاع النشط (Active Reconnaissance) في منهجيات جمع المعلومات واختبار الاختراق؟",
+    "q_en": "What is the fundamental concept that distinguishes passive reconnaissance from active reconnaissance in information gathering and penetration testing methodologies?",
+    "opts": [
+      {
+        "ar": "يعتمد الاستطلاع السلبي على إرسال حزم شبكية مخصصة لاختبار استجابة الجدران النارية، بينما يقتصر النشط على قراءة السجلات العامة.",
+        "en": "Passive reconnaissance relies on sending custom network packets to test firewall responses, while active reconnaissance is limited to reading public records.",
+        "ok": false,
+        "why": "خطأ؛ إرسال الحزم والتفاعل مع جدران الحماية للهدف يُعد استطلاعاً نشطاً (Active Reconnaissance) لأنه يولد حركة مرور مباشرة يمكن رصدها وتسجيلها في أجهزة الضحية."
+      },
+      {
+        "ar": "يجمع الاستطلاع السلبي المعلومات من مصادر ووسطاء طرف ثالث وبيانات علنية دون الاتصال المباشر بأجهزة الهدف، مما يمنع تسجيل عنوان المهاجم في سجلات أمان الهدف.",
+        "en": "Passive reconnaissance gathers information from third-party intermediaries and publicly available data without directly contacting target hosts, preventing the attacker's IP from being recorded in target security logs.",
+        "ok": true,
+        "why": "صحيح؛ الفارق الجوهري في الاستطلاع السلبي (Passive Reconnaissance / OSINT) هو جمع المعلومات دون أي تفاعل مباشر مع أنظمة الهدف (Without Interacting with the Target)، بالاعتماد على محركات البحث، وسجلات الطرف الثالث، والبيانات المؤرشفة، مما يحول دون ترك أي أثر في سجلات (Logs) الضحية."
+      },
+      {
+        "ar": "يقتصر الاستطلاع السلبي على فحص المنافذ باستخدام حزم TCP SYN الخفية فقط، بينما يعتمد النشط على مصافحة TCP الثلاثية الكاملة.",
+        "en": "Passive reconnaissance is limited to port scanning using TCP SYN stealth packets, whereas active reconnaissance relies on the full TCP three-way handshake.",
+        "ok": false,
+        "why": "خطأ؛ فحص المنافذ بحزم SYN (المعروف بـ SYN Stealth Scan) يظل استطلاعاً نشطاً لأنه يرسل حزم شبكة مباشرة تفحص منافذ الهدف وتسجلها أنظمة كشف التسلل (IDS/IPS)."
+      },
+      {
+        "ar": "يتطلب الاستطلاع السلبي وجود صلاحيات إدارية (Root/Admin) مسبقة داخل شبكة الهدف لجمع البيانات، بينما النشط يتم من خارج الشبكة دون صلاحيات.",
+        "en": "Passive reconnaissance requires pre-existing administrative (Root/Admin) privileges within the target network to collect data, whereas active reconnaissance is performed externally without privileges.",
+        "ok": false,
+        "why": "خطأ؛ الاستطلاع السلبي لا يتطلب أي وصول أو صلاحيات داخلية، بل يستند كلياً إلى مصادر الاستخبارات مفتوحة المصدر (OSINT) المتاحة للجميع علناً."
+      }
+    ]
+  },
+  {
+    "n": 20,
+    "id_temp": "B2-Q2",
+    "type": "mcq",
+    "q_ar": "عند إجراء استعلام استخباري عن نطاق مستهدف باستخدام أداة Whois، ما هي البيانات الأساسية التي توفرها قواعد بيانات سجلات النطاق لمختبر الاختراق؟",
+    "q_en": "When performing reconnaissance on a target domain using the Whois tool, what primary data do domain registry databases provide to a penetration tester?",
+    "opts": [
+      {
+        "ar": "سجلات حركة المرور اللحظية (Live Traffic) وعناوين IP للأجهزة المتصلة بالموقع في الوقت الفعلي.",
+        "en": "Real-time traffic logs and IP addresses of devices actively connected to the website.",
+        "ok": false,
+        "why": "خطأ؛ سجلات تسجيل النطاقات تحتوي على بيانات تعريفية ثابتة للنطاق ولا تراقب أو تسجل حركة المرور اللحظية للمستخدمين."
+      },
+      {
+        "ar": "معلومات مسجل النطاق (Registrar)، وبيانات المالك والاتصال التقني (Registrant)، وخوادم الأسماء (DNS Name Servers)، وتواريخ الإنشاء والانتهاء والتحديث.",
+        "en": "Registrar information, registrant ownership and technical contact details, DNS name servers, and creation, expiration, and update timestamps.",
+        "ok": true,
+        "why": "صحيح؛ بروتوكول وأداة Whois يستعلمان قواعد بيانات مسجلي النطاقات الرسمية لاستخراج بيانات الهوية التنظيمية، وجهات الاتصال، وخوادم DNS المعينة للنطاق، وتواريخ الصلاحية والتسجيل."
+      },
+      {
+        "ar": "شفرة المصدر الخلفية (Backend Source Code) للموقع وملفات الإعدادات الحساسة وقواعد البيانات الخاصة به.",
+        "en": "The website's backend source code, sensitive configuration files, and internal databases.",
+        "ok": false,
+        "why": "خطأ؛ Whois لا تتصل بخوادم الويب أو ملفات النظام الداخلية، ولا يمكنها استخراج أي كود برمجي أو ملفات تكوين."
+      },
+      {
+        "ar": "خريطة المنافذ المفتوحة، والإصدارات الدقيقة لخوادم الويب، وقوائم الثغرات الأمنية (CVEs) المرتبطة بالنظام المستهدف.",
+        "en": "A map of open ports, exact web server version banners, and lists of target-associated CVE vulnerabilities.",
+        "ok": false,
+        "why": "خطأ؛ أداة Whois لا تقوم بفحص المنافذ أو استكشاف الخدمات والثغرات، بل تقتصر على البيانات الإدارية والتسجيلية للنطاق لدى الجهات المعتمدة (Registrars)."
+      }
+    ]
+  },
+  {
+    "n": 21,
+    "id_temp": "B2-Q3",
+    "type": "mcq",
+    "q_ar": "أثناء تنفيذ استعلامات DNS لجمع المعلومات حول نطاق مستهدف باستخدام أدوات مثل nslookup أو dig، ما هو الدور المحدد لسجلات MX وسجلات TXT وسجلات SOA على التوالي؟",
+    "q_en": "When performing DNS queries for domain reconnaissance using tools like nslookup or dig, what are the specific roles of MX, TXT, and SOA records, respectively?",
+    "opts": [
+      {
+        "ar": "سجل MX يحدد خوادم التوجيه الداخلي للشبكة، وسجل TXT يحدد مفاتيح تشفير SSL، وسجل SOA يحدد عناوين IPv6.",
+        "en": "MX records designate internal routing servers, TXT records store SSL encryption keys, and SOA records define IPv6 addresses.",
+        "ok": false,
+        "why": "خطأ؛ عناوين IPv6 يحددها سجل AAAA، ومفاتيح وتشفير SSL لا تدار عبر هذه السجلات في DNS."
+      },
+      {
+        "ar": "سجل MX يحدد خادم أسماء النطاق الرئيسي (Nameserver)، وسجل TXT يحدد عنوان الماك الفيزيائي (MAC Address)، وسجل SOA يحدد شهادات تشفير HTTPS.",
+        "en": "MX records specify primary domain nameservers, TXT records specify MAC hardware addresses, and SOA records store HTTPS encryption certificates.",
+        "ok": false,
+        "why": "خطأ؛ خادم الأسماء يحدده سجل NS، وعناوين MAC لا تُسجل في جداول DNS العامة، وشهادات HTTPS لا تدار عبر سجل SOA بل عبر شهادات رقمية مستقلة (أو سجلات CAA اختيارياً)."
+      },
+      {
+        "ar": "سجل MX يحدد خوادم البريد الإلكتروني المسؤولة عن استقبال الرسائل، وسجل TXT يحمل نصوصاً لسياسات التحقق والأمان (مثل SPF/DKIM)، وسجل SOA يحدد النطاق الموثوق المسؤول ومعلومات التحديث والتزامن للمنطقة.",
+        "en": "MX records designate mail exchange servers handling incoming email, TXT records hold text for security and verification policies (e.g., SPF/DKIM), and SOA records identify the authoritative zone master along with zone synchronization and refresh timers.",
+        "ok": true,
+        "why": "صحيح؛ سجل MX (Mail Exchanger) يوجه حركة البريد الإلكتروني، وسجل TXT (Text) يُستغل في سياسات مكافحة التزوير والتحقق من الملكية (مثل SPF/DKIM/DMARC)، وسجل SOA (Start of Authority) يحتوي على المعلومات الإدارية المركزية للنطاق ورقم الإصدار التسلسلي ومؤقتات التزامن للمنطقة."
+      },
+      {
+        "ar": "سجل MX يحدد عنوان IPv4 للنطاق، وسجل TXT يحدد خوادم الأسماء، وسجل SOA يحدد الأسماء المستعارة البديلة.",
+        "en": "MX records specify the domain's IPv4 address, TXT records define nameservers, and SOA records specify canonical aliases.",
+        "ok": false,
+        "why": "خطأ؛ عنوان IPv4 يحدده سجل A، وخوادم الأسماء يحددها سجل NS، والأسماء المستعارة يحددها سجل CNAME."
+      }
+    ]
+  },
+  {
+    "n": 22,
+    "id_temp": "B2-Q4",
+    "type": "mcq",
+    "q_ar": "تعتمد أداة التحليل الاستخباري الرسومي Maltego على معمارية منظمة لفهم الروابط المعقدة. ما هو التوصيف التقني الصحيح للمكونات الثلاثة: الكيانات (Entities)، والروابط (Links)، ومركز التحويلات (Transform Hub)؟",
+    "q_en": "The Maltego visual link-analysis tool relies on a structured architecture to map complex relationships. What is the correct technical definition of its three core components: Entities, Links, and the Transform Hub?",
+    "opts": [
+      {
+        "ar": "الكيانات هي عناوين الذاكرة العشوائية RAM، والروابط هي مقابس الشبكة (Sockets)، وTransform Hub هو مفسر لغة التجميع (Assembler).",
+        "en": "Entities are RAM memory addresses, Links are network sockets, and the Transform Hub is an assembly language interpreter.",
+        "ok": false,
+        "why": "خطأ؛ هذه مصطلحات ترتبط بالهندسة العكسية وتحليل البرمجيات الثنائية، ولا علاقة لها ببنية تحليل العلاقات في Maltego."
+      },
+      {
+        "ar": "الكيانات (Entities) هي العقد الرسومية التي تمثل عناصر البيانات (نطاق، بريد، شخص، IP)، والروابط (Links) تعكس العلاقات والمسارات بينها، ومركز التحويلات (Transform Hub) هو المنصة التي توفر وتدير حزم التحويلات ومصادر البيانات من المزودين المختلفين.",
+        "en": "Entities are graphical nodes representing data items (domain, email, person, IP), Links represent relationships and connection paths between them, and the Transform Hub is the platform hosting and managing data integration packs from various providers.",
+        "ok": true,
+        "why": "صحيح؛ معمارية Maltego تقوم على نمذجة البيانات كرسم بياني (Node-Link Graph)؛ حيث العقد هي الكيانات (Entities) والخطوط الرابطة هي العلاقات (Links)، وتوليد البيانات وتوسيعها يتم عبر التحويلات (Transforms) المستضافة والمدارة عبر الـ Transform Hub."
+      },
+      {
+        "ar": "الكيانات هي أجهزة التوجيه المادية فقط، والروابط هي كابلات الألياف البصرية المتصلة بها، وTransform Hub هو لوحة التوزيع الرئيسية للشبكة.",
+        "en": "Entities are physical routers only, Links are connected fiber-optic cables, and the Transform Hub is the main network patch panel.",
+        "ok": false,
+        "why": "خطأ؛ أداة Maltego ليست أداة لتخطيط البنية التحتية الفيزيائية للشبكات والكابلات، بل أداة OSINT تمثل البيانات المنطقية والعلاقات الاستخبارية بصرياً."
+      },
+      {
+        "ar": "الكيانات هي سجلات النظام (Syslog)، والروابط هي شهادات الأمان X.509، وTransform Hub هو خادم التوقيع الرقمي للمؤسسة.",
+        "en": "Entities are system log records (Syslog), Links are X.509 security certificates, and the Transform Hub is the enterprise digital signature server.",
+        "ok": false,
+        "why": "خطأ؛ Maltego تمثل عناصر العالم الحقيقي (مثل النطاقات، والبريد، والأشخاص، وعناوين IP) ككيانات ولا تنحصر في سجلات النظام والتوقيع الرقمي."
+      }
+    ]
+  }
+]

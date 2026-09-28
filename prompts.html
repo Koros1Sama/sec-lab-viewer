@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="ar" dir="rtl" data-theme="amber">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="manifest" href="manifest.json?v=2" />
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg?v=2" />
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=2" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=2" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=2" />
+    <link rel="shortcut icon" href="favicon.ico?v=2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>برومبتات صور الأسئلة</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Noto+Kufi+Arabic:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --fa: "Noto Kufi Arabic", system-ui, sans-serif;
+        --fm: "IBM Plex Mono", Consolas, monospace;
+        --r: 12px;
+        --dur: 0.3s;
+        --ease: cubic-bezier(0.32, 0.72, 0, 1);
+      }
+      [data-theme="amber"] {
+        --bg: #0c0d10;
+        --sf: #191c24;
+        --sf2: #212530;
+        --ln: #2d3342;
+        --ln-s: #242936;
+        --ink: #f0f3f8;
+        --ink-m: #9ba7be;
+        --ink-f: #647087;
+        --acc: #f5b13d;
+        --acc-b: #f5c464;
+        --acc-g: rgba(245, 177, 61, 0.14);
+        --ok: #7fae7f;
+        --sh: 0 8px 30px -10px rgba(0, 0, 0, 0.5);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background:
+          radial-gradient(
+            900px 500px at 85% -5%,
+            rgba(245, 177, 61, 0.06),
+            transparent 60%
+          ),
+          var(--bg);
+        color: var(--ink);
+        font-family: var(--fa);
+        font-size: 15px;
+        line-height: 1.8;
+        min-height: 100vh;
+      }
+      ::selection {
+        background: var(--acc);
+        color: var(--bg);
+      }
+      .wrap {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 26px 18px 70px;
+      }
+      .head h1 {
+        font-size: 1.3rem;
+        font-weight: 800;
+      }
+      .head h1 b {
+        color: var(--acc-b);
+      }
+      .head p {
+        color: var(--ink-m);
+        font-size: 0.83rem;
+        margin-top: 6px;
+      }
+      .howto {
+        background: var(--sf);
+        border: 1px solid var(--ln);
+        border-radius: var(--r);
+        padding: 14px 18px;
+        margin: 18px 0 26px;
+        font-size: 0.83rem;
+        color: var(--ink-m);
+        line-height: 2.1;
+      }
+      .howto b {
+        color: var(--acc-b);
+      }
+      .howto ol {
+        padding-inline-start: 22px;
+      }
+      .filters {
+        display: flex;
+        gap: 7px;
+        flex-wrap: wrap;
+        margin-bottom: 22px;
+      }
+      .fchip {
+        padding: 6px 15px;
+        border-radius: 999px;
+        border: 1px solid var(--ln);
+        background: var(--sf);
+        color: var(--ink-m);
+        font-family: var(--fa);
+        font-size: 0.76rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all var(--dur) var(--ease);
+      }
+      .fchip.on {
+        background: var(--acc);
+        border-color: var(--acc);
+        color: var(--bg);
+      }
+      .card {
+        background: var(--sf);
+        border: 1px solid var(--ln);
+        border-radius: var(--r);
+        padding: 16px 18px;
+        margin-bottom: 18px;
+        scroll-margin-top: 20px;
+      }
+      .card.flash {
+        border-color: var(--acc);
+        box-shadow: 0 0 0 4px var(--acc-g);
+      }
+      .chead {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-bottom: 10px;
+      }
+      .pid {
+        font-family: var(--fm);
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--acc);
+        background: var(--acc-g);
+        border: 1px solid rgba(245, 177, 61, 0.3);
+        padding: 2px 11px;
+        border-radius: 999px;
+        direction: ltr;
+      }
+      .pref {
+        font-family: var(--fm);
+        font-size: 0.66rem;
+        font-weight: 700;
+        color: var(--ink-f);
+        border: 1px dashed var(--ln);
+        padding: 2px 10px;
+        border-radius: 999px;
+        direction: ltr;
+      }
+      .ptitle {
+        font-size: 0.9rem;
+        font-weight: 700;
+        flex: 1;
+        min-width: 200px;
+      }
+      .pbox {
+        background: var(--bg);
+        border: 1px solid var(--ln-s);
+        border-radius: 9px;
+        padding: 12px 14px;
+        font-family: var(--fm);
+        font-size: 0.78rem;
+        line-height: 1.9;
+        direction: ltr;
+        text-align: left;
+        color: var(--ink);
+        white-space: pre-wrap;
+        word-break: break-word;
+        max-height: 340px;
+        overflow-y: auto;
+      }
+      .copy {
+        margin-top: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 8px 20px;
+        border-radius: 999px;
+        border: 1px solid var(--acc);
+        background: var(--acc-g);
+        color: var(--acc-b);
+        font-family: var(--fa);
+        font-size: 0.8rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all var(--dur) var(--ease);
+      }
+      .copy:hover {
+        background: var(--acc);
+        color: var(--bg);
+      }
+      .copy.done {
+        background: var(--ok);
+        border-color: var(--ok);
+        color: #0b0f0b;
+      }
+      .back {
+        position: fixed;
+        top: 14px;
+        inset-inline-end: 14px;
+        z-index: 50;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--ln);
+        background: var(--sf);
+        color: var(--ink-m);
+        font-family: var(--fa);
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all var(--dur) var(--ease);
+      }
+      .back:hover {
+        border-color: var(--acc);
+        color: var(--acc-b);
+        text-decoration: none;
+      }
+      .fsbtn {
+        position: fixed;
+        top: 58px;
+        inset-inline-end: 14px;
+        z-index: 50;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        padding: 0;
+        border-radius: 999px;
+        border: 1px solid var(--ln);
+        background: var(--sf);
+        color: var(--ink-m);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all var(--dur) var(--ease);
+      }
+      .fsbtn:hover {
+        border-color: var(--acc);
+        color: var(--acc-b);
+      }
+      .fsbtn.on {
+        background: var(--acc);
+        border-color: var(--acc);
+        color: var(--bg);
+      }
+      @media (max-width: 600px) {
+        .wrap {
+          padding: 18px 10px 60px;
+        }
+        .head h1 {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
+    <meta name="theme-color" content="#101630" />
+  </head>
+  <body>
+    <a class="back" href="index.html">→ عودة للعارض</a>
+    <button class="fsbtn" id="btnFs" title="ملء الشاشة مثل F11 · Esc للخروج" style="display:inline-flex;align-items:center;justify-content:center;">
+      <svg class="svg-ic" style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+    </button>
+    <div class="wrap">
+      <div class="head">
+        <h1 style="display:flex;align-items:center;gap:8px;"><svg class="svg-ic" style="width:24px;height:24px;color:var(--acc);flex:none;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>برومبتات صور الأسئلة الرسومية — <b>GPT-Image</b></span></h1>
+        <p>
+          لكل سؤال رسومي في النماذج، برومبت واحد يولّد الصورة كاملة: الرسم + نص
+          السؤال + الخيارات في صورة واحدة.
+        </p>
+      </div>
+      <div class="howto">
+        <b>طريقة الاستخدام:</b>
+        <ol>
+          <li>اضغط <b>«نسخ البرومبت»</b> بجوار السؤال المطلوب.</li>
+          <li>ألصقه في GPT-Image (يدعم الكتابة داخل الصورة عربي وإنجليزي).</li>
+          <li>
+            الصورة الناتجة بنسبة <b>4:3</b> — احفظها واربطها بالسؤال عند
+            المراجعة.
+          </li>
+        </ol>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div id="list"></div>
+    </div>
+    <script src="data/config.js"></script>
+    <script>
+      document.write(
+        window.TOC_CONFIG.files.prompts
+          .map((f) => '<script src="data/' + f + '.js"><\/script>')
+          .join(""),
+      );
+    </script>
+    <script>
+      "use strict";
+      document.title = "برومبتات صور الأسئلة — " + window.TOC_CONFIG.subject;
+      const PROMPTS = window.TOC_IMG_PROMPTS || [];
+      const S = { f: "all" };
+      function el(t, a, ...c) {
+        const n = document.createElement(t);
+        if (a)
+          for (const [k, v] of Object.entries(a)) {
+            if (v == null) continue;
+            if (k === "class") n.className = v;
+            else if (k === "text") n.textContent = v;
+            else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+            else n.setAttribute(k, v);
+          }
+        for (const x of c.flat()) {
+          if (x == null) continue;
+          n.append(x.nodeType ? x : document.createTextNode(String(x)));
+        }
+        return n;
+      }
+      const $ = (s) => document.querySelector(s);
+
+      function render() {
+        const list = el("div");
+        PROMPTS.filter(
+          (p) => S.f === "all" || p.id.startsWith(S.f + "#"),
+        ).forEach((p) => {
+          const [mid, n] = p.id.split("#");
+          const copy = el("button", {
+            class: "copy",
+            text: "نسخ البرومبت",
+            onclick: async (e) => {
+              try {
+                await navigator.clipboard.writeText(p.prompt);
+              } catch {
+                const ta = el("textarea", {
+                  style: "position:fixed;opacity:0",
+                });
+                ta.value = p.prompt;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand("copy");
+                ta.remove();
+              }
+              e.currentTarget.textContent = "تم النسخ بنجاح";
+              e.currentTarget.classList.add("done");
+              setTimeout(() => {
+                e.currentTarget.textContent = "نسخ البرومبت";
+                e.currentTarget.classList.remove("done");
+              }, 1600);
+            },
+          });
+          list.appendChild(
+            el(
+              "div",
+              { class: "card", id: `p-${mid}-${n}` },
+              el(
+                "div",
+                { class: "chead" },
+                el("span", { class: "pid", text: p.id }),
+                p.ref ? el("span", { class: "pref", text: p.ref }) : null,
+                el("span", { class: "ptitle", text: p.title_ar || "" }),
+              ),
+              el("div", { class: "pbox", text: p.prompt }),
+              copy,
+            ),
+          );
+        });
+        const old = $("#list");
+        old.replaceWith(Object.assign(list, { id: "list" }));
+      }
+      function buildFilters() {
+        const f = $("#filters");
+        const groups = [
+          "all",
+          ...new Set(PROMPTS.map((p) => p.id.split("#")[0])),
+        ];
+        groups.forEach((g) =>
+          f.appendChild(
+            el(
+              "button",
+              {
+                class: "fchip" + (S.f === g ? " on" : ""),
+                onclick: () => {
+                  S.f = g;
+                  buildFilters();
+                  render();
+                },
+              },
+              g === "all" ? "الكل" : `نموذج ${g}`,
+            ),
+          ),
+        );
+      }
+      buildFilters();
+      render();
+      const hash = location.hash.slice(1);
+      if (hash) {
+        const t = document.getElementById(hash);
+        if (t) {
+          t.scrollIntoView({ block: "center" });
+          t.classList.add("flash");
+        }
+      }
+      /* fullscreen toggle — same on every page */
+      (function () {
+        const btn = document.getElementById("btnFs");
+        if (!btn || !document.documentElement.requestFullscreen) {
+          if (btn) btn.style.display = "none";
+          return;
+        }
+        btn.addEventListener("click", () => {
+          if (!document.fullscreenElement)
+            document.documentElement.requestFullscreen().catch(() => {});
+          else document.exitFullscreen().catch(() => {});
+        });
+        document.addEventListener("fullscreenchange", () => {
+          btn.classList.toggle("on", !!document.fullscreenElement);
+        });
+      })();
+    </script>
+  </body>
+</html>
