@@ -79,7 +79,7 @@
         --ln-s: #212638;
         --ink: #f8fafc;
         --ink-m: #94a3b8;
-        --acc: #cdd6e4;
+        --acc: #38bdf8;
       }
       [data-theme="emerald"] {
         --bg: #070d0d;
@@ -1680,20 +1680,105 @@
         background: color-mix(in srgb, var(--bg) 18%, transparent);
         color: var(--bg);
       }
-      .model-score {
+            .model-score {
         font-family: var(--fm);
-        font-size: 0.68rem;
-        color: var(--ink-f);
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--ink-m);
+        background: var(--bg-s);
+        border: 1px solid var(--ln);
+        padding: 2px 9px;
+        border-radius: 999px;
+        line-height: 1.25;
+        letter-spacing: 0.02em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        direction: ltr;
+        transition: all var(--dur) var(--ease);
+      }
+      .model-pill:hover .model-score {
+        color: var(--ink);
+        border-color: color-mix(in srgb, var(--acc) 45%, var(--ln));
+      }
+      .model-pill.active .model-score {
+        color: var(--acc);
+        background: var(--bg);
+        border-color: color-mix(in srgb, var(--bg) 60%, transparent);
+        font-weight: 800;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
       }
       .model-origin {
-        font-size: 0.74rem;
-        color: var(--ink-f);
+        font-size: 0.76rem;
+        color: var(--ink-m);
         background: var(--sf);
         border: 1px solid var(--ln-s);
-        border-radius: var(--r-s);
-        padding: 10px 14px;
-        margin-bottom: 14px;
+        border-radius: var(--r-m);
+        padding: 12px 16px;
+        margin-bottom: 16px;
         line-height: 1.9;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+      .model-origin-desc {
+        flex: 1 1 320px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .model-origin-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 2px 9px;
+        border-radius: 6px;
+        background: var(--bg-s);
+        border: 1px solid var(--ln);
+        color: var(--acc);
+        font-weight: 800;
+        font-size: 0.7rem;
+      }
+      .model-origin-tag svg {
+        width: 13px;
+        height: 13px;
+      }
+      .model-origin-links {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .model-origin-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-family: var(--fa);
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--ink);
+        background: var(--bg-s);
+        border: 1px solid var(--ln);
+        padding: 4px 12px;
+        border-radius: 999px;
+        text-decoration: none;
+        transition: all var(--dur) var(--ease);
+      }
+      .model-origin-link:hover {
+        background: var(--acc);
+        color: var(--bg);
+        border-color: var(--acc);
+        box-shadow: 0 2px 10px var(--acc-g);
+      }
+      .model-origin-link svg {
+        width: 13px;
+        height: 13px;
+        stroke: currentColor;
+        stroke-width: 2;
+        fill: none;
       }
 
       .q-card {
@@ -3515,7 +3600,8 @@
         target: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
         chevronLeft: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>',
         chevronRight: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
-        video: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>'
+        video: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>',
+        external: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
       };
 
       function iconSvg(name, extraClass) {
@@ -5363,8 +5449,52 @@
           );
         }
 
-        const origin = clear($("#modelOrigin"));
-        origin.append(el("b", { text: "المصدر: " }), m.origin_ar || "");
+                const origin = clear($("#modelOrigin"));
+        const descDiv = el("div", { class: "model-origin-desc" });
+        descDiv.append(
+          el("span", { class: "model-origin-tag" }, iconSvg("models"), "المصدر المعتمد"),
+          el("span", { text: m.origin_ar || "" }),
+        );
+        origin.appendChild(descDiv);
+
+        const linksDiv = el("div", { class: "model-origin-links" });
+        if (m.origin_url) {
+          linksDiv.appendChild(
+            el(
+              "a",
+              {
+                class: "model-origin-link",
+                href: m.origin_url,
+                target: "_blank",
+                rel: "noopener noreferrer",
+              },
+              iconSvg("external"),
+              m.origin_label || "رابط المصدر المعتمد",
+            ),
+          );
+        }
+        if (m.origin_sources && Array.isArray(m.origin_sources)) {
+          m.origin_sources.forEach((src) => {
+            if (src.url) {
+              linksDiv.appendChild(
+                el(
+                  "a",
+                  {
+                    class: "model-origin-link",
+                    href: src.url,
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                  },
+                  iconSvg("external"),
+                  src.label || "مصدر إضافي",
+                ),
+              );
+            }
+          });
+        }
+        if (linksDiv.children.length > 0) {
+          origin.appendChild(linksDiv);
+        }
 
         const qc = clear($("#qCards"));
         const ans = S.modelAns[m.id] || {};
@@ -6494,6 +6624,6 @@
         }, { passive: true });
       })();
     </script>
-    <script src="app.js?v=lab1"></script>
+    <script src="app.js?v=lab2"></script>
   </body>
 </html>

@@ -10,7 +10,7 @@
 (() => {
   if (!("serviceWorker" in navigator)) return;
 
-  const RUNTIME = "sec-lab-runtime-v1";
+  const RUNTIME = "sec-lab-runtime-v2";
   const isStandalone =
     matchMedia("(display-mode: standalone)").matches ||
     navigator.standalone === true;
