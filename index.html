@@ -2412,80 +2412,150 @@
       .bottom-nav {
         display: none;
         flex-direction: row;
-        align-items: stretch;
-        gap: 0;
+        align-items: center;
+        gap: 6px;
         position: fixed;
         bottom: 0;
         inset-inline: 0;
         z-index: 600;
-        background: color-mix(in srgb, var(--sf) 98%, transparent);
+        background: color-mix(in srgb, var(--sf) 96%, transparent);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border-top: 1px solid var(--ln);
-        padding: 4px 6px calc(4px + env(safe-area-inset-bottom));
+        padding: 5px 8px calc(5px + env(safe-area-inset-bottom));
         max-width: 100vw;
       }
       .bottom-nav .bn-row {
         display: flex;
         gap: 2px;
       }
-      /* section switch buttons pinned (inline-start = right side in RTL) */
+      /* section switch buttons pinned in a solid segmented dock */
       .bottom-nav .bn-actions {
         flex: 0 0 auto;
-        padding-inline-end: 6px;
-        border-inline-end: 1px solid var(--ln);
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        background: color-mix(in srgb, var(--sf2) 88%, var(--ln));
+        padding: 3px 4px;
+        border-radius: 12px;
+        border: 1px solid var(--ln);
       }
-      /* lectures / models chips scroll horizontally */
-      .bottom-nav .bn-lecs {
-        flex: 1 1 auto;
-        min-width: 0;
-        overflow-x: auto;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-      }
-      .bottom-nav .bn-lecs::-webkit-scrollbar {
-        display: none;
-      }
-      .bottom-nav .bn-lecs button {
+      .bottom-nav .bn-actions button {
         flex: 0 0 auto;
-        min-width: 38px;
-      }
-      .bottom-nav button {
-        flex: 1 0 auto;
-        min-width: 42px;
+        min-width: 44px;
         background: transparent;
         border: none;
-        padding: 5px 3px;
-        border-radius: var(--r-s);
+        padding: 4px 6px;
+        border-radius: 9px;
         cursor: pointer;
         font-family: var(--fa);
-        font-size: 0.6rem;
+        font-size: 0.62rem;
         font-weight: 700;
         color: var(--ink-f);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 3px;
-        transition: color var(--dur) var(--ease);
+        gap: 2px;
+        transition: all var(--dur) var(--ease);
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
       }
-      .bottom-nav button .ic {
-        font-size: 1rem;
+      .bottom-nav .bn-actions button .ic {
+        font-size: 0.95rem;
         line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
-      .bottom-nav button.active {
-        color: var(--acc);
+      .bottom-nav .bn-actions button:hover {
+        color: var(--ink);
+      }
+      .bottom-nav .bn-actions button.active {
+        background: var(--acc);
+        color: var(--bg);
+        font-weight: 900;
+        box-shadow: 0 2px 8px color-mix(in srgb, var(--acc) 35%, transparent);
+      }
+      .bottom-nav .bn-actions button.nav-sum {
+        border: 1px dashed color-mix(in srgb, var(--acc) 45%, transparent);
+      }
+      .bottom-nav .bn-actions button.nav-sum.active {
+        border-color: var(--acc);
+      }
+
+      /* Hierarchy Bridge / Divider between Sections and Pages */
+      .bottom-nav .bn-divider {
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 2px;
+        color: var(--ink-f);
+        opacity: 0.6;
+      }
+      .bottom-nav .bn-divider svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      /* lectures / models chips scroll horizontally */
+      .bottom-nav .bn-lecs {
+        flex: 1 1 auto;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        overflow-x: auto;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+        padding: 2px 1px;
+        scroll-behavior: smooth;
+      }
+      .bottom-nav .bn-lecs::-webkit-scrollbar {
+        display: none;
+      }
+      .bottom-nav .bn-lecs button {
+        flex: 0 0 auto;
+        min-width: 44px;
+        background: var(--sf);
+        border: 1px solid var(--ln);
+        padding: 4px 6px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-family: var(--fa);
+        font-size: 0.62rem;
+        font-weight: 700;
+        color: var(--ink-f);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        transition: all var(--dur) var(--ease);
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+      }
+      .bottom-nav .bn-lecs button .ic {
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .bottom-nav .bn-lecs button:hover {
+        border-color: var(--acc);
+        color: var(--ink);
+      }
+      .bottom-nav .bn-lecs button.active {
+        border-color: var(--acc);
         background: var(--acc-g);
+        color: var(--acc);
         font-weight: 800;
+        box-shadow: 0 0 0 1px var(--acc);
       }
-      .bottom-nav button.nav-sum {
-        color: var(--acc-b);
-        border: 1px dashed color-mix(in srgb, var(--acc) 40%, transparent);
-        border-radius: var(--r-s);
-        margin-block: 2px;
-      }
-      .bottom-nav button.done::after {
+      .bottom-nav .bn-lecs button.done::after {
         content: "";
         display: inline-block;
         width: 5px;
@@ -2493,7 +2563,106 @@
         border-radius: 50%;
         background: var(--ok);
         box-shadow: 0 0 6px var(--ok);
-        margin-inline-start: 2px;
+        margin-inline-start: 1px;
+      }
+      .bottom-nav .bn-lecs button.excluded {
+        opacity: 0.55;
+      }
+
+      /* End-of-Page Navigation Pager */
+      .content-pager {
+        margin-top: 36px;
+        margin-bottom: 20px;
+        padding: 14px 16px;
+        background: var(--sf2);
+        border: 1px solid var(--ln);
+        border-radius: var(--r-m);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      }
+      .content-pager .pager-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 15px;
+        border-radius: var(--r-s);
+        border: 1px solid var(--ln);
+        background: var(--sf);
+        color: var(--ink);
+        cursor: pointer;
+        text-decoration: none;
+        font-family: var(--fa);
+        transition: all var(--dur) var(--ease);
+        min-width: 140px;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+      .content-pager .pager-btn:hover:not(:disabled) {
+        border-color: var(--acc);
+        background: var(--acc-g);
+        transform: translateY(-1px);
+      }
+      .content-pager .pager-btn.next {
+        background: var(--acc);
+        color: var(--bg);
+        border-color: var(--acc);
+        font-weight: 800;
+        box-shadow: 0 2px 10px color-mix(in srgb, var(--acc) 30%, transparent);
+      }
+      .content-pager .pager-btn.next:hover {
+        filter: brightness(1.08);
+        transform: translateY(-1px);
+      }
+      .content-pager .pager-btn:disabled,
+      .content-pager .pager-btn.disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        pointer-events: none;
+        border-style: dashed;
+      }
+      .content-pager .pager-info {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        text-align: start;
+      }
+      .content-pager .pager-sub {
+        font-size: 0.68rem;
+        font-weight: 600;
+        opacity: 0.8;
+      }
+      .content-pager .pager-title {
+        font-size: 0.82rem;
+        font-weight: 800;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 240px;
+      }
+      .content-pager .pager-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      @media (max-width: 600px) {
+        .content-pager {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+          padding: 12px;
+        }
+        .content-pager .pager-btn {
+          width: 100%;
+          justify-content: space-between;
+          min-width: 0;
+        }
+        .content-pager .pager-title {
+          max-width: 100%;
+        }
       }
 
       #btnSearchToggle {
@@ -3612,6 +3781,51 @@
         if (extraClass && iconEl) iconEl.classList.add(...extraClass.split(" ").filter(Boolean));
         return iconEl;
       }
+
+      function svgNode(raw, extraClass) {
+        const t = document.createElement("template");
+        t.innerHTML = (raw || "").trim();
+        const iconEl = t.content.firstElementChild;
+        if (extraClass && iconEl) iconEl.classList.add(...extraClass.split(" ").filter(Boolean));
+        return iconEl;
+      }
+
+      function lecIconSvg(numStr) {
+        const d = String(numStr || "").replace(/^[^\d]*/, "");
+        const digits = d ? String(parseInt(d, 10)) : (numStr || "1");
+        const fontSize = digits.length > 2 ? "7.5" : (digits.length === 2 ? "8.8" : "10");
+        return `<svg class="svg-ic lec-num-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;">
+          <rect x="2.5" y="2.5" width="19" height="13.5" rx="3" fill="color-mix(in srgb, currentColor 8%, transparent)"/>
+          <path d="M8 20.5h8M12 16v4.5"/>
+          <text x="12" y="10.8" font-size="${fontSize}" font-weight="900" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none">${digits}</text>
+        </svg>`;
+      }
+
+      function modelIconSvg(numStr, isTheory) {
+        const d = String(numStr || "").replace(/^[^\d]*/, "");
+        const digits = isTheory ? "ث" : (d ? String(parseInt(d, 10)) : (numStr === "sec_theory" ? "ث" : (numStr || "1")));
+        const fontSize = digits.length > 2 ? "7" : (digits.length === 2 ? "8" : "9.5");
+        return `<svg class="svg-ic model-num-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="color-mix(in srgb, currentColor 8%, transparent)"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <text x="11.5" y="14.8" font-size="${fontSize}" font-weight="900" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none">${digits}</text>
+        </svg>`;
+      }
+
+      function summaryPartIconSvg(numStr) {
+        const clean = String(numStr || "");
+        if (clean === "checklist") {
+          return `<svg class="svg-ic sum-num-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>`;
+        }
+        const d = clean.replace(/^[^\d]*/, "");
+        const digits = d ? String(parseInt(d, 10)) : clean;
+        const fontSize = digits.length > 2 ? "7" : (digits.length === 2 ? "8" : "9.5");
+        return `<svg class="svg-ic sum-num-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:20px;height:20px;">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" fill="color-mix(in srgb, currentColor 8%, transparent)"/>
+          <text x="13" y="11" font-size="${fontSize}" font-weight="900" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle" dominant-baseline="central" fill="currentColor" stroke="none">${digits}</text>
+        </svg>`;
+      }
       const clear = (n) => {
         while (n.firstChild) n.removeChild(n.firstChild);
         return n;
@@ -3967,8 +4181,16 @@
         }
         const bnav = clear($("#botNav"));
         const bnavActions = el("div", { class: "bn-row bn-actions" });
+        const bnavDivider = el(
+          "div",
+          { class: "bn-divider", "aria-hidden": "true" },
+          svgNode(
+            '<svg class="svg-ic bn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
+          ),
+        );
         const bnavLecs = el("div", { class: "bn-row bn-lecs" });
         bnav.appendChild(bnavActions);
+        bnav.appendChild(bnavDivider);
         bnav.appendChild(bnavLecs);
         bnavActions.appendChild(
           el(
@@ -4030,61 +4252,73 @@
           );
         }
         if (S.view === "slides") {
+          let activeLecBtn = null;
           META.lectures.forEach((lec) => {
             const p = lecProgress(lec.id);
             const ex = EXCLUDED_LECS.has(lec.id);
-            bnavLecs.appendChild(
-              el(
-                "button",
-                {
-                  class:
-                    (lec.id === S.lec ? "active " : "") +
-                    (p.pct === 100 ? "done " : "") +
-                    (ex ? "excluded" : ""),
-                  title: ex
-                    ? lecHasIncluded(lec.id)
-                      ? "خارج الاختبار عدا قسم NSE"
-                      : "خارج الاختبار"
-                    : "",
-                  onclick: () => {
-                    S.lec = lec.id;
-                    save();
-                    renderSlides();
-                    buildNavs();
-                    buildSlidesChips();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  },
+            const btn = el(
+              "button",
+              {
+                class:
+                  (lec.id === S.lec ? "active " : "") +
+                  (p.pct === 100 ? "done " : "") +
+                  (ex ? "excluded" : ""),
+                title: ex
+                  ? lecHasIncluded(lec.id)
+                    ? "خارج الاختبار عدا قسم NSE"
+                    : "خارج الاختبار"
+                  : "",
+                onclick: () => {
+                  S.lec = lec.id;
+                  save();
+                  renderSlides();
+                  buildNavs();
+                  buildSlidesChips();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 },
-                el("span", { class: "ic" }, iconSvg("file")),
-                lec.id + (ex ? " (خارج)" : ""),
-              ),
+              },
+              el("span", { class: "ic" }, svgNode(lecIconSvg(lec.id))),
+              lec.id + (ex ? " (خارج)" : ""),
             );
+            if (lec.id === S.lec) activeLecBtn = btn;
+            bnavLecs.appendChild(btn);
           });
+          if (activeLecBtn) {
+            setTimeout(() => {
+              activeLecBtn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+            }, 60);
+          }
         } else if (S.view === "models") {
+          let activeModelBtn = null;
           MODELS.forEach((m) => {
             const st = modelStats(m.id);
-            bnavLecs.appendChild(
-              el(
-                "button",
-                {
-                  class:
-                    (m.id === S.model ? "active" : "") +
-                    (st.total && st.right === st.total ? " done" : ""),
-                  onclick: () => {
-                    S.model = m.id;
-                    S.qLec = "all";
-                    S.qType = "all";
-                    save();
-                    renderModels();
-                    buildNavs();
-                    window.scrollTo({ top: 0, behavior: "smooth" });
-                  },
+            const btn = el(
+              "button",
+              {
+                class:
+                  (m.id === S.model ? "active" : "") +
+                  (st.total && st.right === st.total ? " done" : ""),
+                onclick: () => {
+                  S.model = m.id;
+                  S.qLec = "all";
+                  S.qType = "all";
+                  save();
+                  renderModels();
+                  buildNavs();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
                 },
-                el("span", { class: "ic" }, iconSvg("models")),
-                m.id,
-              ),
+              },
+              el("span", { class: "ic" }, svgNode(modelIconSvg(m.id))),
+              m.id,
             );
+            if (m.id === S.model) activeModelBtn = btn;
+            bnavLecs.appendChild(btn);
           });
+          if (activeModelBtn) {
+            setTimeout(() => {
+              activeModelBtn.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+            }, 60);
+          }
         } else if (S.view === "tables") {
           const tierCont = $("#tblTier");
           if (tierCont) {
@@ -4095,22 +4329,24 @@
             });
           }
         } else if (S.view === "summary") {
+          let activeSumBtn = null;
           (SUM?.parts || []).forEach((p, idx) => {
             const id = p.id || `p${idx}`;
             if (S.sumScopeOnly && p.lec && EXCLUDED_LECS.has(p.lec)) return;
-            bnavLecs.appendChild(
-              el(
-                "button",
-                {
-                  class: sumRead.has(id) ? "done" : "",
-                  onclick: () => {
-                    const target = document.getElementById(id);
-                    if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
-                  },
+            const partNum = p.lec || String(idx + 1);
+            const btn = el(
+              "button",
+              {
+                class: sumRead.has(id) ? "done" : "",
+                onclick: () => {
+                  const target = document.getElementById(id);
+                  if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
                 },
-                p.lec || "ملخص",
-              ),
+              },
+              el("span", { class: "ic" }, svgNode(summaryPartIconSvg(partNum))),
+              p.lec || "ملخص",
             );
+            bnavLecs.appendChild(btn);
           });
         }
         updateProgressUI();
@@ -4266,6 +4502,336 @@
               { rootMargin: "0px 0px -8% 0px", threshold: 0.05 },
             )
           : null;
+
+      /* ===== End-of-page navigation pager (التالي / السابق) ===== */
+      function buildContentPager(viewType) {
+        const pager = el("nav", {
+          class: "content-pager",
+          "aria-label": "التنقل في نهاية الصفحة",
+        });
+
+        if (viewType === "slides") {
+          const idx = META.lectures.findIndex((l) => l.id === S.lec);
+          const currentLec = META.lectures[idx];
+          const prevLec = idx > 0 ? META.lectures[idx - 1] : null;
+          const nextLec = idx < META.lectures.length - 1 ? META.lectures[idx + 1] : null;
+
+          const nextBtn = el(
+            "button",
+            {
+              class: "pager-btn next",
+              type: "button",
+              onclick: () => {
+                if (nextLec) {
+                  S.lec = nextLec.id;
+                  save();
+                  renderSlides();
+                  buildNavs();
+                  buildSlidesChips();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else if (MODELS && MODELS.length) {
+                  setView("models");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  setView("summary");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              },
+            },
+            el(
+              "div",
+              { class: "pager-info" },
+              el(
+                "span",
+                { class: "pager-sub" },
+                nextLec ? "المحاضرة التالية" : "المرحلة التالية",
+              ),
+              el(
+                "span",
+                { class: "pager-title" },
+                nextLec
+                  ? `${nextLec.id} · ${nextLec.ar}`
+                  : MODELS && MODELS.length
+                    ? "بنك نماذج الاختبارات"
+                    : "الملخص الشامل",
+              ),
+            ),
+            el(
+              "span",
+              { class: "pager-arrow" },
+              svgNode(
+                '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="15 18 9 12 15 6"/></svg>',
+              ),
+            ),
+          );
+
+          const prevBtn = el(
+            "button",
+            {
+              class: "pager-btn prev" + (!prevLec ? " disabled" : ""),
+              type: "button",
+              disabled: !prevLec,
+              onclick: () => {
+                if (!prevLec) return;
+                S.lec = prevLec.id;
+                save();
+                renderSlides();
+                buildNavs();
+                buildSlidesChips();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              },
+            },
+            el(
+              "span",
+              { class: "pager-arrow" },
+              svgNode(
+                '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="9 18 15 12 9 6"/></svg>',
+              ),
+            ),
+            el(
+              "div",
+              { class: "pager-info" },
+              el(
+                "span",
+                { class: "pager-sub" },
+                prevLec ? "المحاضرة السابقة" : "البداية",
+              ),
+              el(
+                "span",
+                { class: "pager-title" },
+                prevLec ? `${prevLec.id} · ${prevLec.ar}` : "هذه أول محاضرة",
+              ),
+            ),
+          );
+
+          pager.appendChild(nextBtn);
+          pager.appendChild(prevBtn);
+        } else if (viewType === "models") {
+          const idx = MODELS.findIndex((m) => m.id === S.model);
+          const prevModel = idx > 0 ? MODELS[idx - 1] : null;
+          const nextModel = idx < MODELS.length - 1 ? MODELS[idx + 1] : null;
+
+          const nextBtn = el(
+            "button",
+            {
+              class: "pager-btn next",
+              type: "button",
+              onclick: () => {
+                if (nextModel) {
+                  S.model = nextModel.id;
+                  S.qLec = "all";
+                  S.qType = "all";
+                  save();
+                  renderModels();
+                  buildNavs();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  setView("summary");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              },
+            },
+            el(
+              "div",
+              { class: "pager-info" },
+              el(
+                "span",
+                { class: "pager-sub" },
+                nextModel ? "النموذج التالي" : "المرحلة التالية",
+              ),
+              el(
+                "span",
+                { class: "pager-title" },
+                nextModel
+                  ? `${nextModel.id} · ${nextModel.title_ar || nextModel.title || ""}`
+                  : "الملخص الشامل",
+              ),
+            ),
+            el(
+              "span",
+              { class: "pager-arrow" },
+              svgNode(
+                '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="15 18 9 12 15 6"/></svg>',
+              ),
+            ),
+          );
+
+          const prevBtn = el(
+            "button",
+            {
+              class: "pager-btn prev" + (!prevModel ? " disabled" : ""),
+              type: "button",
+              disabled: !prevModel,
+              onclick: () => {
+                if (!prevModel) return;
+                S.model = prevModel.id;
+                S.qLec = "all";
+                S.qType = "all";
+                save();
+                renderModels();
+                buildNavs();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              },
+            },
+            el(
+              "span",
+              { class: "pager-arrow" },
+              svgNode(
+                '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="9 18 15 12 9 6"/></svg>',
+              ),
+            ),
+            el(
+              "div",
+              { class: "pager-info" },
+              el(
+                "span",
+                { class: "pager-sub" },
+                prevModel ? "النموذج السابق" : "العودة للسلايدات",
+              ),
+              el(
+                "span",
+                { class: "pager-title" },
+                prevModel
+                  ? `${prevModel.id} · ${prevModel.title_ar || prevModel.title || ""}`
+                  : "سلايدات الشرح",
+              ),
+            ),
+          );
+
+          pager.appendChild(nextBtn);
+          pager.appendChild(prevBtn);
+        } else if (viewType === "summary") {
+          const nextBtn = el(
+            "button",
+            {
+              class: "pager-btn next",
+              type: "button",
+              onclick: () => {
+                if (MODELS && MODELS.length) {
+                  setView("models");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  setView("slides");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              },
+            },
+            el(
+              "div",
+              { class: "pager-info" },
+              el("span", { class: "pager-sub" }, "الخطوة التالية"),
+              el(
+                "span",
+                { class: "pager-title" },
+                MODELS && MODELS.length
+                  ? "اختبر نفسك في النماذج"
+                  : "مراجعة السلايدات",
+              ),
+            ),
+            el(
+              "span",
+              { class: "pager-arrow" },
+              svgNode(
+                '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="15 18 9 12 15 6"/></svg>',
+              ),
+            ),
+          );
+
+          const prevBtn = el(
+            "button",
+            {
+              class: "pager-btn prev",
+              type: "button",
+              onclick: () => {
+                setView("slides");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              },
+            },
+            el(
+              "span",
+              { class: "pager-arrow" },
+              svgNode(
+                '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="9 18 15 12 9 6"/></svg>',
+              ),
+            ),
+            el(
+              "div",
+              { class: "pager-info" },
+              el("span", { class: "pager-sub" }, "العودة"),
+              el("span", { class: "pager-title" }, "سلايدات الشرح"),
+            ),
+          );
+
+          pager.appendChild(nextBtn);
+          pager.appendChild(prevBtn);
+        } else if (viewType === "tables") {
+          const nextBtn = el(
+            "button",
+            {
+              class: "pager-btn next",
+              type: "button",
+              onclick: () => {
+                if (MODELS && MODELS.length) {
+                  setView("models");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  setView("summary");
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }
+              },
+            },
+            el(
+              "div",
+              { class: "pager-info" },
+              el("span", { class: "pager-sub" }, "الخطوة التالية"),
+              el(
+                "span",
+                { class: "pager-title" },
+                MODELS && MODELS.length
+                  ? "اختبر نفسك في النماذج"
+                  : "الملخص الشامل",
+              ),
+            ),
+            el(
+              "span",
+              { class: "pager-arrow" },
+              svgNode(
+                '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="15 18 9 12 15 6"/></svg>',
+              ),
+            ),
+          );
+
+          const prevBtn = el(
+            "button",
+            {
+              class: "pager-btn prev",
+              type: "button",
+              onclick: () => {
+                setView("slides");
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              },
+            },
+            el(
+              "span",
+              { class: "pager-arrow" },
+              svgNode(
+                '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:20px;height:20px;"><polyline points="9 18 15 12 9 6"/></svg>',
+              ),
+            ),
+            el(
+              "div",
+              { class: "pager-info" },
+              el("span", { class: "pager-sub" }, "العودة"),
+              el("span", { class: "pager-title" }, "سلايدات الشرح"),
+            ),
+          );
+
+          pager.appendChild(nextBtn);
+          pager.appendChild(prevBtn);
+        }
+
+        return pager;
+      }
 
       /* ===== Slides view ===== */
       let visibleIds = [];
@@ -4471,6 +5037,7 @@
           if (io) io.observe(card);
           else card.classList.remove("reveal");
         });
+        wrap.appendChild(buildContentPager("slides"));
         applyFilters();
       }
       /* ===== قسم الجداول — جداول الحفظ بالأهمية المتوقعة ===== */
@@ -4712,6 +5279,7 @@
               ),
             );
           });
+        if (wrap.children.length) wrap.appendChild(buildContentPager("tables"));
         requestAnimationFrame(() => {
           fitTables();
           setTimeout(fitTables, 250);
@@ -4757,6 +5325,8 @@
         fitTables();
         const emp = $("#tablesEmpty");
         if (emp) emp.style.display = any ? "none" : "block";
+        const tp = $("#tablesCards .content-pager");
+        if (tp) tp.style.display = q ? "none" : "";
       }
 
       function applySummaryFilters(q) {
@@ -4776,6 +5346,8 @@
         });
         const emp = $("#summaryEmpty");
         if (emp) emp.style.display = shownParts ? "none" : "block";
+        const sp = $("#summaryParts .content-pager");
+        if (sp) sp.style.display = q ? "none" : "";
       }
 
       function applyFilters() {
@@ -4797,6 +5369,8 @@
           c.classList.toggle("hidden", hide);
           if (!hide) shown++;
         });
+        const p = $("#cards .content-pager");
+        if (p) p.style.display = q ? "none" : "";
         $("#emptyNote").style.display = shown ? "none" : "block";
       }
       $("#q").addEventListener("input", applyFilters);
@@ -4939,6 +5513,7 @@
             );
           }
         });
+        wrap.appendChild(buildContentPager("summary"));
 
         // Update progress badge
         const total = document.querySelectorAll("#summaryParts .part").length || (SUM_DATA.parts || []).length;
@@ -5509,6 +6084,7 @@
             el("div", { class: "empty-note" }, iconSvg("search"), "لا أسئلة بهذا الفلتر"),
           );
         shownQs.forEach((q) => buildQuestionCard(qc, m, q, ans[q.n]));
+        if (shownQs.length) qc.appendChild(buildContentPager("models"));
       }
       function buildQuestionCard(container, model, q, picked) {
         const correctIdx = q.opts ? q.opts.findIndex((o) => o.ok) : -1;
@@ -6624,6 +7200,6 @@
         }, { passive: true });
       })();
     </script>
-    <script src="app.js?v=lab2"></script>
+    <script src="app.js?v=lab3"></script>
   </body>
 </html>
