@@ -6,16 +6,23 @@
       if (location.protocol !== "file:") {
         var _ml = document.createElement("link");
         _ml.rel = "manifest";
-        _ml.href = "manifest.json?v=3";
+        _ml.href = "manifest.json?v=7";
         document.head.appendChild(_ml);
       }
     </script>
-    <link rel="icon" type="image/svg+xml" href="icons/icon.svg?v=3" />
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=3" />
-    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=3" />
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=3" />
-    <link rel="shortcut icon" href="favicon.ico?v=3" />
-    <meta
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg?v=7" />
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=7" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=7" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=7" />
+    <link rel="shortcut icon" href="favicon.ico?v=7" />
+        <meta name="theme-color" content="#0b0e17" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="معمل أمن المعلومات · عارض التطبيقات العملية" />
+    <meta property="og:description" content="عارض معمل وتطبيقات أمن المعلومات — شروح عملية وأدوات واختبارات" />
+    <meta property="og:image" content="icons/icon-512.png?v=7" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:image" content="icons/icon-512.png?v=7" />
+<meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
@@ -2473,23 +2480,39 @@
       }
       .bottom-nav .bn-companion-btn {
         flex: 0 0 auto;
+        min-height: 42px;
+        min-width: 58px;
         background: var(--sf2);
         border: 1px solid var(--ln);
-        padding: 5px 9px;
+        padding: 4px 8px;
         border-radius: 10px;
         cursor: pointer;
         font-family: var(--fa);
-        font-size: 0.68rem;
-        font-weight: 700;
-        color: var(--ink-m);
+        font-size: 0.60rem;
+        font-weight: 800;
+        color: var(--ink);
         display: flex;
+        flex-direction: column;
         align-items: center;
-        gap: 5px;
+        justify-content: center;
+        gap: 2px;
         transition: all var(--dur) var(--ease);
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
         white-space: nowrap;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+      }
+      .bottom-nav .bn-companion-btn .ic {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+      }
+      .bottom-nav .bn-companion-btn .ic svg {
+        width: 15px;
+        height: 15px;
+        display: block;
       }
       .bottom-nav .bn-companion-btn:hover {
         border-color: var(--acc);
@@ -3250,11 +3273,14 @@
         .zen-opt .svg-ic {
           display: none !important;
         }
+        .zen-opt[data-zen="1"] {
+          display: none !important;
+        }
         .zen-opt {
           height: 24px;
-          padding: 0 5px;
-          font-size: 0.65rem;
-          font-weight: 700;
+          padding: 0 6px;
+          font-size: 0.68rem;
+          font-weight: 800;
           border-radius: 999px;
         }
         .top-nav-wrap {
@@ -3524,7 +3550,7 @@
             </button>
             <button type="button" class="zen-opt" data-zen="2" title="الوضع الكامل: ملء الشاشة الكامل (على الجوال: إخفاء شريط الإشعارات)">
               <svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
-              <span class="zen-txt">كامل</span>
+              <span class="zen-txt">تكبير</span>
             </button>
           </div>
           <button class="top-btn" id="btnSet" title="الإعدادات">
@@ -7046,7 +7072,12 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           const targetZen = parseInt(btn.dataset.zen, 10);
-          setZenLevel(targetZen);
+          const isMobile = !matchMedia("(min-width: 981px)").matches;
+          if (isMobile && targetZen === zenLevel) {
+            setZenLevel(zenLevel === 0 ? 2 : 0);
+          } else {
+            setZenLevel(targetZen);
+          }
         });
       });
 
@@ -7223,6 +7254,6 @@
         }, { passive: true });
       })();
     </script>
-    <script src="app.js?v=lab6"></script>
+    <script src="app.js?v=lab7"></script>
   </body>
 </html>
