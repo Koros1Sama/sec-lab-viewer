@@ -6,8 +6,8 @@
      بيانات data = قديم فوراً + تحديث بالخلفية (SWR)
      صور الشرائح = الكاش أولاً (كبيرة ومستقرة)
    ═══════════════════════════════════════════════════════ */
-const RUNTIME = "sec-lab-runtime-v5";
-const CORE = "sec-lab-core-v5";
+const RUNTIME = "sec-lab-runtime-v6";
+const CORE = "sec-lab-core-v6";
 const CORE_ASSETS = [
   "./",
   "./index.html",

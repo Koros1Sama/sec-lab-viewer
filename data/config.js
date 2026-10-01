@@ -29,6 +29,7 @@ window.TOC_CONFIG = {
 
   /* ── العرض الافتراضي: العملي أولاً ── */
   defaultView: "slides",
+  theoryUrl: "https://koros1sama.github.io/sec-viewer/",
 
   /* ── رسائل الأقسام المعلقة ── */
   theoryPendingTitle: "النظري قيد الإعداد",

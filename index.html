@@ -2464,75 +2464,48 @@
         display: flex;
         gap: 2px;
       }
-      /* section switch buttons pinned in a solid segmented dock */
-      .bottom-nav .bn-actions {
+      /* companion buttons on the side (e.g. roadmap in TOC, lab in Sec, or app) */
+      .bottom-nav .bn-companion {
         flex: 0 0 auto;
         display: flex;
         align-items: center;
-        gap: 3px;
-        background: color-mix(in srgb, var(--sf2) 88%, var(--ln));
-        padding: 3px 4px;
-        border-radius: 12px;
-        border: 1px solid var(--ln);
+        gap: 4px;
       }
-      .bottom-nav .bn-actions button {
+      .bottom-nav .bn-companion-btn {
         flex: 0 0 auto;
-        min-width: 44px;
-        background: transparent;
-        border: none;
-        padding: 4px 6px;
-        border-radius: 9px;
+        background: var(--sf2);
+        border: 1px solid var(--ln);
+        padding: 5px 9px;
+        border-radius: 10px;
         cursor: pointer;
         font-family: var(--fa);
-        font-size: 0.62rem;
+        font-size: 0.68rem;
         font-weight: 700;
-        color: var(--ink-f);
+        color: var(--ink-m);
         display: flex;
-        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 2px;
+        gap: 5px;
         transition: all var(--dur) var(--ease);
         user-select: none;
         -webkit-user-select: none;
         touch-action: manipulation;
+        white-space: nowrap;
       }
-      .bottom-nav .bn-actions button .ic {
-        font-size: 0.95rem;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .bottom-nav .bn-actions button:hover {
+      .bottom-nav .bn-companion-btn:hover {
+        border-color: var(--acc);
         color: var(--ink);
       }
-      .bottom-nav .bn-actions button.active {
-        background: var(--acc);
-        color: var(--bg);
-        font-weight: 900;
-        box-shadow: 0 2px 8px color-mix(in srgb, var(--acc) 35%, transparent);
+      .bottom-nav .bn-companion-btn.nav-roadmap {
+        color: var(--acc-b);
+        border: 1px dashed color-mix(in srgb, var(--acc) 50%, transparent);
       }
-      .bottom-nav .bn-actions button.nav-sum {
-        border: 1px dashed color-mix(in srgb, var(--acc) 45%, transparent);
+      .bottom-nav .bn-companion-btn.nav-lab {
+        color: #ff9f1c;
+        border: 1px dashed color-mix(in srgb, #ff9f1c 50%, transparent);
       }
-      .bottom-nav .bn-actions button.nav-sum.active {
-        border-color: var(--acc);
-      }
-
-      /* Hierarchy Bridge / Divider between Sections and Pages */
-      .bottom-nav .bn-divider {
-        flex: 0 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 2px;
-        color: var(--ink-f);
-        opacity: 0.6;
-      }
-      .bottom-nav .bn-divider svg {
-        width: 14px;
-        height: 14px;
+      .bottom-nav .bn-companion-btn.nav-theory {
+        color: var(--acc);
+        border: 1px dashed color-mix(in srgb, var(--acc) 50%, transparent);
       }
 
       /* lectures / models chips scroll horizontally */
@@ -3185,36 +3158,104 @@
         text-decoration: none;
       }
 
-      @media (max-width: 980px) {
+      @media (max-width: 900px) {
         .topbar-in {
+          padding: 6px 10px;
+          gap: 6px;
           display: grid;
-          grid-template-columns: 1fr auto;
+          grid-template-columns: minmax(0, 1fr) auto;
           grid-template-areas:
             "brand actions"
             "nav nav";
-          gap: 6px;
-          padding: 7px 10px 7px;
+          align-items: center;
+          width: 100%;
+          max-width: 100vw;
+          overflow: hidden;
           min-height: auto;
         }
         .brand {
           grid-area: brand;
-          font-size: 0.74rem;
+          font-size: 0.76rem;
           min-width: 0;
-          align-self: center;
+          gap: 6px;
+          overflow: hidden;
+        }
+        .brand .lm {
+          width: 28px;
+          height: 28px;
+          flex: 0 0 28px;
+          font-size: 0.82rem;
+          display: grid;
+          place-items: center;
         }
         .brand > span {
           min-width: 0;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          display: flex;
+          flex-direction: column;
+        }
+        .brand #brandName {
+          font-size: 0.76rem;
+          font-weight: 800;
+          line-height: 1.2;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          direction: ltr;
+          unicode-bidi: isolate;
         }
         .brand small {
           display: none;
         }
         .top-actions {
           grid-area: actions;
-          gap: 5px;
-          align-self: center;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 4px;
+          min-width: 0;
+          flex: 0 0 auto;
+        }
+        .top-actions .top-btn {
+          padding: 0;
+          width: 30px;
+          height: 28px;
+          min-width: 30px;
+          justify-content: center;
+        }
+        .top-actions .top-btn .txt {
+          display: none !important;
+        }
+        .top-actions .top-btn svg {
+          margin: 0;
+        }
+        .top-actions #btnSearchToggle,
+        .top-actions #btnSet,
+        .top-actions #btnApp {
+          width: 30px;
+          height: 28px;
+          padding: 0;
+          display: inline-grid;
+          place-items: center;
+        }
+        .zen-toggle-group {
+          height: 28px;
+          padding: 2px;
+          gap: 2px;
+          border-radius: 999px;
+        }
+        /* On mobile: hide SVG in zen pills to save space while showing clear text */
+        .zen-opt .svg-ic {
+          display: none !important;
+        }
+        .zen-opt {
+          height: 24px;
+          padding: 0 5px;
+          font-size: 0.65rem;
+          font-weight: 700;
+          border-radius: 999px;
         }
         .top-nav-wrap {
           grid-area: nav;
@@ -3298,25 +3339,9 @@
         #progChip {
           display: none;
         }
-        /* Mobile: keep button texts visible as requested */
-        .top-btn .txt {
-          display: inline;
-        }
-        #btnSearchToggle {
-          display: inline-flex;
-        }
-        .zen-toggle-group {
-          height: 30px;
-          padding: 2px;
-          gap: 2px;
-          border-radius: 999px;
-        }
-        .zen-opt {
-          height: 24px;
-          padding: 0 7px;
-          font-size: 0.68rem;
-          gap: 3px;
-          border-radius: 999px;
+        .slide-action-btn .txt,
+        .model-action-btn .txt {
+          display: inline !important;
         }
         .svg-ic {
           width: 14px;
@@ -4239,77 +4264,48 @@
           });
         }
         const bnav = clear($("#botNav"));
-        const bnavActions = el("div", { class: "bn-row bn-actions" });
-        const bnavDivider = el(
-          "div",
-          { class: "bn-divider", "aria-hidden": "true" },
-          svgNode(
-            '<svg class="svg-ic bn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>'
-          ),
-        );
-        const bnavLecs = el("div", { class: "bn-row bn-lecs" });
-        bnav.appendChild(bnavActions);
-        bnav.appendChild(bnavDivider);
-        bnav.appendChild(bnavLecs);
-        bnavActions.appendChild(
-          el(
-            "button",
-            {
-              class: S.view === "slides" ? "active" : "",
-              onclick: () => setView("slides"),
-            },
-            el("span", { class: "ic" }, iconSvg("slides")),
-            "السلايدات",
-          ),
-        );
-        bnavActions.appendChild(
-          el(
-            "button",
-            {
-              class: S.view === "models" ? "active" : "",
-              onclick: () => setView("models"),
-            },
-            el("span", { class: "ic" }, iconSvg("models")),
-            "النماذج",
-          ),
-        );
-        if (TABLES && TABLES.length) {
-          bnavActions.appendChild(
-            el(
-              "button",
-              {
-                class: S.view === "tables" ? "active" : "",
-                onclick: () => setView("tables"),
-              },
-              el("span", { class: "ic" }, iconSvg("tables")),
-              "الجداول",
-            ),
-          );
-        }
-        bnavActions.appendChild(
-          el(
-            "button",
-            {
-              class: S.view === "summary" ? "active nav-sum" : "nav-sum",
-              onclick: () => setView("summary"),
-            },
-            el("span", { class: "ic" }, iconSvg("summary")),
-            "الملخص",
-          ),
-        );
         if (CFG.files && CFG.files.roadmap) {
-          bnavActions.appendChild(
+          bnav.appendChild(
             el(
               "button",
               {
-                class: "nav-roadmap",
+                class: "bn-companion-btn nav-roadmap",
                 onclick: () => location.assign("roadmap.html"),
+                title: "خارطة الشرح المرئي والفيديوهات",
               },
               el("span", { class: "ic" }, iconSvg("video")),
-              "خارطة الشرح",
+              el("span", { class: "lbl" }, "خارطة الشرح"),
+            ),
+          );
+        } else if (CFG.labUrl) {
+          bnav.appendChild(
+            el(
+              "button",
+              {
+                class: "bn-companion-btn nav-lab",
+                onclick: () => location.assign(CFG.labUrl),
+                title: "معمل العملي",
+              },
+              el("span", { class: "ic" }, iconSvg("terminal") || iconSvg("code")),
+              el("span", { class: "lbl" }, "معمل العملي"),
+            ),
+          );
+        } else if (CFG.theoryUrl) {
+          bnav.appendChild(
+            el(
+              "button",
+              {
+                class: "bn-companion-btn nav-theory",
+                onclick: () => location.assign(CFG.theoryUrl),
+                title: "المتن النظري",
+              },
+              el("span", { class: "ic" }, iconSvg("book")),
+              el("span", { class: "lbl" }, "المتن النظري"),
             ),
           );
         }
+        const bnavLecs = el("div", { class: "bn-row bn-lecs" });
+        bnav.appendChild(bnavLecs);
         if (S.view === "slides") {
           let activeLecBtn = null;
           META.lectures.forEach((lec) => {
@@ -6954,21 +6950,20 @@
       }
 
       async function setZenLevel(level, notify = true) {
+        const isMob = window.innerWidth <= 900;
         zenLevel = Math.max(0, Math.min(2, level));
         updateZenUI();
-        const isDesktop = matchMedia("(min-width: 981px)").matches;
+        localStorage.setItem("study_zen_level", zenLevel);
 
-        if (isDesktop) {
-          // --- DESKTOP / LAPTOP ---
+        if (!isMob) {
+          // --- DESKTOP ---
           if (zenLevel === 0) {
-            // Level 0: Normal mode
             if (document.fullscreenElement && document.exitFullscreen) {
               try {
                 await document.exitFullscreen();
               } catch (_) {}
             }
             document.body.classList.remove("zen-focus", "zen-full", "no-side");
-            if (notify) sideHiddenToast("الوضع العادي — القائمة ظاهرة");
           } else if (zenLevel === 1) {
             // Level 1: Focus (Fullscreen F11 + Sidebar hidden + Centered content at 980px)
             if (
@@ -6981,10 +6976,6 @@
             }
             document.body.classList.remove("zen-full");
             document.body.classList.add("zen-focus", "no-side");
-            if (notify)
-              sideHiddenToast(
-                "وضع التركيز — القائمة مخفية والمحتوى موسط (Ctrl+B أو Esc)",
-              );
           } else if (zenLevel === 2) {
             // Level 2: Full (Fullscreen F11 + Sidebar hidden + Full width stretched)
             if (
@@ -6997,31 +6988,34 @@
             }
             document.body.classList.remove("zen-focus");
             document.body.classList.add("zen-full", "no-side");
-            if (notify)
-              sideHiddenToast("الوضع الكامل — تمدد على كامل الشاشة (Ctrl+B أو Esc)");
           }
         } else {
           // --- MOBILE ---
           if (zenLevel === 0) {
-            // Level 0: Normal mode (browser address bar, status bar, normal layout)
             if (document.fullscreenElement && document.exitFullscreen) {
               try {
                 await document.exitFullscreen();
               } catch (_) {}
             }
             document.body.classList.remove("zen-focus", "zen-full", "no-side");
-            if (notify) sideHiddenToast("الوضع العادي");
           } else if (zenLevel === 1) {
-            // Level 1: Focus mode (keeps phone status/notification bar visible! No requestFullscreen)
-            if (document.fullscreenElement && document.exitFullscreen) {
+            // Level 1: Focus mode (keeps phone status/notification bar visible via navigationUI: show)
+            if (
+              !document.fullscreenElement &&
+              document.documentElement.requestFullscreen
+            ) {
               try {
-                await document.exitFullscreen();
-              } catch (_) {}
+                await document.documentElement.requestFullscreen({
+                  navigationUI: "show",
+                });
+              } catch (_) {
+                try {
+                  await document.documentElement.requestFullscreen();
+                } catch (_) {}
+              }
             }
             document.body.classList.remove("zen-full");
             document.body.classList.add("zen-focus", "no-side");
-            if (notify)
-              sideHiddenToast("وضع التركيز — مع شريط الإشعارات والوقت");
           } else if (zenLevel === 2) {
             // Level 2: Full Immersive Mode (triggers requestFullscreen to hide mobile status/notification bar)
             if (
@@ -7029,19 +7023,17 @@
               document.documentElement.requestFullscreen
             ) {
               try {
-                if (document.documentElement.requestFullscreen.length) {
-                  await document.documentElement.requestFullscreen({
-                    navigationUI: "hide",
-                  });
-                } else {
+                await document.documentElement.requestFullscreen({
+                  navigationUI: "hide",
+                });
+              } catch (_) {
+                try {
                   await document.documentElement.requestFullscreen();
-                }
-              } catch (_) {}
+                } catch (_) {}
+              }
             }
             document.body.classList.remove("zen-focus");
             document.body.classList.add("zen-full", "no-side");
-            if (notify)
-              sideHiddenToast("ملء الشاشة الكامل — بدون شريط الإشعارات");
           }
         }
       }
@@ -7060,10 +7052,7 @@
 
       document.addEventListener("fullscreenchange", () => {
         if (!document.fullscreenElement) {
-          const isDesktop = matchMedia("(min-width: 981px)").matches;
-          if (isDesktop && zenLevel !== 0) {
-            setZenLevel(0, false);
-          } else if (!isDesktop && zenLevel === 2) {
+          if (zenLevel !== 0) {
             setZenLevel(0, false);
           }
         }
@@ -7076,21 +7065,7 @@
           !!t?.closest?.("input, textarea, select, [contenteditable]")
         );
       }
-      function sideHiddenToast(msg) {
-        let t = document.querySelector(".side-toast");
-        if (!t) {
-          t = el("div", {
-            class: "side-toast",
-            text: msg || "القائمة مخفية — Ctrl+B لإظهارها",
-          });
-          document.body.appendChild(t);
-        } else {
-          t.textContent = msg || "القائمة مخفية — Ctrl+B لإظهارها";
-        }
-        t.classList.remove("out");
-        clearTimeout(t._tm);
-        t._tm = setTimeout(() => t.classList.add("out"), 2800);
-      }
+      function sideHiddenToast() {}
       window.sideHiddenToast = sideHiddenToast;
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape" && document.body.classList.contains("search-open")) {
@@ -7152,23 +7127,6 @@
       $("#aboutLine").textContent = CFG.aboutLine;
       $("#fTeachWrap").style.display = CFG.teachers ? "" : "none";
       $("#fRangeWrap").style.display = CFG.lecturesRange ? "" : "none";
-      if (CFG.files && CFG.files.roadmap) {
-        const topActions = $(".top-actions");
-        if (topActions && !$("#btnRoadmapTop")) {
-          const rLink = el(
-            "a",
-            {
-              id: "btnRoadmapTop",
-              class: "top-btn roadmap-link",
-              href: "roadmap.html",
-              title: "تسلسل الشرح الكامل — فيديوهات المنهج لضمان الدرجة الكاملة"
-            },
-            iconSvg("video"),
-            el("span", { class: "txt", text: "خارطة الشرح" })
-          );
-          topActions.insertBefore(rLink, $("#btnSet"));
-        }
-      }
       if (!TABLES || !TABLES.length) {
         if ($("#segTables")) $("#segTables").style.display = "none";
         if ($("#segTopTables")) $("#segTopTables").style.display = "none";
@@ -7265,6 +7223,6 @@
         }, { passive: true });
       })();
     </script>
-    <script src="app.js?v=lab5"></script>
+    <script src="app.js?v=lab6"></script>
   </body>
 </html>
