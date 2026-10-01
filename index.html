@@ -397,13 +397,44 @@
         pointer-events: none !important;
         visibility: hidden !important;
       }
-      .slide-action-btn {
+      /* Smart Models Actions (خيارات لغة الأسئلة) with smooth collapse */
+      .model-actions-wrap {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        overflow: hidden;
+        white-space: nowrap;
+        flex: 0 0 auto;
+        min-width: 0;
+        max-width: 380px;
+        opacity: 1;
+        transform: scale(1);
+        transform-origin: center inline-end;
+        transition:
+          max-width 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+          opacity 0.22s cubic-bezier(0.32, 0.72, 0, 1),
+          transform 0.22s cubic-bezier(0.32, 0.72, 0, 1),
+          margin-inline-start 0.3s cubic-bezier(0.32, 0.72, 0, 1),
+          visibility 0.3s;
+      }
+      body:not([data-view="models"]) .model-actions-wrap {
+        max-width: 0 !important;
+        opacity: 0 !important;
+        transform: scale(0.85) !important;
+        margin: 0 !important;
+        margin-inline-start: -14px !important;
+        padding: 0 !important;
+        pointer-events: none !important;
+        visibility: hidden !important;
+      }
+      .slide-action-btn,
+      .model-action-btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 6px;
+        gap: 5px;
         height: 34px;
-        padding: 0 13px;
+        padding: 0 11px;
         border-radius: 999px;
         border: 1px solid var(--ln);
         background: var(--sf);
@@ -414,13 +445,17 @@
         line-height: 1;
         box-sizing: border-box;
         transition: all var(--dur) var(--ease);
+        cursor: pointer;
+        white-space: nowrap;
       }
-      .slide-action-btn:hover {
+      .slide-action-btn:hover,
+      .model-action-btn:hover {
         border-color: var(--acc);
         color: var(--ink);
         transform: translateY(-1px);
       }
-      .slide-action-btn.on {
+      .slide-action-btn.on,
+      .model-action-btn.on {
         background: color-mix(in srgb, var(--acc) 12%, var(--sf)) !important;
         border-color: color-mix(in srgb, var(--acc) 65%, transparent) !important;
         color: var(--acc-b) !important;
@@ -3197,6 +3232,9 @@
         body:not([data-view="slides"]) .slide-actions-wrap {
           margin-inline-start: -6px !important;
         }
+        body:not([data-view="models"]) .model-actions-wrap {
+          margin-inline-start: -6px !important;
+        }
         .layout {
           grid-template-columns: 1fr;
         }
@@ -3249,7 +3287,8 @@
           border-radius: 999px;
           gap: 5px;
         }
-        .slide-action-btn {
+        .slide-action-btn,
+        .model-action-btn {
           height: 30px;
           padding: 0 10px;
           font-size: 0.74rem;
@@ -3402,6 +3441,24 @@
             <button id="btnExAll" class="top-btn slide-action-btn" title="إظهار/إخفاء كل الشروح">
               <svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>
               <span class="txt">شرح</span>
+            </button>
+          </div>
+
+          <!-- أدوات النماذج: لغة الأسئلة (تظهر بسلاسة وأناقة عند التواجد في قسم النماذج) -->
+          <div class="model-actions-wrap" id="modelActionsWrap">
+            <span class="nav-divider"></span>
+            <button type="button" class="top-btn model-action-btn" data-top-lang="smart" title="الوضع الذكي: إنجليزي مع إمكانية ترجمة الخيارات">
+              <svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.04z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.04z"/></svg>
+              <span class="txt">ذكي</span>
+            </button>
+            <button type="button" class="top-btn model-action-btn" data-top-lang="en" title="عرض الأسئلة والخيارات بالإنجليزية">
+              <span class="txt">English</span>
+            </button>
+            <button type="button" class="top-btn model-action-btn" data-top-lang="ar" title="عرض الأسئلة والخيارات بالعربية">
+              <span class="txt">عربي</span>
+            </button>
+            <button type="button" class="top-btn model-action-btn" data-top-lang="both" title="عرض اللغتين معاً">
+              <span class="txt">الجهتين</span>
             </button>
           </div>
         </div>
@@ -4091,6 +4148,8 @@
         return { total: qs.length, answered, right };
       }
       function buildNavs() {
+        const maw = $("#modelActionsWrap");
+        if (maw) maw.style.display = (!MODELS || !MODELS.length) ? "none" : "";
         if (S.view === "slides") {
           const list = clear($("#lecList"));
           META.lectures.forEach((lec) => {
@@ -6025,50 +6084,53 @@
         }
 
                 const origin = clear($("#modelOrigin"));
+        const isAi = !m.origin_url && (!m.origin_sources || !m.origin_sources.length);
         const descDiv = el("div", { class: "model-origin-desc" });
         descDiv.append(
-          el("span", { class: "model-origin-tag" }, iconSvg("models"), "المصدر المعتمد"),
+          el("span", { class: "model-origin-tag" }, iconSvg("models"), isAi ? "إعداد المنهج" : "المصدر المعتمد"),
           el("span", { text: m.origin_ar || "" }),
         );
         origin.appendChild(descDiv);
 
-        const linksDiv = el("div", { class: "model-origin-links" });
-        if (m.origin_url) {
-          linksDiv.appendChild(
-            el(
-              "a",
-              {
-                class: "model-origin-link",
-                href: m.origin_url,
-                target: "_blank",
-                rel: "noopener noreferrer",
-              },
-              iconSvg("external"),
-              m.origin_label || "رابط المصدر المعتمد",
-            ),
-          );
-        }
-        if (m.origin_sources && Array.isArray(m.origin_sources)) {
-          m.origin_sources.forEach((src) => {
-            if (src.url) {
-              linksDiv.appendChild(
-                el(
-                  "a",
-                  {
-                    class: "model-origin-link",
-                    href: src.url,
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                  },
-                  iconSvg("external"),
-                  src.label || "مصدر إضافي",
-                ),
-              );
-            }
-          });
-        }
-        if (linksDiv.children.length > 0) {
-          origin.appendChild(linksDiv);
+        if (!isAi) {
+          const linksDiv = el("div", { class: "model-origin-links" });
+          if (m.origin_url) {
+            linksDiv.appendChild(
+              el(
+                "a",
+                {
+                  class: "model-origin-link",
+                  href: m.origin_url,
+                  target: "_blank",
+                  rel: "noopener noreferrer",
+                },
+                iconSvg("external"),
+                m.origin_label || "رابط المصدر المعتمد",
+              ),
+            );
+          }
+          if (m.origin_sources && Array.isArray(m.origin_sources)) {
+            m.origin_sources.forEach((src) => {
+              if (src.url) {
+                linksDiv.appendChild(
+                  el(
+                    "a",
+                    {
+                      class: "model-origin-link",
+                      href: src.url,
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    },
+                    iconSvg("external"),
+                    src.label || "مصدر إضافي",
+                  ),
+                );
+              }
+            });
+          }
+          if (linksDiv.children.length > 0) {
+            origin.appendChild(linksDiv);
+          }
         }
 
         const qc = clear($("#qCards"));
@@ -6403,12 +6465,15 @@
       });
       function syncLangPills() {
         document
-          .querySelectorAll("#langOpts .set-opt")
-          .forEach((b) => b.classList.toggle("on", b.dataset.lang === S.lang));
+          .querySelectorAll("#langOpts .set-opt, .model-action-btn[data-top-lang]")
+          .forEach((b) => {
+            const lang = b.dataset.lang || b.dataset.topLang;
+            b.classList.toggle("on", lang === S.lang);
+          });
       }
-      document.querySelectorAll("#langOpts .set-opt").forEach((b) =>
+      document.querySelectorAll("#langOpts .set-opt, .model-action-btn[data-top-lang]").forEach((b) =>
         b.addEventListener("click", () => {
-          S.lang = b.dataset.lang;
+          S.lang = b.dataset.lang || b.dataset.topLang;
           save();
           syncLangPills();
           if (S.view === "models") renderModels();
@@ -7200,6 +7265,6 @@
         }, { passive: true });
       })();
     </script>
-    <script src="app.js?v=lab4"></script>
+    <script src="app.js?v=lab5"></script>
   </body>
 </html>
