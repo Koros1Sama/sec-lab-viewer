@@ -3,14 +3,17 @@
    • دعم كامل للابتوب والكمبيوتر (Windows / Mac) والجوال (Android / iOS)
    • زر التثبيت يظهر فوراً من أول لحظة دون أي تأخير أو انتظار
    • تحميل المحتوى للعمل أوفلاين 100% دون إنترنت مع استئناف ذكي
+   • نظام إشعار وتطمين ذكي للطلاب عند توفر محاضرات جديدة (Delta Downloader)
+   • حماية مطلقة لكافة الشرائح المحملة مسبقاً ومنع إعادة تحميلها أو ضياعها
    • تحديث تلقائي في الخلفية عند توفر أي سلايدات أو نماذج جديدة
    • يعمل مع ثيمات الموقع الـ11 ورابط مباشر #app لفتح اللوحة
-   • معيار الأيقونات المتجهية 100% SVG بدون أي إيموجيات
+   • معيار الأيقونات المتجهية 100% SVG بدون أي إيموجيات نهائياً
    ═══════════════════════════════════════════════════════════ */
 (() => {
   if (!("serviceWorker" in navigator)) return;
 
-  const RUNTIME = "sec-lab-runtime-v7";
+  const CORE = "sec-lab-core-v12";
+  const RUNTIME = "sec-lab-runtime-v12";
   const isStandalone =
     matchMedia("(display-mode: standalone)").matches ||
     navigator.standalone === true;
@@ -23,7 +26,7 @@
   let deferredPrompt = null;
   let abortDL = null;
 
-  /* ── أيقونات متجهية SVG متناسقة 100% مع هوية الموقع ── */
+  /* ── أيقونات متجهية SVG متناسقة 100% مع هوية الموقع — صفر إيموجيات ── */
   const ICONS = {
     desktop: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
     mobile: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>',
@@ -34,7 +37,9 @@
     pause: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>',
     clock: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
     alert: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
-    share: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>'
+    share: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>',
+    info: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>',
+    layers: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>'
   };
 
   function setHTML(el, htmlString) {
@@ -50,7 +55,7 @@
   /* ── تسجيل العامل + التحديث التلقائي ──
      أول تثبيت: لا إعادة تحميل. تحديث فعلي لمتحكم سابق: reload مرة واحدة. */
   const hadController = !!navigator.serviceWorker.controller;
-    window.addEventListener("load", () => {
+  window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("sw.js", { updateViaCache: "none" })
       .then((reg) => {
@@ -59,8 +64,13 @@
       .catch(() => null);
   });
   let reloadedOnce = false;
+  let reloadPending = false;
   navigator.serviceWorker.addEventListener("controllerchange", () => {
     if (reloadedOnce || !hadController) return;
+    if (abortDL) {
+      reloadPending = true;
+      return;
+    }
     reloadedOnce = true;
     location.reload();
   });
@@ -71,7 +81,7 @@
     document.getElementById("appCta")?.classList.add("has-prompt");
   });
 
-  /* ── قائمة الموارد (صفحات + بيانات + شرائح + أيقونات) ── */
+  /* ── قائمة الموارد الشاملة للمقرر كاملاً ── */
   function buildResourceList() {
     const urls = new Set();
     [
@@ -79,23 +89,26 @@
       "index.html",
       "summary.html",
       "prompts.html",
+      "app.js",
       "manifest.json",
       "favicon.ico",
     ].forEach((u) => urls.add(u));
     const cfg = window.TOC_CONFIG || { files: {} };
+    if (cfg.files && cfg.files.roadmap) urls.add("roadmap.html");
     const files = cfg.files || {};
-    ["index", "summary"].forEach((k) =>
+    Object.keys(files).forEach((k) =>
       (files[k] || []).forEach((f) => urls.add("data/" + f + ".js")),
     );
     urls.add("data/config.js");
     const meta = window.TOC_META;
-    if (meta && Array.isArray(meta.lectures))
+    if (meta && Array.isArray(meta.lectures)) {
       meta.lectures.forEach((lec) =>
         (lec.slides || []).forEach((sl) => {
           const n = String(sl.n).padStart(3, "0");
           urls.add(`slides/${lec.id}/${lec.id}-S${n}.png`);
         }),
       );
+    }
     const qp = window.TOC_QPICS || {};
     Object.values(qp).forEach((v) => v && urls.add(v));
     [
@@ -112,25 +125,199 @@
   async function countCached(list) {
     let done = 0;
     try {
-      const cache = await caches.open(RUNTIME);
-      for (const u of list) if (await cache.match(u)) done++;
-    } catch {
-      /* لا كاش بعد */
-    }
+      for (const u of list) {
+        if (await caches.match(u, { ignoreSearch: true })) done++;
+      }
+    } catch {}
     return done;
   }
 
-  /* ── التنسيق: على نظام ثيمات الموقع ── */
+  /* ── فحص ذكي: هل قام المستخدم بالتحميل مسبقاً وهل تنقصه المحاضرات المضافة حديثاً؟ ── */
+  async function analyzeLectureCache() {
+    const meta = window.TOC_META;
+    const cfg = window.TOC_CONFIG || {};
+    const newLecIds = Array.isArray(cfg.newLecs) ? cfg.newLecs : [];
+    if (!meta || !Array.isArray(meta.lectures) || newLecIds.length === 0) {
+      return {
+        isExistingDownloader: false,
+        oldCached: 0,
+        oldTotal: 0,
+        newCached: 0,
+        newMissing: 0,
+        newTotal: 0,
+        newSlideUrls: [],
+        newLectureItems: [],
+      };
+    }
+
+    let oldTotal = 0,
+      oldCached = 0;
+    let newTotal = 0,
+      newCached = 0;
+    const newSlideUrls = [];
+    const newLectureItems = [];
+
+    try {
+      for (const lec of meta.lectures) {
+        const isNew = newLecIds.includes(lec.id);
+        if (isNew) {
+          newLectureItems.push(lec);
+        }
+        for (const sl of lec.slides || []) {
+          const n = String(sl.n).padStart(3, "0");
+          const u = `slides/${lec.id}/${lec.id}-S${n}.png`;
+          const isHit = !!(await caches.match(u, { ignoreSearch: true }));
+          if (isNew) {
+            newTotal++;
+            if (isHit) newCached++;
+            else newSlideUrls.push(u);
+          } else {
+            oldTotal++;
+            if (isHit) oldCached++;
+          }
+        }
+      }
+    } catch {}
+
+    const newMissing = newTotal - newCached;
+    /* فحص مرن ومتناسب مع حجم المقرر: هل المستخدم حفظ رصيداً كافياً من المحاضرات وتنقصها الشرائح الجديدة */
+    const threshold = Math.min(20, Math.max(5, Math.floor(oldTotal * 0.15)));
+    const isExistingDownloader = oldCached >= threshold && newMissing > 0;
+
+    return {
+      isExistingDownloader,
+      oldCached,
+      oldTotal,
+      newCached,
+      newMissing,
+      newTotal,
+      newSlideUrls,
+      newLectureItems,
+    };
+  }
+
+  /* ── جلب مرن مدعوم بإعادة المحاولة ومهلة أمان لمقاومة تقلبات شبكات الجوال ── */
+  async function fetchWithRetry(url, signal, maxRetries = 2, timeoutMs = 12000) {
+    for (let attempt = 0; attempt <= maxRetries; attempt++) {
+      if (signal.aborted) throw new Error("aborted");
+      const ctrl = new AbortController();
+      const tid = setTimeout(() => ctrl.abort(), timeoutMs);
+      const onAbort = () => ctrl.abort();
+      signal.addEventListener("abort", onAbort, { once: true });
+      try {
+        const res = await fetch(url, { signal: ctrl.signal });
+        clearTimeout(tid);
+        signal.removeEventListener("abort", onAbort);
+        if (res && res.ok) return res;
+        if (res && (res.status === 404 || res.status === 403)) return null;
+      } catch (err) {
+        clearTimeout(tid);
+        signal.removeEventListener("abort", onAbort);
+        if (signal.aborted) throw err;
+      }
+      if (attempt < maxRetries && !signal.aborted) {
+        await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+      }
+    }
+    return null;
+  }
+
+  /* ── محرك تحميل ذكي للمجموعات الناقصة فقط مع الحفاظ 100% على ما تم تحميله مسبقاً ── */
+  async function runBatchDownload(urls, onProgress) {
+    if (abortDL) {
+      abortDL.abort();
+      return false;
+    }
+    abortDL = new AbortController();
+    const sig = abortDL.signal;
+    const cache = await caches.open(RUNTIME);
+    const todo = [];
+    for (const u of urls) {
+      /* فحص حتمي: لا يتم طلب أو إعادة تحميل أي ملف موجود مسبقاً في أي كاش (CORE أو RUNTIME) */
+      if (!(await caches.match(u, { ignoreSearch: true }))) todo.push(u);
+    }
+    if (todo.length === 0) {
+      abortDL = null;
+      return true;
+    }
+
+    let nextIdx = 0;
+    let completed = 0;
+    let failed = 0;
+    const concurrency = Math.min(4, todo.length);
+
+    async function worker() {
+      while (!sig.aborted) {
+        if (nextIdx >= todo.length) break;
+        const currentIdx = nextIdx++;
+        const u = todo[currentIdx];
+        if (!u) break;
+
+        try {
+          const res = await fetchWithRetry(u, sig);
+          if (res && res.ok) {
+            await cache.put(u, res);
+            completed++;
+          } else {
+            failed++;
+          }
+        } catch {
+          if (sig.aborted) return;
+          failed++;
+        }
+
+        if (onProgress) {
+          onProgress(completed, todo.length, failed);
+        }
+      }
+    }
+
+    await Promise.all(Array.from({ length: concurrency }, worker));
+    const success = !sig.aborted;
+    abortDL = null;
+
+    if (reloadPending && !reloadedOnce) {
+      reloadedOnce = true;
+      location.reload();
+    }
+
+    return success;
+  }
+
+  /* ── التنسيق: على نظام ثيمات الموقع — صفر إيموجيات ── */
   const CSS = `
 #setPanel{max-height:min(78vh,660px);overflow:auto}
-#appCta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin:0 0 18px;padding:13px 18px;background:color-mix(in srgb,var(--acc) 9%,transparent);border:1.5px dashed color-mix(in srgb,var(--acc) 55%,transparent);border-radius:var(--r-m);color:var(--acc-b);font-family:var(--fa);font-size:0.92rem;font-weight:800;cursor:pointer;transition:all var(--dur) var(--ease);position:relative;text-align:center}
+#appCta{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;margin:0 0 14px;padding:13px 18px;background:color-mix(in srgb,var(--acc) 9%,transparent);border:1.5px dashed color-mix(in srgb,var(--acc) 55%,transparent);border-radius:var(--r-m);color:var(--acc-b);font-family:var(--fa);font-size:0.92rem;font-weight:800;cursor:pointer;transition:all var(--dur) var(--ease);position:relative;text-align:center}
 #appCta small{display:block;font-size:0.72rem;font-weight:600;color:var(--ink-m);margin-top:2px}
 #appCta:hover{background:color-mix(in srgb,var(--acc) 16%,transparent);transform:translateY(-1px);border-color:var(--acc)}
 #appCta .cta-ic{display:inline-flex;align-items:center;justify-content:center;color:var(--acc);flex:none;line-height:1}
 #appCta .cta-ic svg{width:22px;height:22px;display:block}
 #appCta.has-prompt::after{content:"";position:absolute;top:-5px;inset-inline-start:-5px;width:12px;height:12px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc)}
+.cta-update-badge{display:inline-flex;align-items:center;gap:4px;background:var(--acc);color:#0c0d10;font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:99px;margin-inline-end:8px;vertical-align:middle;box-shadow:0 1px 4px rgba(0,0,0,0.3)}
+
+/* ── إشعار إضافة المحاضرات الجديدة أعلى الصفحة ── */
+#newLecsBanner{background:color-mix(in srgb,var(--acc) 10%,var(--sf));border:1.5px solid color-mix(in srgb,var(--acc) 45%,transparent);border-radius:var(--r-m);padding:14px 16px;margin:0 0 16px;direction:rtl;font-family:var(--fa);color:var(--ink);box-shadow:0 6px 24px rgba(0,0,0,0.18);animation:rise 0.3s var(--ease);position:relative}
+.ap-banner-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.ap-banner-title{display:flex;align-items:center;gap:8px;font-size:0.92rem;font-weight:800;color:var(--acc)}
+.ap-banner-title svg{width:18px;height:18px;flex:none;display:block}
+.ap-banner-close{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:var(--sf2);border:1px solid var(--ln);border-radius:var(--r-s);color:var(--ink-m);cursor:pointer;transition:all var(--dur) var(--ease);flex:none}
+.ap-banner-close:hover{color:var(--err);border-color:color-mix(in srgb,var(--err) 40%,transparent)}
+.ap-banner-close svg{width:13px;height:13px;display:block}
+.ap-banner-body{font-size:0.81rem;line-height:1.9;color:var(--ink-m);margin-bottom:12px}
+.ap-banner-body b{color:var(--ink)}
+.ap-banner-highlight{display:inline-block;background:color-mix(in srgb,var(--acc) 18%,transparent);color:var(--acc-b);padding:1px 7px;border-radius:4px;font-weight:700;margin:0 2px;border:1px solid color-mix(in srgb,var(--acc) 30%,transparent)}
+.ap-banner-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ap-banner-actions .ap-btn{width:auto;flex:1 1 200px}
+
+/* ── بطاقة التوضيح داخل اللوحة ── */
+.ap-diff-card{background:color-mix(in srgb,var(--acc) 12%,var(--sf2));border:1px solid color-mix(in srgb,var(--acc) 40%,transparent);border-radius:var(--r-s);padding:11px 13px;margin-bottom:12px;font-size:0.8rem;line-height:1.8;color:var(--ink)}
+.ap-diff-title{display:flex;align-items:center;gap:6px;font-weight:800;color:var(--acc);margin-bottom:4px;font-size:0.85rem}
+.ap-diff-title svg{width:15px;height:15px;flex:none;display:block}
+.ap-diff-msg{color:var(--ink-m);margin-bottom:8px}
+.ap-diff-msg b{color:var(--ink)}
+
 #appPanel{position:fixed;inset:0;z-index:9999;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:20px;padding-bottom:calc(20px + env(safe-area-inset-bottom,0px));font-family:var(--fa);animation:fade 0.25s var(--ease)}
-#appPanel .ap-card{position:relative;width:min(440px,100%);max-height:86vh;overflow:auto;background:color-mix(in srgb,var(--sf) 97%,transparent);border:1px solid color-mix(in srgb,var(--acc) 28%,var(--ln));border-radius:var(--r-m);box-shadow:0 20px 60px rgba(0,0,0,0.55);padding:18px;color:var(--ink);direction:rtl;animation:rise 0.3s var(--ease)}
+#appPanel .ap-card{position:relative;width:min(460px,100%);max-height:88vh;overflow:auto;background:color-mix(in srgb,var(--sf) 97%,transparent);border:1px solid color-mix(in srgb,var(--acc) 28%,var(--ln));border-radius:var(--r-m);box-shadow:0 20px 60px rgba(0,0,0,0.55);padding:18px;color:var(--ink);direction:rtl;animation:rise 0.3s var(--ease)}
 #appPanel .ap-card>h3:first-of-type{padding-inline-start:34px}
 .ap-x{position:sticky;top:0;float:right;margin:0 0 0 6px;width:30px;height:30px;display:inline-flex;align-items:center;justify-content:center;background:var(--sf);border:1px solid var(--ln);border-radius:var(--r-s);color:var(--ink-m);cursor:pointer;transition:all var(--dur) var(--ease);flex:none}
 .ap-x:hover{color:var(--err);border-color:color-mix(in srgb,var(--err) 40%,transparent)}
@@ -155,7 +342,7 @@
 .ap-steps b{color:var(--ink)}
 .ap-badge{display:inline-flex;align-items:center;gap:5px;background:var(--ok-g);color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 40%,transparent);border-radius:99px;padding:3px 12px;font-size:0.75rem;font-weight:700}
 .ap-badge svg{width:13px;height:13px;display:block}
-@media (prefers-reduced-motion:reduce){#appPanel,.ap-card,.ap-btn,#appCta{animation:none;transition:none}}
+@media (prefers-reduced-motion:reduce){#appPanel,.ap-card,.ap-btn,#appCta,#newLecsBanner{animation:none;transition:none}}
 `;
   const styleEl = document.createElement("style");
   styleEl.textContent = CSS;
@@ -201,7 +388,6 @@
     const hint = ins.querySelector("#apInstHint");
 
     btn.onclick = async () => {
-      // 1. إذا كان المتصفح جاهزاً بالفعل
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const r = await deferredPrompt.userChoice;
@@ -215,7 +401,6 @@
         return;
       }
 
-      // 2. إذا ضغط المستخدم فور فتح الصفحة قبل اكتمال إشارة المتصفح
       setHTML(btn, `${ICONS.clock} جاري بدء التثبيت…`);
       let promptFired = false;
 
@@ -236,7 +421,6 @@
         }
       }, 100);
 
-      // في حال استغرق المتصفح وقتاً أو كان التثبيت مدعوماً عبر شريط العنوان
       setTimeout(() => {
         clearInterval(checkInterval);
         if (!promptFired) {
@@ -258,8 +442,8 @@
     };
   }
 
-  /* ── لوحة التطبيق ── */
-  function openPanel() {
+  /* ── لوحة التطبيق والعمل أوفلاين ── */
+  async function openPanel() {
     document.getElementById("appPanel")?.remove();
     const p = document.createElement("div");
     p.id = "appPanel";
@@ -270,11 +454,12 @@
   <button class="ap-x" id="apX" title="إغلاق">${ICONS.close}</button>
   <h3>${isDesktop ? ICONS.desktop : ICONS.mobile} التطبيق والعمل دون إنترنت</h3>
   <div class="ap-sec" id="apInstall"></div>
-  <div class="ap-sec">
+  <div class="ap-sec" id="apDownloadSec">
     <h3>${ICONS.download} تحميل المحتوى للعمل أوفلاين</h3>
-    <div class="ap-sub">كل ما تتصفحه يُحفظ محلياً — التحميل يستأنف من حيث توقف، والمحتوى الجديد يُحدَّث تلقائياً عند توفر أي إضافات على السيرفر.</div>
+    <div class="ap-sub">كل ما تتصفحه يُحفظ محلياً — التحميل يستأنف من حيث توقف، والمحتوى الجديد يُحدَّث تلقائياً عند توفر أي إضافات على السيرفر مع حماية تامة لكافة ملفاتك السابقة.</div>
+    <div id="apDiffContainer"></div>
     <div class="pwrap"><div class="pfill" id="apFill"></div></div>
-    <div class="plabel"><span id="apCount">جارٍ حساب المحفوظ…</span><span id="apPct"></span></div>
+    <div class="plabel"><span id="apCount">جارٍ فحص المحفوظات…</span><span id="apPct"></span></div>
     <button class="ap-btn pri" id="apDL">${ICONS.download} تحميل كل المحتوى للعمل دون إنترنت</button>
     <div class="ap-sub" id="apStore" style="margin-top:8px"></div>
   </div>
@@ -302,78 +487,125 @@
       lbl = p.querySelector("#apCount"),
       pct = p.querySelector("#apPct"),
       dlBtn = p.querySelector("#apDL"),
-      storeLbl = p.querySelector("#apStore");
+      storeLbl = p.querySelector("#apStore"),
+      diffBox = p.querySelector("#apDiffContainer");
 
-    function paint(list, done, failed) {
-      const v = Math.round((done / list.length) * 100);
+    const fullList = buildResourceList();
+    let done = await countCached(fullList);
+
+    function paint(list, count, failed) {
+      const clamped = Math.min(count, list.length);
+      const v = Math.round((clamped / list.length) * 100);
       fill.style.width = v + "%";
-      lbl.textContent = `${done} من ${list.length}${failed ? " — تعثر " + failed : ""}`;
+      lbl.textContent = `${clamped} من ${list.length}${failed ? " — تعثر " + failed : ""}`;
       pct.textContent = v + "%";
       setHTML(
         dlBtn,
-        done >= list.length
-          ? `${ICONS.check} كل المحتوى محفوظ — يعمل دون إنترنت 100%`
-          : `${ICONS.download} تحميل كل المحتوى للعمل دون إنترنت`
+        clamped >= list.length
+          ? `${ICONS.check} كل المحتوى محفوظ كاملاً — يعمل دون إنترنت 100%`
+          : abortDL
+            ? `${ICONS.pause} إيقاف التحميل مؤقتاً`
+            : `${ICONS.download} تحميل كل المنهج المتبقي للعمل دون إنترنت`,
       );
       dlBtn.className =
         "ap-btn" +
-        (done >= list.length ? " ok" : " pri") +
-        (abortDL ? " off" : "");
+        (clamped >= list.length ? " ok" : abortDL ? " off" : " pri");
     }
 
-    (async () => {
-      const list = buildResourceList();
-      let done = await countCached(list);
-      paint(list, done, 0);
+    paint(fullList, done, 0);
+
+    try {
+      const est = await navigator.storage?.estimate?.();
+      if (est && est.usage)
+        storeLbl.textContent = `المحفوظ حالياً في ذاكرة الجهاز: ${(est.usage / 1048576).toFixed(1)} ميغابايت`;
+    } catch {}
+
+    /* فحص هل المستخدم حمّل مسبقاً وتنقصه المحاضرات المضافة حديثاً */
+    const analysis = await analyzeLectureCache();
+    if (analysis.isExistingDownloader) {
+      const newLecTitles = analysis.newLectureItems
+        .map((l) => l.id + (l.ar ? " (" + l.ar + ")" : ""))
+        .join(" و ");
+      setHTML(
+        diffBox,
+        `
+<div class="ap-diff-card">
+  <div class="ap-diff-title">${ICONS.info} تنبيه لطلابنا الذين حمّلوا المحتوى مسبقاً:</div>
+  <div class="ap-diff-msg">
+    إذا لاحظت انخفاض نسبة التحميل من 100%، فهذا طبيعي ومبشر! لقد أضفنا محاضرات جديدة: ${newLecTitles} (${analysis.newTotal} شريحة جديدة). <b>ملفاتك السابقة لم يمسسها أي تغيير وهي محفوظة في جهازك 100%</b>، وزر التحميل سيجلب فقط الشرائح الجديدة دون استهلاك بياناتك على الملفات المحفوظة.
+  </div>
+  <button class="ap-btn pri" id="apDLNewPanel">
+    ${ICONS.download} تحميل المحاضرات المضافة حديثاً فقط (${analysis.newMissing} شريحة)
+  </button>
+</div>`,
+      );
+
+      const dlNewPanelBtn = diffBox.querySelector("#apDLNewPanel");
+      if (dlNewPanelBtn) {
+        dlNewPanelBtn.onclick = async () => {
+          if (abortDL) {
+            abortDL.abort();
+            setHTML(dlNewPanelBtn, `${ICONS.download} استئناف تحميل المحاضرات المضافة`);
+            dlNewPanelBtn.className = "ap-btn pri";
+            return;
+          }
+          setHTML(
+            dlNewPanelBtn,
+            `${ICONS.clock} جارٍ تحميل المحاضرات المضافة…`,
+          );
+          dlNewPanelBtn.className = "ap-btn pri off";
+          const initDone = await countCached(fullList);
+          await runBatchDownload(analysis.newSlideUrls, (cur, tot, failed) => {
+            setHTML(
+              dlNewPanelBtn,
+              `${ICONS.clock} جاري التحميل (${cur}/${tot})${failed ? " (تعثر " + failed + ")" : ""}…`,
+            );
+            paint(fullList, initDone + cur, failed);
+          });
+          setHTML(
+            dlNewPanelBtn,
+            `${ICONS.check} تم حفظ المحاضرات الجديدة بنجاح!`,
+          );
+          dlNewPanelBtn.className = "ap-btn ok";
+          done = await countCached(fullList);
+          paint(fullList, done, 0);
+          refreshBannerState();
+        };
+      }
+    }
+
+    /* زر تحميل كامل المنهج الناقص مع استئناف دقيق */
+    dlBtn.onclick = async () => {
+      if (abortDL) {
+        abortDL.abort();
+        setHTML(dlBtn, `${ICONS.download} استئناف التحميل المتبقي`);
+        dlBtn.className = "ap-btn pri";
+        return;
+      }
+      setHTML(dlBtn, `${ICONS.pause} إيقاف التحميل مؤقتاً`);
+      dlBtn.className = "ap-btn off";
+
+      const currentDone = await countCached(fullList);
+      done = currentDone;
+
+      await runBatchDownload(fullList, (completedCount, totalTodo, failedCount) => {
+        paint(fullList, currentDone + completedCount, failedCount);
+      });
+
+      done = await countCached(fullList);
+      paint(fullList, done, 0);
+      refreshBannerState();
       try {
         const est = await navigator.storage?.estimate?.();
         if (est && est.usage)
-          storeLbl.textContent = `المحفوظ حالياً: ${(est.usage / 1048576).toFixed(1)} ميغابايت`;
+          storeLbl.textContent = `المحفوظ حالياً في ذاكرة الجهاز: ${(est.usage / 1048576).toFixed(1)} ميغابايت`;
       } catch {}
-
-      dlBtn.onclick = async () => {
-        if (abortDL) {
-          abortDL.abort();
-          return;
-        }
-        abortDL = new AbortController();
-        const sig = abortDL.signal;
-        setHTML(dlBtn, `${ICONS.pause} إيقاف التحميل`);
-        dlBtn.className = "ap-btn off";
-        const cache = await caches.open(RUNTIME);
-        const todo = [];
-        for (const u of list) if (!(await cache.match(u))) todo.push(u);
-        let failed = 0,
-          i = 0;
-        async function worker() {
-          while (i < todo.length && !sig.aborted) {
-            const u = todo[i++];
-            try {
-              const res = await fetch(u, { signal: sig });
-              if (res && res.ok) await cache.put(u, res);
-              else failed++;
-            } catch {
-              if (sig.aborted) return;
-              failed++;
-            }
-            paint(
-              list,
-              Math.max(list.length - (todo.length - i) - failed, 0),
-              failed,
-            );
-          }
-        }
-        await Promise.all(Array.from({ length: 6 }, worker));
-        abortDL = null;
-        done = await countCached(list);
-        paint(list, done, failed);
-      };
-    })();
+    };
 
     /* قسم التحديث */
     p.querySelector("#apUpd").onclick = async (e) => {
       const btn = e.currentTarget;
-      setHTML(btn, `${ICONS.clock} جارٍ التحقق…`);
+      setHTML(btn, `${ICONS.clock} جارٍ التحقق من السيرفر…`);
       try {
         const reg = await navigator.serviceWorker.register("sw.js");
         await reg.update();
@@ -381,32 +613,147 @@
         setHTML(
           btn,
           nw
-            ? `${ICONS.refresh} تم اكتشاف تحديث جديد — سيُفعَّل خلال لحظات`
-            : `${ICONS.check} أنت على أحدث نسخة بالفعل`
+            ? `${ICONS.refresh} تم اكتشاف تحديث جديد — سيُفعَّل تلقائياً خلال ثوانٍ`
+            : `${ICONS.check} أنت على أحدث نسخة معتمدة بالفعل`,
         );
         if (nw) setTimeout(() => location.reload(), 1200);
       } catch {
-        setHTML(btn, `${ICONS.alert} تعذر التحقق — تحقق من الاتصال بالإنترنت`);
+        setHTML(btn, `${ICONS.alert} تعذر التحقق — يرجى التأكد من اتصال الإنترنت`);
       }
     };
   }
 
-  /* ── زر CTA تحت الهيدر: أول عنصر داخل المحتوى الرئيسي ── */
-  function mount() {
-    if (document.getElementById("appCta")) return;
+  /* ── بانر إشعار إضافة المحاضرات الجديدة أعلى الصفحة ── */
+  async function refreshBannerState() {
+    const banner = document.getElementById("newLecsBanner");
+    const analysis = await analyzeLectureCache();
+    if (!analysis.isExistingDownloader && banner) {
+      banner.remove();
+    }
+  }
+
+  async function mountNewLecsBanner() {
+    if (document.getElementById("newLecsBanner")) return;
+    const cfg = window.TOC_CONFIG || {};
+    const dismissKey = (cfg.subject || "viewer") + "_dismiss_new_lecs_banner";
+    if (localStorage.getItem(dismissKey) === "1") return;
+
+    const analysis = await analyzeLectureCache();
+    if (!analysis.isExistingDownloader) return;
+
     const main =
       document.querySelector("main") || document.querySelector(".wrap");
     if (!main) return;
-    const b = document.createElement("button");
-    b.id = "appCta";
-    b.title = "تثبيت التطبيق + تحميل المحتوى للعمل دون إنترنت";
+
+    const newHighlights = analysis.newLectureItems
+      .map(
+        (l) =>
+          `<span class="ap-banner-highlight">${l.id}${l.ar ? " (" + l.ar + ")" : ""}</span>`,
+      )
+      .join(" ");
+
+    const b = document.createElement("div");
+    b.id = "newLecsBanner";
     setHTML(
       b,
-      `<span class="cta-ic">${isDesktop ? ICONS.desktop : ICONS.mobile}</span><span>حمّل الموقع كتطبيق ${isDesktop ? "للابتوب والكمبيوتر" : "للجوال"} — يعمل دون إنترنت<small>تثبيت على ${isDesktop ? "سطح المكتب وقائمة ابدأ" : "شاشتك الرئيسية"} + تحميل كل المحتوى أوفلاين + تحديث تلقائي مع السيرفر</small></span>`,
+      `
+<div class="ap-banner-header">
+  <div class="ap-banner-title">
+    ${ICONS.info}
+    <span>تحديث المنهج: تمت إضافة محاضرات رسمية جديدة</span>
+  </div>
+  <button class="ap-banner-close" id="apDismissBanner" title="إغلاق هذا الإشعار">${ICONS.close}</button>
+</div>
+<div class="ap-banner-body">
+  <b>تنويه لطلابنا الذين حمّلوا المحتوى للعمل أوفلاين مسبقاً:</b><br>
+  تم إلحاق محاضرات جديدة بالمنهج:
+  ${newHighlights}
+  بإجمالي <b>${analysis.newTotal} شريحة جديدة</b>.<br>
+  <b>جميع ما قمت بتحميله مسبقاً محفوظ بأمان 100% في جهازك ولم يُحذف منه شيء</b>. تغير النسبة المئوية ناتج فقط عن إضافة هذه المحاضرات لمجموع المقرر الكلي. يمكنك حفظ المحاضرات الجديدة بضغطة زر واحدة.
+</div>
+<div class="ap-banner-actions">
+  <button class="ap-btn pri" id="apDLNewBanner">
+    ${ICONS.download} تحميل المحاضرات الجديدة فقط (${analysis.newMissing} شريحة)
+  </button>
+  <button class="ap-btn" id="apOpenPanelBanner">
+    ${ICONS.desktop} فتح لوحة إدارة التطبيق
+  </button>
+</div>`,
     );
-    b.onclick = openPanel;
-    main.prepend(b);
+
+    const cta = document.getElementById("appCta");
+    if (cta && cta.parentNode) {
+      cta.parentNode.insertBefore(b, cta.nextSibling);
+    } else {
+      main.prepend(b);
+    }
+
+    b.querySelector("#apDismissBanner").onclick = () => {
+      localStorage.setItem(dismissKey, "1");
+      b.remove();
+    };
+
+    b.querySelector("#apOpenPanelBanner").onclick = () => {
+      openPanel();
+    };
+
+    const dlBtn = b.querySelector("#apDLNewBanner");
+    dlBtn.onclick = async () => {
+      if (abortDL) {
+        abortDL.abort();
+        return;
+      }
+      setHTML(dlBtn, `${ICONS.clock} جارٍ تحميل المحاضرات الجديدة…`);
+      dlBtn.className = "ap-btn pri off";
+      await runBatchDownload(analysis.newSlideUrls, (cur, tot, failed) => {
+        setHTML(dlBtn, `${ICONS.clock} جاري التحميل (${cur}/${tot})${failed ? " (تعثر " + failed + ")" : ""}…`);
+      });
+      setHTML(
+        dlBtn,
+        `${ICONS.check} تم حفظ كافة المحاضرات الجديدة بنجاح في جهازك!`,
+      );
+      dlBtn.className = "ap-btn ok";
+      setTimeout(() => {
+        b.remove();
+      }, 2500);
+    };
   }
+
+  /* ── زر CTA تحت الهيدر: أول عنصر داخل المحتوى الرئيسي ── */
+  async function mount() {
+    if (!document.getElementById("appCta")) {
+      const main =
+        document.querySelector("main") || document.querySelector(".wrap");
+      if (!main) return;
+      const b = document.createElement("button");
+      b.id = "appCta";
+      b.title = "تثبيت التطبيق + تحميل المحتوى للعمل دون إنترنت";
+      setHTML(
+        b,
+        `<span class="cta-ic">${isDesktop ? ICONS.desktop : ICONS.mobile}</span><span>حمّل الموقع كتطبيق ${isDesktop ? "للابتوب والكمبيوتر" : "للجوال"} — يعمل دون إنترنت<small>تثبيت على ${isDesktop ? "سطح المكتب وقائمة ابدأ" : "شاشتك الرئيسية"} + تحميل كل المحتوى أوفلاين + تحديث تلقائي مع السيرفر</small></span>`,
+      );
+      b.onclick = openPanel;
+      main.prepend(b);
+    }
+
+    /* فحص هل نضيف شارة التحديث على زر CTA */
+    const analysis = await analyzeLectureCache();
+    const cta = document.getElementById("appCta");
+    if (cta && analysis.isExistingDownloader) {
+      const textSpan = cta.querySelector("span:not(.cta-ic)");
+      if (textSpan && !cta.querySelector(".cta-update-badge")) {
+        const badge = document.createElement("span");
+        badge.className = "cta-update-badge";
+        const newLecStr = analysis.newLectureItems.map((l) => l.id).join(", ");
+        badge.textContent = `تحديث: توفر ${newLecStr}`;
+        textSpan.prepend(badge);
+      }
+    }
+
+    /* تركيب البانر التوضيحي إن وجد محتوى مضاف حديثاً */
+    mountNewLecsBanner();
+  }
+
   if (document.readyState === "loading")
     document.addEventListener("DOMContentLoaded", mount);
   else mount();
@@ -428,7 +775,7 @@
       const s = document.createElement("link");
       s.rel = "icon";
       s.type = "image/svg+xml";
-      s.href = "icons/icon.svg?v=2";
+      s.href = "icons/icon.svg?v=9";
       document.head.appendChild(s);
     }
     if (!document.querySelector('link[rel="icon"][sizes="32x32"]')) {
@@ -436,13 +783,13 @@
       p.rel = "icon";
       p.type = "image/png";
       p.sizes = "32x32";
-      p.href = "icons/icon-32.png?v=2";
+      p.href = "icons/icon-32.png?v=9";
       document.head.appendChild(p);
     }
     if (!document.querySelector('link[rel="shortcut icon"]')) {
       const ico = document.createElement("link");
       ico.rel = "shortcut icon";
-      ico.href = "favicon.ico?v=2";
+      ico.href = "favicon.ico?v=9";
       document.head.appendChild(ico);
     }
 

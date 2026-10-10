@@ -6,22 +6,22 @@
       if (location.protocol !== "file:") {
         var _ml = document.createElement("link");
         _ml.rel = "manifest";
-        _ml.href = "manifest.json?v=7";
+        _ml.href = "manifest.json?v=9";
         document.head.appendChild(_ml);
       }
     </script>
-    <link rel="icon" type="image/svg+xml" href="icons/icon.svg?v=7" />
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=7" />
-    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=7" />
-    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=7" />
-    <link rel="shortcut icon" href="favicon.ico?v=7" />
+    <link rel="icon" type="image/svg+xml" href="icons/icon.svg?v=9" />
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png?v=9" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png?v=9" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png?v=9" />
+    <link rel="shortcut icon" href="favicon.ico?v=9" />
         <meta name="theme-color" content="#0b0e17" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="معمل أمن المعلومات · عارض التطبيقات العملية" />
     <meta property="og:description" content="عارض معمل وتطبيقات أمن المعلومات — شروح عملية وأدوات واختبارات" />
-    <meta property="og:image" content="icons/icon-512.png?v=7" />
+    <meta property="og:image" content="icons/icon-512.png?v=9" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:image" content="icons/icon-512.png?v=7" />
+    <meta name="twitter:image" content="icons/icon-512.png?v=9" />
 <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -364,6 +364,24 @@
         border-color: var(--acc);
         color: var(--bg);
         box-shadow: 0 2px 14px var(--acc-g);
+      }
+      .seg-pill.seg-companion-pill {
+        border: 1px dashed color-mix(in srgb, var(--acc) 45%, var(--ln));
+        color: var(--acc-b, var(--acc));
+        text-decoration: none;
+        background: color-mix(in srgb, var(--acc) 6%, transparent);
+        gap: 6px;
+      }
+      .seg-pill.seg-companion-pill:hover {
+        background: color-mix(in srgb, var(--acc) 15%, transparent);
+        border-color: var(--acc);
+        border-style: solid;
+        color: var(--ink);
+        transform: translateY(-1px);
+      }
+      .seg-pill.seg-companion-pill .svg-ic {
+        width: 15px;
+        height: 15px;
       }
       .nav-divider {
         display: inline-block;
@@ -882,6 +900,103 @@
         border-color: var(--acc);
         color: var(--bg);
         box-shadow: 0 2px 14px var(--acc-g);
+      }
+      /* ===== Sidebar Companion Card / Button (Desktop & Laptop) ===== */
+      .side-companion-wrap {
+        margin: 0 0 12px;
+        display: flex;
+        flex-direction: column;
+      }
+      .side-companion-wrap:empty {
+        display: none;
+        margin: 0;
+      }
+      .side-companion-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 12px;
+        border-radius: var(--r-m);
+        border: 1px solid color-mix(in srgb, var(--acc) 40%, var(--ln));
+        background: color-mix(in srgb, var(--acc) 6%, var(--sf));
+        color: var(--ink);
+        text-decoration: none;
+        transition: all var(--dur) var(--ease);
+        position: relative;
+        overflow: hidden;
+      }
+      .side-companion-btn:hover {
+        background: color-mix(in srgb, var(--acc) 14%, var(--sf));
+        border-color: var(--acc);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px color-mix(in srgb, var(--acc) 18%, transparent);
+      }
+      .side-companion-btn .sc-ic {
+        width: 32px;
+        height: 32px;
+        border-radius: 9px;
+        background: color-mix(in srgb, var(--acc) 16%, transparent);
+        color: var(--acc-b, var(--acc));
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        transition: transform var(--dur) var(--ease);
+      }
+      .side-companion-btn:hover .sc-ic {
+        transform: scale(1.08);
+      }
+      .side-companion-btn .sc-ic svg {
+        width: 17px;
+        height: 17px;
+      }
+      .side-companion-btn .sc-body {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        min-width: 0;
+        flex: 1;
+      }
+      .side-companion-btn .sc-title {
+        font-family: var(--fa);
+        font-size: 0.82rem;
+        font-weight: 800;
+        color: var(--ink);
+        line-height: 1.2;
+      }
+      .side-companion-btn .sc-sub {
+        font-family: var(--fa);
+        font-size: 0.68rem;
+        color: var(--ink-f);
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .side-companion-btn .sc-badge {
+        padding: 2px 7px;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--acc) 15%, transparent);
+        border: 1px solid color-mix(in srgb, var(--acc) 30%, transparent);
+        color: var(--acc-b, var(--acc));
+        font-size: 0.65rem;
+        font-weight: 800;
+        line-height: 1.2;
+        flex-shrink: 0;
+      }
+      .side-companion-btn .sc-arrow {
+        color: var(--ink-f);
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        transition: transform var(--dur) var(--ease);
+      }
+      .side-companion-btn:hover .sc-arrow {
+        color: var(--acc);
+        transform: translateX(-2px);
+      }
+      .side-companion-btn .sc-arrow svg {
+        width: 14px;
+        height: 14px;
       }
       .side-title {
         font-family: var(--fm);
@@ -3442,6 +3557,51 @@
           filter: none;
         }
       }
+          .jump-return-bar {
+        position: fixed;
+        bottom: 76px;
+        right: 18px;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+      }
+      .jump-return-bar[hidden] {
+        display: none !important;
+      }
+      .jump-return-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--bg-card, var(--sf));
+        color: var(--acc-b, var(--acc));
+        border: 1px solid color-mix(in srgb, var(--acc) 50%, var(--ln));
+        border-radius: 999px;
+        padding: 8px 16px;
+        font-family: var(--f);
+        font-size: 0.8rem;
+        font-weight: 700;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
+        cursor: pointer;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        transition: all var(--dur) var(--ease);
+      }
+      .jump-return-btn:hover {
+        background: var(--acc-g);
+        border-color: var(--acc);
+        transform: translateY(-2px);
+      }
+      @media (max-width: 640px) {
+        .jump-return-bar {
+          bottom: 72px;
+          right: 12px;
+        }
+        .jump-return-btn {
+          font-size: 0.75rem;
+          padding: 6px 13px;
+        }
+      }
+
     </style>
     <meta name="theme-color" content="#101630" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -3650,6 +3810,7 @@
             <span>الملخص</span>
           </button>
         </div>
+        <div id="sideCompanionWrap" class="side-companion-wrap"></div>
         <div id="slidesNav">
           <div class="side-title">المحاضرات النظرية</div>
           <div id="lecList"></div>
@@ -3859,6 +4020,7 @@
         models: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/><path d="M9 14h6"/><path d="M9 10h6"/><path d="M9 18h4"/></svg>',
         tables: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/></svg>',
         summary: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>',
+        back: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/><line x1="19" y1="12" x2="9" y2="12"/></svg>',
         file: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>',
         ar: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
         ex: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg>',
@@ -3877,6 +4039,8 @@
         target: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>',
         chevronLeft: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>',
         chevronRight: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>',
+        terminal: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>',
+        book: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
         video: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>',
         external: '<svg class="svg-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
       };
@@ -3948,6 +4112,11 @@
           return fb;
         }
       }
+      if ("scrollRestoration" in history) {
+        try {
+          history.scrollRestoration = "manual";
+        } catch (_) {}
+      }
       const S = {
         theme: localStorage.getItem("toc_sv_theme") || "amber",
         seen: new Set(loadJSON("toc_sv_seen", [])),
@@ -3971,7 +4140,7 @@
           5,
           Math.max(
             1,
-            parseInt(localStorage.getItem("toc_tbl_min") || "5", 10) || 5,
+            parseInt(localStorage.getItem("toc_tbl_min") || "1", 10) || 1,
           ),
         ),
         modelAns: loadJSON("toc_sv_model_ans", {}),
@@ -4116,35 +4285,98 @@
         if (uChip) uChip.textContent = total - done;
       }
 
-      /* ===== View switching ===== */
+      /* ===== View switching & Scroll Restoration ===== */
       const viewScroll = {};
+
+      function restoreScrollTarget(targetY, callback) {
+        if (typeof targetY !== "number" || isNaN(targetY) || targetY < 0) return;
+        const attempts = [0, 25, 75, 180, 400, 750];
+        attempts.forEach((delay, idx) => {
+          setTimeout(() => {
+            window.scrollTo({ top: targetY, behavior: "auto" });
+            if (idx === attempts.length - 1 && callback) callback();
+          }, delay);
+        });
+      }
+
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (typeof S !== "undefined" && S.view) {
+            viewScroll[S.view] = window.scrollY;
+          }
+        },
+        { passive: true },
+      );
+
+      /* Capture active state on current history entry before any in-page anchor navigation */
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest("a[href^='#']");
+        if (!a) return;
+        const href = a.getAttribute("href");
+        if (!href || href === "#") return;
+        try {
+          history.replaceState(
+            {
+              view: S.view,
+              lec: S.lec,
+              model: S.model,
+              scroll: window.scrollY,
+            },
+            "",
+            location.href,
+          );
+        } catch (_) {}
+      });
+
       function setView(v, opts = {}) {
         viewScroll[S.view] = window.scrollY;
         S.view = v;
+        if (v !== "slides") hideJumpReturnBar();
         document.body.dataset.view = v;
         $("#slidesView").hidden = v !== "slides";
         $("#modelsView").hidden = v !== "models";
         $("#tablesView").hidden = v !== "tables";
         $("#summaryView").hidden = v !== "summary";
+        if ($("#interactiveView")) $("#interactiveView").hidden = v !== "interactive";
+        if ($("#emergencyView")) $("#emergencyView").hidden = v !== "emergency";
         $("#slidesNav").hidden = v !== "slides";
         $("#modelsNav").hidden = v !== "models";
         $("#tablesNav").hidden = v !== "tables";
         $("#summaryNav").hidden = v !== "summary";
-        $("#segSlides").classList.toggle("active", v === "slides");
-        $("#segModels").classList.toggle("active", v === "models");
-        $("#segTables").classList.toggle("active", v === "tables");
-        $("#segSummary").classList.toggle("active", v === "summary");
-        $("#segTopSlides").classList.toggle("active", v === "slides");
-        $("#segTopModels").classList.toggle("active", v === "models");
-        $("#segTopTables").classList.toggle("active", v === "tables");
-        $("#segTopSummary").classList.toggle("active", v === "summary");
+        if ($("#interactiveNav")) $("#interactiveNav").hidden = v !== "interactive";
+        if ($("#emergencyNav")) $("#emergencyNav").hidden = v !== "emergency";
+        $("#segSlides")?.classList.toggle("active", v === "slides");
+        $("#segModels")?.classList.toggle("active", v === "models");
+        $("#segTables")?.classList.toggle("active", v === "tables");
+        $("#segSummary")?.classList.toggle("active", v === "summary");
+        $("#segInteractive")?.classList.toggle("active", v === "interactive");
+        $("#segEmergency")?.classList.toggle("active", v === "emergency");
+        $("#segTopSlides")?.classList.toggle("active", v === "slides");
+        $("#segTopModels")?.classList.toggle("active", v === "models");
+        $("#segTopTables")?.classList.toggle("active", v === "tables");
+        $("#segTopSummary")?.classList.toggle("active", v === "summary");
+        $("#segTopInteractive")?.classList.toggle("active", v === "interactive");
+        $("#segTopEmergency")?.classList.toggle("active", v === "emergency");
         buildNavs();
         if (v === "models") renderModels();
         else if (v === "tables") renderTables();
         else if (v === "summary") renderSummary();
+        else if (v === "interactive" && typeof renderInteractive === "function") renderInteractive();
+        else if (v === "emergency" && typeof renderEmergency === "function") renderEmergency();
         else renderSlides();
-        window.scrollTo({ top: 0 });
-        if (!opts.keepHash) history.replaceState(null, "", "#view=" + v);
+        if (!opts.keepScroll) {
+          window.scrollTo({ top: 0 });
+        }
+        if (!opts.keepHash) {
+          try {
+            history.replaceState(
+              { view: v, lec: S.lec, model: S.model, scroll: opts.keepScroll ? window.scrollY : 0 },
+              "",
+              "#view=" + v,
+            );
+          } catch (_) {}
+        }
         if (opts.after) opts.after();
       }
       [
@@ -4162,24 +4394,179 @@
       });
       $("#brandHome").addEventListener("click", () => setView("slides"));
 
-      function jumpToSlide(ref) {
+      function isPwaStandalone() {
+        try {
+          return (
+            window.matchMedia("(display-mode: standalone)").matches ||
+            window.matchMedia("(display-mode: fullscreen)").matches ||
+            window.matchMedia("(display-mode: minimal-ui)").matches ||
+            window.navigator.standalone === true ||
+            (typeof document !== "undefined" && Boolean(document.referrer && document.referrer.includes("android-app://")))
+          );
+        } catch (_) {
+          return false;
+        }
+      }
+
+      function slideRefAttrs(ref) {
+        return {
+          href: "#" + ref,
+          rel: "noopener",
+          title: `انتقل إلى السلايد ${ref} — زر العودة متاح بالأسفل`,
+          onclick: (e) => {
+            if (e.button === 0 && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+              e.preventDefault();
+              jumpToSlide(ref);
+            }
+          },
+        };
+      }
+
+      function showJumpReturnBar(fromView) {
+        let bar = $("#jumpReturnBar");
+        const getLabel = () =>
+          fromView === "interactive"
+            ? "العودة إلى الشرح التفاعلي"
+            : fromView === "emergency"
+              ? "العودة إلى ملخص الطوارئ"
+              : fromView === "tables"
+                ? "العودة إلى الجداول"
+                : fromView === "summary"
+                  ? "العودة إلى الملخص"
+                  : fromView === "slides"
+                    ? "العودة إلى السلايد السابق"
+                    : "العودة إلى السؤال السابق";
+
+        if (!bar) {
+          bar = el(
+            "div",
+            { id: "jumpReturnBar", class: "jump-return-bar" },
+            el(
+              "button",
+              {
+                id: "btnJumpReturn",
+                class: "jump-return-btn",
+                type: "button",
+                onclick: () => {
+                  if (window.history.length > 1) {
+                    window.history.back();
+                  } else {
+                    setView(fromView || "models");
+                    hideJumpReturnBar();
+                  }
+                },
+              },
+              iconSvg("back"),
+              getLabel(),
+            ),
+          );
+          document.body.appendChild(bar);
+        } else {
+          const btn = bar.querySelector("#btnJumpReturn");
+          if (btn) {
+            clear(btn);
+            btn.appendChild(el("span", { class: "ic" }, svgNode(ICONS.back)));
+            btn.appendChild(document.createTextNode(getLabel()));
+          }
+        }
+        bar.hidden = false;
+      }
+
+      function hideJumpReturnBar() {
+        const bar = $("#jumpReturnBar");
+        if (bar) bar.hidden = true;
+      }
+
+      function navigateToSlide(ref, opts = {}) {
         const lecId = lecOf(ref);
-        history.pushState({ tocJump: true }, "", "#" + ref);
+        const lec = META.lectures.find((l) => l.id === lecId);
+        if (!lec) return;
         S.lec = lecId;
         save();
         setView("slides", {
           keepHash: true,
+          keepScroll: true,
           after: () => {
-            const card = document.querySelector(
-              `.slide-card[data-id="${ref}"]`,
-            );
-            if (card) {
-              card.scrollIntoView({ behavior: "smooth", block: "center" });
-              card.classList.add("flash");
-              setTimeout(() => card.classList.remove("flash"), 2200);
+            const tryScroll = () => {
+              const card = document.querySelector(`.slide-card[data-id="${ref}"]`);
+              if (card) {
+                card.scrollIntoView({ behavior: opts.instant ? "auto" : "smooth", block: "center" });
+                card.classList.add("flash");
+                setTimeout(() => card.classList.remove("flash"), 2600);
+                return true;
+              }
+              return false;
+            };
+            if (!tryScroll()) {
+              setTimeout(tryScroll, 120);
             }
           },
         });
+      }
+
+      function jumpToSlide(ref) {
+        const lecId = lecOf(ref);
+        const lec = META.lectures.find((l) => l.id === lecId);
+        if (!lec) return;
+
+        const fromView = S.view;
+        const fromScroll = window.scrollY;
+        const fromLec = S.lec;
+        const fromModel = S.model;
+        viewScroll[fromView] = fromScroll;
+
+        // 1. تثبيت لقطة الحالة الحالية في مدخلة التاريخ الحالية قبل الانتقال
+        try {
+          history.replaceState(
+            {
+              view: fromView,
+              lec: fromLec,
+              model: fromModel,
+              scroll: fromScroll,
+            },
+            "",
+            location.href,
+          );
+        } catch (_) {}
+
+        // 2. دفع عنوان السلايد الجديد مع بيانات العودة
+        try {
+          history.pushState(
+            {
+              tocJump: true,
+              view: "slides",
+              lec: lecId,
+              slide: ref,
+              fromView,
+              fromScroll,
+              fromLec,
+              fromModel,
+            },
+            "",
+            "#" + ref,
+          );
+        } catch (_) {}
+
+        S.lec = lecId;
+        save();
+        setView("slides", {
+          keepHash: true,
+          keepScroll: true,
+          after: () => {
+            const tryScroll = () => {
+              const card = document.querySelector(`.slide-card[data-id="${ref}"]`);
+              if (card) {
+                card.scrollIntoView({ behavior: "smooth", block: "center" });
+                card.classList.add("flash");
+                setTimeout(() => card.classList.remove("flash"), 2600);
+                return true;
+              }
+              return false;
+            };
+            setTimeout(tryScroll, 80);
+          },
+        });
+        showJumpReturnBar(fromView);
       }
 
       /* ===== Navs ===== */
@@ -4197,6 +4584,45 @@
           return q.opts && q.opts[pick] && q.opts[pick].ok;
         }).length;
         return { total: qs.length, answered, right };
+      }
+            function getCompanionConfig() {
+        if (CFG.files && CFG.files.roadmap) {
+          return {
+            type: "roadmap",
+            url: "roadmap.html",
+            icon: "video",
+            title: "خارطة الشرح المرئي والفيديوهات",
+            label: "خارطة الشرح",
+            sub: "مسار الفيديوهات والشرح المرئي",
+            badge: "مرئي",
+          };
+        }
+        if (CFG.labUrl) {
+          return {
+            type: "lab",
+            url: CFG.labUrl,
+            icon: "terminal",
+            title: "معمل العملي التفاعلي",
+            label: "معمل العملي",
+            sub: "تطبيقات وأوامر المعمل العملي",
+            badge: "عملي",
+          };
+        }
+        if (CFG.theoryUrl) {
+          return {
+            type: "theory",
+            url: CFG.theoryUrl,
+            icon: "book",
+            title: "المتن النظري المعتمد",
+            label: "المتن النظري",
+            sub: "سلايدات ونماذج الاختبار النظري",
+            badge: "نظري",
+          };
+        }
+        if (CFG.companion) {
+          return CFG.companion;
+        }
+        return null;
       }
       function buildNavs() {
         const maw = $("#modelActionsWrap");
@@ -4289,44 +4715,71 @@
             );
           });
         }
+        /* ===== Companion Navigation (Desktop Topbar + Desktop Sidebar + Mobile BottomNav) ===== */
+        const comp = getCompanionConfig();
+
+        // 1. Desktop & Laptop Topbar Navigation Pill
+        const segPills = $(".seg-pills");
+        if (segPills) {
+          const oldTopComp = $("#segTopCompanion");
+          if (oldTopComp) oldTopComp.remove();
+          if (comp) {
+            segPills.appendChild(
+              el(
+                "a",
+                {
+                  id: "segTopCompanion",
+                  class: "seg-pill seg-companion-pill nav-" + comp.type,
+                  href: comp.url,
+                  title: comp.title,
+                },
+                iconSvg(comp.icon),
+                el("span", null, comp.label),
+              ),
+            );
+          }
+        }
+
+        // 2. Desktop & Laptop Sidebar Companion Card
+        const sideWrap = $("#sideCompanionWrap");
+        if (sideWrap) {
+          clear(sideWrap);
+          if (comp) {
+            sideWrap.appendChild(
+              el(
+                "a",
+                {
+                  class: "side-companion-btn nav-" + comp.type,
+                  href: comp.url,
+                  title: comp.title,
+                },
+                el("span", { class: "sc-ic" }, iconSvg(comp.icon)),
+                el(
+                  "span",
+                  { class: "sc-body" },
+                  el("span", { class: "sc-title" }, comp.label),
+                  el("span", { class: "sc-sub" }, comp.sub || comp.title),
+                ),
+                el("span", { class: "sc-badge" }, comp.badge || "انتقال"),
+                el("span", { class: "sc-arrow" }, iconSvg("chevronLeft")),
+              ),
+            );
+          }
+        }
+
+        // 3. Mobile Bottom Nav
         const bnav = clear($("#botNav"));
-        if (CFG.files && CFG.files.roadmap) {
+        if (comp) {
           bnav.appendChild(
             el(
               "button",
               {
-                class: "bn-companion-btn nav-roadmap",
-                onclick: () => location.assign("roadmap.html"),
-                title: "خارطة الشرح المرئي والفيديوهات",
+                class: "bn-companion-btn nav-" + comp.type,
+                onclick: () => location.assign(comp.url),
+                title: comp.title,
               },
-              el("span", { class: "ic" }, iconSvg("video")),
-              el("span", { class: "lbl" }, "خارطة الشرح"),
-            ),
-          );
-        } else if (CFG.labUrl) {
-          bnav.appendChild(
-            el(
-              "button",
-              {
-                class: "bn-companion-btn nav-lab",
-                onclick: () => location.assign(CFG.labUrl),
-                title: "معمل العملي",
-              },
-              el("span", { class: "ic" }, iconSvg("terminal") || iconSvg("code")),
-              el("span", { class: "lbl" }, "معمل العملي"),
-            ),
-          );
-        } else if (CFG.theoryUrl) {
-          bnav.appendChild(
-            el(
-              "button",
-              {
-                class: "bn-companion-btn nav-theory",
-                onclick: () => location.assign(CFG.theoryUrl),
-                title: "المتن النظري",
-              },
-              el("span", { class: "ic" }, iconSvg("book")),
-              el("span", { class: "lbl" }, "المتن النظري"),
+              el("span", { class: "ic" }, iconSvg(comp.icon)),
+              el("span", { class: "lbl" }, comp.label),
             ),
           );
         }
@@ -6604,7 +7057,18 @@
         const lec = META.lectures.find((l) => l.id === lecId);
         const sl = lec.slides.find((s) => s.n === n);
         $("#lbImg").src = `slides/${lecId}/${id}.png`;
-        lbResetZoom(false);
+        if (zState.s > 1) {
+          lbClampPan();
+          lbApplyZoom(false);
+        } else {
+          lbResetZoom(false);
+        }
+        $("#lbImg").onload = () => {
+          if (zState.s > 1) {
+            lbClampPan();
+            lbApplyZoom(false);
+          }
+        };
         $("#lbRef").textContent = id;
         $("#lbCnt").textContent = `${lbIdx + 1} / ${visibleIds.length}`;
         const ex = slideEx(lecId, n),
@@ -6774,24 +7238,14 @@
         }
       });
 
-      /* ===== hard body lock (kills background scroll/interaction on iOS) ===== */
-      let lbSavedScroll = 0;
+      /* ===== body scroll lock (preserves visual viewport zoom scale) ===== */
       function lbLockBody() {
-        lbSavedScroll = window.scrollY;
-        document.body.style.position = "fixed";
-        document.body.style.top = `-${lbSavedScroll}px`;
-        document.body.style.width = "100%";
+        document.documentElement.style.overflow = "hidden";
         document.body.style.overflow = "hidden";
       }
       function lbUnlockBody() {
-        document.body.style.position = "";
-        document.body.style.top = "";
-        document.body.style.width = "";
+        document.documentElement.style.overflow = "";
         document.body.style.overflow = "";
-        /* behavior:"instant" overrides html{scroll-behavior:smooth} —
-           otherwise restoring the saved position animates a scroll
-           from the top of the page down to the slide on close */
-        window.scrollTo({ top: lbSavedScroll, behavior: "instant" });
       }
 
       /* ===== first-open gesture hint ===== */
@@ -6965,7 +7419,21 @@
         },
         { passive: false },
       );
-      /* ===== 3-Level Expansion Toggle: 0 = Normal, 1 = Focus (Centered / Mobile Status Bar), 2 = Full (Ultra-Wide / Mobile Immersive) ===== */
+      /* Double click/tap toggle: 2.5x <-> 1x */
+      lbCanvas.addEventListener("dblclick", (e) => {
+        if (zState.s > 1) lbResetZoom(true);
+        else lbZoomAt(e.clientX, e.clientY, 2.5, true);
+      });
+      window.addEventListener("resize", () => {
+        if ($("#lb")?.classList.contains("open") && zState.s > 1) {
+          lbClampPan();
+          lbApplyZoom(false);
+        }
+      });
+
+      /* ===== 3-Level Expansion Toggle: 0 = Normal, 1 = Focus (Centered), 2 = Full (Ultra-Wide Stretch) ===== */
+      /* Note: Fullscreen triggers native OS view on laptop/desktop when selecting Level 2,
+         while exiting OS Fullscreen (Esc / F11) NEVER cancels the wide stretched layout (zenLevel=2 persists permanently until clicked Normal). */
       let zenLevel = 0; // 0: normal, 1: focus, 2: full
 
       function updateZenUI() {
@@ -6975,91 +7443,38 @@
         });
       }
 
-      async function setZenLevel(level, notify = true) {
-        const isMob = window.innerWidth <= 900;
+      async function setZenLevel(level, requestFS = true) {
         zenLevel = Math.max(0, Math.min(2, level));
         updateZenUI();
-        localStorage.setItem("study_zen_level", zenLevel);
+        try {
+          localStorage.setItem("study_zen_level", zenLevel);
+        } catch (_) {}
 
-        if (!isMob) {
-          // --- DESKTOP ---
-          if (zenLevel === 0) {
-            if (document.fullscreenElement && document.exitFullscreen) {
-              try {
-                await document.exitFullscreen();
-              } catch (_) {}
-            }
-            document.body.classList.remove("zen-focus", "zen-full", "no-side");
-          } else if (zenLevel === 1) {
-            // Level 1: Focus (Fullscreen F11 + Sidebar hidden + Centered content at 980px)
-            if (
-              !document.fullscreenElement &&
-              document.documentElement.requestFullscreen
-            ) {
-              try {
-                await document.documentElement.requestFullscreen();
-              } catch (_) {}
-            }
-            document.body.classList.remove("zen-full");
-            document.body.classList.add("zen-focus", "no-side");
-          } else if (zenLevel === 2) {
-            // Level 2: Full (Fullscreen F11 + Sidebar hidden + Full width stretched)
-            if (
-              !document.fullscreenElement &&
-              document.documentElement.requestFullscreen
-            ) {
-              try {
-                await document.documentElement.requestFullscreen();
-              } catch (_) {}
-            }
-            document.body.classList.remove("zen-focus");
-            document.body.classList.add("zen-full", "no-side");
+        document.body.classList.remove("zen-focus", "zen-full", "no-side");
+        if (zenLevel === 0) {
+          // Normal mode: exit fullscreen if currently in fullscreen
+          if (document.fullscreenElement && document.exitFullscreen) {
+            try {
+              await document.exitFullscreen();
+            } catch (_) {}
           }
-        } else {
-          // --- MOBILE ---
-          if (zenLevel === 0) {
-            if (document.fullscreenElement && document.exitFullscreen) {
-              try {
-                await document.exitFullscreen();
-              } catch (_) {}
-            }
-            document.body.classList.remove("zen-focus", "zen-full", "no-side");
-          } else if (zenLevel === 1) {
-            // Level 1: Focus mode (keeps phone status/notification bar visible via navigationUI: show)
-            if (
-              !document.fullscreenElement &&
-              document.documentElement.requestFullscreen
-            ) {
-              try {
-                await document.documentElement.requestFullscreen({
-                  navigationUI: "show",
+        } else if (zenLevel === 1) {
+          // Level 1: Focus (sidebar hidden + centered reading width)
+          document.body.classList.add("zen-focus", "no-side");
+        } else if (zenLevel === 2) {
+          // Level 2: Full (sidebar hidden + full screen width stretch + F11 Fullscreen)
+          document.body.classList.add("zen-full", "no-side");
+          if (requestFS && !document.fullscreenElement && document.documentElement.requestFullscreen) {
+            try {
+              const isMob = window.innerWidth <= 900;
+              if (isMob) {
+                await document.documentElement.requestFullscreen({ navigationUI: "hide" }).catch(() => {
+                  return document.documentElement.requestFullscreen();
                 });
-              } catch (_) {
-                try {
-                  await document.documentElement.requestFullscreen();
-                } catch (_) {}
+              } else {
+                await document.documentElement.requestFullscreen();
               }
-            }
-            document.body.classList.remove("zen-full");
-            document.body.classList.add("zen-focus", "no-side");
-          } else if (zenLevel === 2) {
-            // Level 2: Full Immersive Mode (triggers requestFullscreen to hide mobile status/notification bar)
-            if (
-              !document.fullscreenElement &&
-              document.documentElement.requestFullscreen
-            ) {
-              try {
-                await document.documentElement.requestFullscreen({
-                  navigationUI: "hide",
-                });
-              } catch (_) {
-                try {
-                  await document.documentElement.requestFullscreen();
-                } catch (_) {}
-              }
-            }
-            document.body.classList.remove("zen-focus");
-            document.body.classList.add("zen-full", "no-side");
+            } catch (_) {}
           }
         }
       }
@@ -7069,25 +7484,49 @@
       }
 
       document.querySelectorAll(".zen-opt").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", async (e) => {
           e.stopPropagation();
           const targetZen = parseInt(btn.dataset.zen, 10);
           const isMobile = !matchMedia("(min-width: 981px)").matches;
-          if (isMobile && targetZen === zenLevel) {
-            setZenLevel(zenLevel === 0 ? 2 : 0);
+          if (targetZen === 2) {
+            if (zenLevel === 2 && !document.fullscreenElement && document.documentElement.requestFullscreen) {
+              try {
+                if (isMobile) {
+                  await document.documentElement.requestFullscreen({ navigationUI: "hide" }).catch(() => {
+                    return document.documentElement.requestFullscreen();
+                  });
+                } else {
+                  await document.documentElement.requestFullscreen();
+                }
+              } catch (_) {}
+            } else {
+              setZenLevel(2, true);
+            }
+          } else if (isMobile && targetZen === zenLevel) {
+            setZenLevel(zenLevel === 0 ? 2 : 0, true);
           } else {
-            setZenLevel(targetZen);
+            setZenLevel(targetZen, true);
           }
         });
       });
 
+      /* Exiting fullscreen (Esc, F11, or phone gesture) MUST NOT exit "تكبير" mode */
       document.addEventListener("fullscreenchange", () => {
-        if (!document.fullscreenElement) {
-          if (zenLevel !== 0) {
-            setZenLevel(0, false);
+        // Preserves zenLevel and wide layout permanently across fullscreen exits
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "F11") {
+          if (zenLevel === 0) {
+            setZenLevel(2, false);
           }
         }
       });
+
+      try {
+        const savedZen = parseInt(localStorage.getItem("study_zen_level") || "0", 10);
+        if (savedZen > 0) setZenLevel(savedZen, false);
+      } catch (_) {}
 
       /* ===== desktop shortcuts: Ctrl+B full expansion · ↑/↓ big scroll ===== */
       function typingTarget(t) {
@@ -7138,6 +7577,18 @@
         if (e.key === "Escape") closeLB();
         else if (e.key === "ArrowLeft") lbMove(1);
         else if (e.key === "ArrowRight") lbMove(-1);
+        else if (e.key === "+" || e.key === "=") {
+          e.preventDefault();
+          const r = lbCanvas.getBoundingClientRect();
+          lbZoomAt(r.left + r.width / 2, r.top + r.height / 2, zState.s * 1.3, true);
+        } else if (e.key === "-" || e.key === "_") {
+          e.preventDefault();
+          const r = lbCanvas.getBoundingClientRect();
+          lbZoomAt(r.left + r.width / 2, r.top + r.height / 2, zState.s / 1.3, true);
+        } else if (e.key === "0") {
+          e.preventDefault();
+          lbResetZoom(true);
+        }
       });
 
       /* ===== init ===== */
@@ -7214,14 +7665,58 @@
           }, 250);
         }
       }
-      /* رجوع المتصفح/التطبيق يعيدك للقسم وموضع التمرير نفسه */
-      window.addEventListener("popstate", () => {
+      window.addEventListener("hashchange", () => {
         const h = (location.hash || "").replace("#", "");
-        const back = h.match(/^(?:view=)?(slides|models|tables|summary)/);
-        if (!back) return;
-        const v = back[1];
-        if (S.view !== v) setView(v);
-        window.scrollTo({ top: viewScroll[v] || 0 });
+        const sm = h.match(/^(?:view=slides&)?(?:slide=)?(L\d+-S\d{3})$/i);
+        if (sm) {
+          navigateToSlide(sm[1].toUpperCase());
+        }
+      });
+
+      /* رجوع المتصفح/التطبيق يعيدك للقسم وموضع التمرير نفسه بدقة مطلقة */
+      window.addEventListener("popstate", (e) => {
+        const h = (location.hash || "").replace("#", "");
+        const sm = h.match(/^(?:view=slides&)?(?:slide=)?(L\d+-S\d{3})$/i);
+        const vmMatch = h.match(/^(?:view=)?(slides|models|tables|summary|interactive|emergency)/i);
+
+        if (sm) {
+          navigateToSlide(sm[1].toUpperCase(), { instant: false });
+          return;
+        }
+
+        hideJumpReturnBar();
+
+        const st = e.state || {};
+        const targetView = st.view || (vmMatch ? vmMatch[1] : (st.fromView || S.view));
+        const targetLec = st.lec || st.fromLec || S.lec;
+        const targetModel = st.model || st.fromModel || S.model;
+        const targetScroll =
+          typeof st.scroll === "number"
+            ? st.scroll
+            : typeof st.fromScroll === "number"
+              ? st.fromScroll
+              : viewScroll[targetView] || 0;
+
+        if (targetView) {
+          const viewChanged = S.view !== targetView;
+          const lecChanged = targetView === "slides" && targetLec && S.lec !== targetLec;
+          const modelChanged = targetView === "models" && targetModel && S.model !== targetModel;
+
+          if (targetView === "slides" && targetLec) S.lec = targetLec;
+          if (targetView === "models" && targetModel) S.model = targetModel;
+
+          if (viewChanged || lecChanged || modelChanged) {
+            setView(targetView, {
+              keepHash: true,
+              keepScroll: true,
+              after: () => {
+                restoreScrollTarget(targetScroll);
+              },
+            });
+          } else {
+            restoreScrollTarget(targetScroll);
+          }
+        }
       });
 
       /* Smart Dynamic Header & Sidebar Hierarchy Controller */
@@ -7254,6 +7749,6 @@
         }, { passive: true });
       })();
     </script>
-    <script src="app.js?v=lab7"></script>
+    <script src="app.js?v=12"></script>
   </body>
 </html>
