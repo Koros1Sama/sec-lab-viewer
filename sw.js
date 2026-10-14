@@ -12,8 +12,8 @@
    ═══════════════════════════════════════════════════════ */
 const CORE_PREFIX = "sec-lab-core-";
 const RUNTIME_PREFIX = "sec-lab-runtime-";
-const CORE = "sec-lab-core-v12";
-const RUNTIME = "sec-lab-runtime-v12";
+const CORE = "sec-lab-core-v14";
+const RUNTIME = "sec-lab-runtime-v14";
 const CORE_ASSETS = [
   "./",
   "./index.html",

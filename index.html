@@ -1267,6 +1267,25 @@
         border-radius: 14px;
         padding: 18px 20px;
         margin-bottom: 22px;
+        transition: border-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    box-shadow 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    background-color 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+                    transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        position: relative;
+      }
+      .tcard:hover {
+        border-color: color-mix(in srgb, var(--acc) 30%, var(--ln));
+      }
+      .tcard.memorized {
+        border-color: color-mix(in srgb, var(--ok) 55%, var(--acc) 45%);
+        box-shadow: 0 0 0 1px color-mix(in srgb, var(--ok) 35%, transparent),
+                    0 0 24px -2px color-mix(in srgb, var(--ok) 25%, transparent),
+                    0 6px 20px -4px rgba(0, 0, 0, 0.12);
+        background: linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--ok) 4%, var(--bg-s)) 0%,
+          var(--bg-s) 100%
+        );
       }
       .tcard-head {
         display: flex;
@@ -1281,445 +1300,67 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
+        transition: color 0.3s var(--ease);
       }
       .tcard-title .svg-ic {
         width: 18px;
         height: 18px;
         color: var(--acc);
         flex: none;
+        transition: color 0.3s var(--ease);
+      }
+      .tcard.memorized .tcard-title .svg-ic {
+        color: var(--ok);
       }
       .tcard-note {
         color: var(--ink-m);
         font-size: 0.8rem;
         margin: 0 0 12px;
       }
-      .tcard-head .q-ref {
-        margin-inline-start: auto;
-      }
-      .tbl-scale {
-        transform-origin: top right;
-        will-change: transform;
-      }
-      .tbl-wrap {
-        overflow-x: auto;
-        border: 1px solid var(--ln);
-        border-radius: 10px;
-      }
-      .tbl {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 0.82rem;
-      }
-      .tbl th {
-        background: color-mix(in srgb, var(--acc) 14%, var(--bg-s));
-        color: var(--ink);
-        font-weight: 800;
-        text-align: right;
-        padding: 9px 12px;
-        border-bottom: 1px solid var(--ln);
-        white-space: nowrap;
-      }
-      .tbl th.ltr {
-        direction: ltr;
-        text-align: left;
-        font-family: ui-monospace, Consolas, monospace;
-      }
-      .tbl td {
-        padding: 8px 12px;
-        border-bottom: 1px solid color-mix(in srgb, var(--ln) 55%, transparent);
-        vertical-align: top;
-      }
-      .tbl tr:last-child td {
-        border-bottom: none;
-      }
-      .tbl td.ltr {
-        direction: ltr;
-        text-align: left;
-        font-family: ui-monospace, Consolas, monospace;
-        font-size: 0.78rem;
-        white-space: pre-wrap;
-        word-break: break-word;
-      }
-      /* شارة الأهمية — نقطة ملونة أول كل صف */
-      .imp-dot {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        margin-inline-end: 5px;
-        vertical-align: middle;
-        flex: none;
-      }
-      .imp5 {
-        background: #2ea043;
-        box-shadow: 0 0 4px rgba(46, 160, 67, 0.8);
-      }
-      .imp4 {
-        background: #7cb342;
-      }
-      .imp3 {
-        background: #d29922;
-      }
-      .imp2 {
-        background: #e7811d;
-      }
-      .imp1 {
-        background: #8b949e;
-      }
-      .tsec {
-        display: flex;
+      .tcard-actions {
+        display: inline-flex;
         align-items: center;
         gap: 8px;
-        margin: 26px 0 14px;
-        color: var(--ink-m);
-        font-weight: 800;
-        font-size: 0.9rem;
+        margin-inline-start: auto;
       }
-      .tsec::after {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: var(--ln);
-      }
-
-      /* filter chips row (slides: unseen / models: lecture+type+lang) */
-      .fchips {
-        display: flex;
-        gap: 7px;
-        flex-wrap: wrap;
-        align-items: center;
-        margin: 6px 0 20px;
-      }
-      .fchip {
+      .tcard-seen-btn {
         display: inline-flex;
         align-items: center;
-        gap: 7px;
-        padding: 6px 15px;
-        border-radius: 999px;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: var(--r-s);
+        font-size: 0.74rem;
+        font-weight: 700;
+        cursor: pointer;
         border: 1px solid var(--ln);
         background: var(--sf);
-        color: var(--ink-m);
-        font-family: var(--fa);
-        font-size: 0.76rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: all var(--dur) var(--ease);
-      }
-      .fchip:hover {
-        border-color: var(--acc);
-        color: var(--ink);
-      }
-      .fchip.on {
-        background: var(--acc);
-        border-color: var(--acc);
-        color: var(--bg);
-        box-shadow: 0 2px 12px var(--acc-g);
-      }
-      .fchip .cnt {
-        font-family: var(--fm);
-        font-size: 0.64rem;
-        background: var(--acc-g);
-        color: var(--acc-b);
-        border-radius: 99px;
-        padding: 0 8px;
-      }
-      .fchip.on .cnt {
-        background: color-mix(in srgb, var(--bg) 20%, transparent);
-        color: var(--bg);
-      }
-      .fsep {
-        width: 1px;
-        height: 20px;
-        background: var(--ln-s);
-        margin: 0 3px;
-      }
-
-      /* ===== Slide card ===== */
-      .slide-card {
-        background: var(--bg-s);
-        border: 1px solid var(--ln);
-        border-radius: var(--r-l);
-        margin-bottom: 26px;
-        padding: 10px;
-        transition:
-          transform var(--dur) var(--ease),
-          box-shadow var(--dur) var(--ease),
-          border-color var(--dur) var(--ease);
-      }
-      .slide-card:hover {
-        box-shadow: var(--sh);
-        transform: translateY(-2px);
-      }
-      .slide-card.seen {
-        border-color: color-mix(in srgb, var(--acc) 35%, var(--ln));
-      }
-      .slide-card.hidden {
-        display: none;
-      }
-      .slide-card.flash {
-        border-color: var(--acc);
-        box-shadow:
-          0 0 0 4px var(--acc-g),
-          var(--sh);
-      }
-      .slide-card.reveal {
-        opacity: 0;
-        transform: translateY(22px);
-        filter: blur(4px);
-      }
-      .slide-card.reveal.in {
-        opacity: 1;
-        transform: none;
-        filter: blur(0);
-        transition:
-          opacity 0.7s var(--ease),
-          transform 0.7s var(--ease),
-          filter 0.7s var(--ease);
-      }
-      .slide-card.reveal.in:hover {
-        transform: translateY(-2px);
-      }
-      .sc-head {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 8px 10px;
-      }
-      .sc-ref {
-        font-family: var(--fm);
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 0.05em;
-        color: var(--acc);
-        direction: ltr;
-        white-space: nowrap;
-        background: var(--acc-g);
-        border: 1px solid color-mix(in srgb, var(--acc) 28%, transparent);
-        padding: 2px 10px;
-        border-radius: 999px;
-        flex: none;
-      }
-      .sc-title {
-        font-family: var(--fd);
-        font-size: 0.76rem;
         color: var(--ink-f);
-        flex: 1;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        direction: ltr;
-        text-align: left;
-        min-width: 0;
+        transition: all 0.25s var(--ease);
       }
-      .sc-actions {
-        display: flex;
-        gap: 6px;
-        flex: none;
-      }
-      .mini {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        background: var(--sf2);
-        border: 1px solid var(--ln);
-        border-radius: 9px;
-        color: var(--ink-m);
-        font-size: 0.68rem;
-        font-weight: 600;
-        padding: 5px 11px;
-        cursor: pointer;
-        transition: all var(--dur) var(--ease);
-        font-family: var(--fa);
-        white-space: nowrap;
-      }
-      .mini:hover {
-        border-color: var(--acc);
-        color: var(--ink);
-      }
-      .mini:active {
-        transform: scale(0.95);
-      }
-      .mini.on {
-        background: var(--acc);
-        border-color: var(--acc);
-        color: var(--bg);
-        box-shadow: 0 2px 10px var(--acc-g);
-      }
-      .mini.seen-btn.on {
-        background: color-mix(in srgb, var(--ok) 22%, var(--sf2));
+      .tcard-seen-btn:hover {
         border-color: var(--ok);
         color: var(--ok);
+        background: color-mix(in srgb, var(--ok) 8%, var(--sf));
+        transform: translateY(-1px);
       }
-      .sc-imgwrap {
-        position: relative;
-        background: #fff;
-        border-radius: calc(var(--r-l) - 8px);
-        overflow: hidden;
-        cursor: zoom-in;
-        border: 1px solid var(--ln-s);
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+      .tcard-seen-btn:active {
+        transform: scale(0.96);
       }
-      .sc-imgwrap img {
-        display: block;
-        width: 100%;
-        height: auto;
-        min-height: 60px;
-      }
-      .sc-imgwrap .imgload {
-        position: absolute;
-        inset: 0;
-        display: grid;
-        place-items: center;
-        color: #999;
-        font-size: 0.75rem;
-        background: var(--sf);
-      }
-      /* zoom button — hover devices only; mobile keeps tap-anywhere */
-      .sc-imgwrap .zoom-btn {
-        position: absolute;
-        bottom: 12px;
-        inset-inline-start: 12px;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: rgba(0, 0, 0, 0.6);
-        color: #fff;
-        font-family: inherit;
-        font-size: 0.72rem;
-        font-weight: 700;
-        padding: 6px 14px;
-        border: 1px solid rgba(255, 255, 255, 0.25);
-        border-radius: 999px;
-        cursor: pointer;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity var(--dur) var(--ease);
-        -webkit-tap-highlight-color: transparent;
-      }
-      @media (hover: hover) {
-        .sc-imgwrap {
-          cursor: default;
-        }
-        .sc-imgwrap .zoom-btn {
-          cursor: pointer;
-        }
-        .sc-imgwrap:hover .zoom-btn {
-          opacity: 1;
-          pointer-events: auto;
-        }
-      }
-      .sc-body {
-        padding: 12px 8px 6px;
-      }
-      .ar-panel {
-        border-inline-start: 3px solid var(--acc);
-        background:
-          linear-gradient(135deg, var(--acc-g), transparent 60%), var(--sf);
-        border-radius: var(--r-s);
-        padding: 12px 15px;
-        margin-bottom: 10px;
-        display: none;
-      }
-      .ar-panel.show {
-        display: block;
-        animation: rise 0.35s var(--ease);
-      }
-      .ar-panel .ph {
-        font-size: 0.74rem;
-        color: var(--ink-f);
-        font-style: italic;
-      }
-      .ar-panel ol {
-        padding-inline-start: 20px;
-        font-size: 0.9rem;
-        line-height: 2;
-      }
-      .ar-panel ol li {
-        margin: 2px 0;
-      }
-      .ar-panel ol li::marker {
-        color: var(--acc);
-        font-family: var(--fm);
-        font-size: 0.72rem;
-      }
-      .code {
-        direction: ltr;
-        text-align: left;
-        font-family: var(--fm);
-        background: var(--sf2);
-        padding: 1px 7px;
-        border-radius: 5px;
-        font-size: 0.84rem;
-        border: 1px solid var(--ln-s);
-      }
-      .ex-panel {
-        border: 1px solid color-mix(in srgb, var(--ok) 30%, var(--ln));
-        background: color-mix(in srgb, var(--ok) 5%, var(--sf));
-        border-radius: var(--r-s);
-        padding: 13px 15px;
-        display: none;
-      }
-      .ex-panel.show {
-        display: block;
-        animation: rise 0.35s var(--ease);
-      }
-      .ex-panel .ex-head {
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        font-size: 0.7rem;
-        font-weight: 700;
+      .tcard-seen-btn.on {
+        background: color-mix(in srgb, var(--ok) 18%, var(--sf2));
+        border-color: var(--ok);
         color: var(--ok);
-        letter-spacing: 0.06em;
-        margin-bottom: 8px;
+        box-shadow: 0 0 10px -2px color-mix(in srgb, var(--ok) 40%, transparent);
       }
-      .ex-panel p {
-        font-size: 0.9rem;
-        line-height: 2.05;
-        color: var(--ink);
+      .tcard-seen-btn .svg-ic {
+        width: 13px;
+        height: 13px;
       }
-      .ex-panel p + p {
-        margin-top: 9px;
-        padding-top: 9px;
-        border-top: 1px dashed color-mix(in srgb, var(--ok) 18%, transparent);
+      .lec-btn.memorized {
+        border-inline-start: 3px solid var(--ok);
       }
-      .panel-empty {
-        font-size: 0.74rem;
-        color: var(--ink-f);
-        font-style: italic;
-      }
-      .ex-video-box {
-        margin-top: 14px;
-        padding: 12px 14px;
-        background: var(--sf2);
-        border: 1px solid var(--ln);
-        border-radius: var(--r-m);
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-      .evb-head {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: var(--ink);
-      }
-      .evb-head .svg-ic {
-        width: 18px;
-        height: 18px;
-        color: #ff0033;
-      }
-      .evb-badge {
-        font-size: 0.72rem;
-        color: var(--acc);
-        font-family: var(--fm);
-        background: var(--acc-g);
-        padding: 2px 6px;
-        border-radius: var(--r-s);
-        margin-inline-start: auto;
+      .tcard-head .q-ref {
+        margin-inline-start: 0;
       }
       .evb-actions {
         display: grid;
@@ -4120,6 +3761,7 @@
       const S = {
         theme: localStorage.getItem("toc_sv_theme") || "amber",
         seen: new Set(loadJSON("toc_sv_seen", [])),
+        tablesSeen: new Set(loadJSON("toc_tables_seen", [])),
         showAr: localStorage.getItem("toc_sv_show_ar") === "1",
         showEx: localStorage.getItem("toc_sv_show_ex") === "1",
         lec:
@@ -4163,6 +3805,7 @@
       const save = () => {
         localStorage.setItem("toc_sv_theme", S.theme);
         localStorage.setItem("toc_sv_seen", JSON.stringify([...S.seen]));
+        localStorage.setItem("toc_tables_seen", JSON.stringify([...(S.tablesSeen || [])]));
         localStorage.setItem("toc_sv_show_ar", S.showAr ? "1" : "0");
         localStorage.setItem("toc_sv_show_ex", S.showEx ? "1" : "0");
         localStorage.setItem("toc_sv_lec", S.lec);
@@ -4272,17 +3915,69 @@
         };
       }
       function updateProgressUI() {
-        const total = META.lectures.reduce((a, l) => a + l.count, 0);
-        const done = S.seen.size,
-          pct = total ? Math.round((done / total) * 100) : 0;
-        const chip = clear($("#progChip"));
-        chip.append(iconSvg("check"), "مراجَع ", el("b", null, String(done)), `/${total}`);
-        $("#progBarFill").style.width = pct + "%";
-        $("#progTxt").textContent = `${done} من ${total} (${pct}%)`;
+        const v = (typeof S !== "undefined" && S.view) || "slides";
+        let done = 0, total = 0, label = "مراجَع", icon = "check";
+
+        if (v === "tables") {
+          total = (typeof TABLES !== "undefined" && TABLES ? TABLES.length : 0);
+          done = S.tablesSeen ? S.tablesSeen.size : 0;
+          label = "محفوظ";
+          icon = "tables";
+        } else if (v === "summary") {
+          total = (typeof SUM !== "undefined" && SUM && SUM.parts ? SUM.parts.length : 0) ||
+                  (typeof SUM_DATA !== "undefined" && SUM_DATA && SUM_DATA.parts ? SUM_DATA.parts.length : 0) ||
+                  document.querySelectorAll("#summaryParts .part").length || 1;
+          done = typeof sumRead !== "undefined" ? sumRead.size : 0;
+          label = "مقروء";
+          icon = "summary";
+        } else if (v === "models") {
+          const m = (typeof MODELS !== "undefined" && MODELS.find((x) => x.id === S.model)) || (typeof MODELS !== "undefined" && MODELS && MODELS[0]);
+          if (m) {
+            const st = modelStats(m.id);
+            total = st.total;
+            done = st.answered;
+          }
+          label = "محلول";
+          icon = "models";
+        } else if (v === "interactive") {
+          const DATA = window.TOC_INTERACTIVE || [];
+          total = DATA.length;
+          done = total;
+          label = "متاح";
+          icon = "interactive";
+        } else if (v === "emergency") {
+          const DATA = window.TOC_EMERGENCY;
+          total = (DATA && DATA.sections) ? DATA.sections.length : 0;
+          done = total;
+          label = "قواعد 80/20";
+          icon = "emergency";
+        } else {
+          total = (META.lectures || []).reduce((a, l) => a + (l.count || 0), 0);
+          done = S.seen ? S.seen.size : 0;
+          label = "مراجَع";
+          icon = "check";
+        }
+
+        const pct = total ? Math.min(100, Math.round((done / total) * 100)) : 0;
+        const chip = $("#progChip");
+        if (chip) {
+          clear(chip);
+          chip.append(iconSvg(icon), label + " ", el("b", null, String(done)), `/${total}`);
+          chip.title = `إنجاز قسم ${label}: ${done} من ${total} (${pct}%)`;
+        }
+
+        const progBar = $("#progBarFill");
+        if (progBar) progBar.style.width = pct + "%";
+        const progTxt = $("#progTxt");
+        if (progTxt) progTxt.textContent = `${done} من ${total} (${pct}%) — ${label}`;
+
         const uChip = document.querySelector(
           '#slidesChips .fchip[data-f="unseen"] .cnt',
         );
-        if (uChip) uChip.textContent = total - done;
+        if (uChip) {
+          const totalSlides = (META.lectures || []).reduce((a, l) => a + (l.count || 0), 0);
+          uChip.textContent = totalSlides - (S.seen ? S.seen.size : 0);
+        }
       }
 
       /* ===== View switching & Scroll Restoration ===== */
@@ -4365,6 +4060,7 @@
         else if (v === "interactive" && typeof renderInteractive === "function") renderInteractive();
         else if (v === "emergency" && typeof renderEmergency === "function") renderEmergency();
         else renderSlides();
+        updateProgressUI();
         if (!opts.keepScroll) {
           window.scrollTo({ top: 0 });
         }
@@ -5595,9 +5291,52 @@
                 text: "→ " + t.refs[0],
               })
             : null;
+        const isSaved = Boolean(S.tablesSeen && S.tablesSeen.has(t.id));
+        const seenBtn = el(
+          "button",
+          {
+            type: "button",
+            class: "tcard-seen-btn" + (isSaved ? " on" : ""),
+            title: isSaved ? "الجدول محفوظ — انقر لإلغاء الحفظ" : "تحديد الجدول كمحفوظ ومتقن",
+            onclick: (e) => {
+              e.stopPropagation();
+              if (!S.tablesSeen) S.tablesSeen = new Set();
+              if (S.tablesSeen.has(t.id)) {
+                S.tablesSeen.delete(t.id);
+              } else {
+                S.tablesSeen.add(t.id);
+              }
+              save();
+              const nowSaved = S.tablesSeen.has(t.id);
+              const card = document.getElementById("tbl-" + t.id);
+              if (card) card.classList.toggle("memorized", nowSaved);
+              seenBtn.classList.toggle("on", nowSaved);
+              seenBtn.title = nowSaved ? "الجدول محفوظ — انقر لإلغاء الحفظ" : "تحديد الجدول كمحفوظ ومتقن";
+              const txtSpan = seenBtn.querySelector(".btn-txt");
+              if (txtSpan) txtSpan.textContent = nowSaved ? "محفوظ" : "حفظ";
+
+              const sideBtn = document.querySelector(`.lec-btn[data-tbl-id="${t.id}"]`);
+              if (sideBtn) sideBtn.classList.toggle("memorized", nowSaved);
+
+              const savedChip = $("#tblSavedChip");
+              if (savedChip) {
+                const nowCount = S.tablesSeen.size;
+                savedChip.classList.toggle("on", nowCount > 0);
+                clear(savedChip).append(iconSvg("check"), `محفوظ ${nowCount} من ${(TABLES || []).length}`);
+              }
+
+              updateProgressUI();
+            },
+          },
+          iconSvg("check"),
+          el("span", { class: "btn-txt" }, isSaved ? "محفوظ" : "حفظ"),
+        );
+
+        const actionsWrap = el("div", { class: "tcard-actions" }, refBtn, seenBtn);
+
         return el(
           "section",
-          { class: "tcard", id: "tbl-" + t.id },
+          { class: "tcard" + (isSaved ? " memorized" : ""), id: "tbl-" + t.id },
           el(
             "div",
             { class: "tcard-head" },
@@ -5613,7 +5352,7 @@
               title: "صفوف ظاهرة من إجمالي الجدول عند مستوى الأهمية الحالي",
               text: vis.length + "/" + t.rows.length,
             }),
-            refBtn,
+            actionsWrap,
           ),
           t.note_ar ? el("p", { class: "tcard-note", text: t.note_ar }) : null,
           el(
@@ -5704,6 +5443,28 @@
           renderTables();
           window.scrollTo({ top: 0, behavior: "smooth" });
         };
+        const totalTblCount = (TABLES || []).length;
+        const savedTblCount = (S.tablesSeen || new Set()).size;
+        bar.appendChild(
+          el(
+            "span",
+            { class: "fchip", style: "cursor: default; display: inline-flex; align-items: center; gap: 5px; font-weight: 700;" },
+            iconSvg("tables"),
+            `${totalTblCount} جدولاً`,
+          ),
+        );
+        bar.appendChild(
+          el(
+            "span",
+            {
+              id: "tblSavedChip",
+              class: "fchip" + (savedTblCount > 0 ? " on" : ""),
+              style: "cursor: default; display: inline-flex; align-items: center; gap: 5px;",
+            },
+            iconSvg("check"),
+            `محفوظ ${savedTblCount} من ${totalTblCount}`,
+          ),
+        );
         bar.appendChild(
           el(
             "span",
@@ -5755,10 +5516,22 @@
           );
           return;
         }
+        const totalRows = TABLES.reduce((sum, t) => sum + (t.rows ? t.rows.length : 0), 0);
+        const descLine = $("#tablesDescLine");
+        if (descLine) {
+          descLine.textContent = `${TABLES.length} جدولاً معيارياً تضم ${totalRows} صفاً للمقارنة والحفظ السريع — ابدأ بحفظ الجداول الأساسية وحددها كمحفوظة لمتابعة إنجازك.`;
+        }
         const byLec = {};
         TABLES.forEach((t) => (byLec[t.lec] = byLec[t.lec] || []).push(t));
         Object.keys(byLec)
-          .sort()
+          .sort((a, b) => {
+            const idxA = (META.lectures || []).findIndex((l) => l.id === a);
+            const idxB = (META.lectures || []).findIndex((l) => l.id === b);
+            if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+            const numA = parseInt((a || "").replace(/\D+/g, ""), 10) || 0;
+            const numB = parseInt((b || "").replace(/\D+/g, ""), 10) || 0;
+            return numA - numB || (a || "").localeCompare(b || "");
+          })
           .forEach((lecId) => {
             const lec = META.lectures.find((l) => l.id === lecId);
             const nodes = [];
@@ -5786,12 +5559,14 @@
               ),
             );
             nodes.forEach((n) => wrap.appendChild(n));
-            sides.forEach(([t, c]) =>
+            sides.forEach(([t, c]) => {
+              const isSaved = Boolean(S.tablesSeen && S.tablesSeen.has(t.id));
               side.appendChild(
                 el(
                   "button",
                   {
-                    class: "lec-btn",
+                    class: "lec-btn" + (isSaved ? " memorized" : ""),
+                    dataset: { tblId: t.id },
                     onclick: () =>
                       document.getElementById("tbl-" + t.id)?.scrollIntoView({
                         behavior: "smooth",
@@ -5810,10 +5585,11 @@
                     el("span", { class: "cnt" }, String(c)),
                   ),
                 ),
-              ),
-            );
+              );
+            });
           });
         if (wrap.children.length) wrap.appendChild(buildContentPager("tables"));
+        updateProgressUI();
         requestAnimationFrame(() => {
           fitTables();
           setTimeout(fitTables, 250);
@@ -5980,6 +5756,7 @@
                 saveSumRead();
                 renderSummary();
                 buildNavs();
+                updateProgressUI();
               },
             },
             isRead ? iconSvg("check") : null,
@@ -6476,7 +6253,14 @@
         );
         const lecIds = [...new Set(m.questions.map((q) => lecOf(q.ref)))]
           .filter(Boolean)
-          .sort()
+          .sort((a, b) => {
+            const idxA = (META.lectures || []).findIndex((l) => l.id === a);
+            const idxB = (META.lectures || []).findIndex((l) => l.id === b);
+            if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+            const numA = parseInt((a || "").replace(/\D+/g, ""), 10) || 0;
+            const numB = parseInt((b || "").replace(/\D+/g, ""), 10) || 0;
+            return numA - numB || (a || "").localeCompare(b || "");
+          })
           .filter((id) => !EXCLUDED_LECS.has(id) || lecHasIncluded(id));
         flt.appendChild(
           el("button", {
@@ -6763,6 +6547,7 @@
             $("#modelSub").textContent =
               `أجبت ${st.answered} من ${st.total} · صحيح ${st.right}`;
             buildNavs();
+              updateProgressUI();
           }
           revBtn.addEventListener("click", toggleAns);
           if (revealed) card.classList.add("answered-right");
@@ -6890,6 +6675,7 @@
               $("#modelSub").textContent =
                 `أجبت ${st.answered} من ${st.total} · صحيح ${st.right}`;
               buildNavs();
+              updateProgressUI();
             });
           }
           /* smart mode: translate button beside the option (before answering) */
@@ -6983,13 +6769,16 @@
           S.seen.clear();
           S.modelAns = {};
           sumRead.clear();
+          if (S.tablesSeen) S.tablesSeen.clear();
           save();
           saveSumRead();
           renderSlides();
           buildNavs();
           buildSlidesChips();
           if (S.view === "models") renderModels();
+          if (S.view === "tables") renderTables();
           if (S.view === "summary") renderSummary();
+          updateProgressUI();
         }
       });
       const searchToggleBtn = $("#btnSearchToggle");
@@ -7749,6 +7538,6 @@
         }, { passive: true });
       })();
     </script>
-    <script src="app.js?v=12"></script>
+    <script src="app.js?v=14"></script>
   </body>
 </html>
